@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee ID Cards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="imge/Btc icon.png" type="image/x-icon">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comfortaa', sans-serif;
+      /* background: linear-gradient(to bottom, #ffffff, #f0f0f0); */
+        background-image: url(imge/puja.JPG);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        align-items: center;
+        height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.light-mode {
+      background: #1e1e1e;
+      color: #f0f0f0;
+    }
+
+    header {
+      background: rgba(75, 72, 72, 0.9);
+      padding: 15px 25px;
+      display: flex;
+      /* justify-content: space-between; */
+      justify-content: center;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      font-size: 15px;
+      font-family: 'Comfortaa', sans-serif;
+    }
+    
+
+    body.light-mode header {
+      background: rgba(34, 34, 34, 0.9);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #3498db;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background 0.3s;
+      font-weight: bold;
+
+    }
+
+    nav a:hover {
+      background: #e0e0e0;
+    }
+
+    body.light-mode nav a {
+      color: #f0f0f0;
+    }
+    
+    /* Theem */
+    .toggle-btn {
+      background: #ffd700;
+      border: 1px solid #888;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background: #595a59;
+    }
+
+    body.light-mode .toggle-btn:hover {
+      background: rgba(34, 34, 34, 0.9);
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 150px;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .id-card {
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      width: 330px;
+      padding: 60px;
+      text-align: center;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+    }
+
+    .id-card:hover {
+      transform: translateY(-10px);
+    }
+
+    body.light-mode .id-card {
+      background: rgba(34, 34, 34, 0.9);
+    }
+
+    .id-header {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: #333;
+
+        margin-bottom: 10px;
+        background: linear-gradient(45deg, rgb(212, 173, 66), transparent);
+        padding: 20px 0;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .profile-img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      border: 7px solid #3498db;
+    }
+
+    .name {
+      font-weight: bold;
+      font-size: 22px;
+      margin-top: 5px;
+    }
+
+    .info {
+      font-size: 17px;
+      line-height: 1.5;
+      margin-top: 5px;
+    }
+
+    .qr-code {
+      width: 110px;
+      height: 110px;
+      margin-top: 30px;
+    }
+
+    audio {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        background: #0f0f0f;
+        padding: 10px;
+        position: absolute;
+        right: 10px;
+        top: 70px;
+        border-radius: 10px;
+        display: none;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      
+    }
+      .menu-toggle {
+        display: block;
+      }
+
+  </style>
+</head>
+
+<body>
+  <!-- เสียงคลิก -->
+  <audio id="clickSound">
+    <source src="audio/click.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Header -->
+  <header>
+    <!-- <div class="logo">My ID Cards</div> -->
+    <!-- <div class="menu-toggle" onclick="toggleMenu()">☰</div> -->
+    <nav id="nav">
+      <a href="index.html" onclick="playSound()">Home</a>
+      <a href="#" onclick="playSound()">Preview</a>
+      <a href="notes.html" onclick="playSound()">My note</a>
+      <a href="about.html" onclick="playSound()">About</a>
+      <a href="login.html" onclick="playSound()">Logout</a>
+      <button class="toggle-btn" onclick="toggleTheme()">🌞 / 🌙</button>
+    </nav>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  </header>
+
+  <!-- Card Container -->
+  <div class="card-container">
+    <!-- Card 1 -->
+      <div class="id-card" onclick="playSound()" style="cursor:pointer;" onclick="playSound()">
+        <div class="id-header">ID Card</div>
+        <a href="dair.html" style="text-decoration: none; color: inherit;">
+          <img src="imge/DAIR.JPG" alt="Profile" class="profile-img">
+        </a>
+        <i data-visualcompletion="image" class="#" aria-hidden="true" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/yN/r/5H6Shgkabew.png?_nc_eui2=AeFIbZWkPACVfcGMLNBKw44FP6-Gf7bX2FM_r4Z_ttfYUxqgn8CKV4Eward0roeIZUmd_BZ63Ax9VzSTne03tXQP&quot;); background-position: 0px -80px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat;display: inline-table;"></i>
+        <div class="name">Mr. Taweechai M.</div>
+        <div class="info">
+          Position : Beer Drinker<br>
+          Employee ID : SINGHA<br>
+          Department : ICU
+        </div>
+        <img src="imge/logo sing.jpg" alt="QR Code" class="qr-code">
+      </div>
+
+    <!-- Card 2 -->
+      <div class="id-card" onclick="playSound()" style="cursor:pointer;">
+        <div class="id-header">ID Card</div>
+        <a href="disk.html" style="text-decoration: none; color: inherit;">
+          <img src="imge/ddd.jpg" alt="Profile" class="profile-img">
+        </a>
+        <i data-visualcompletion="image" class="#" aria-hidden="true" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/yN/r/5H6Shgkabew.png?_nc_eui2=AeFIbZWkPACVfcGMLNBKw44FP6-Gf7bX2FM_r4Z_ttfYUxqgn8CKV4Eward0roeIZUmd_BZ63Ax9VzSTne03tXQP&quot;); background-position: 0px -80px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat;display: inline-table;"></i>
+        <div class="name">Mr. Krittichai M.</div>
+        <div class="info">
+          ตำแหน่ง : ชวนชิม<br>
+          รหัส : CAFE123<br>
+          แผนก : ถนัดแดก
+        </div>
+        <img src="imge/coffee-oliang.jpg" alt="QR Code" class="qr-code">
+      </div>
+
+    <!-- Card 3 -->
+      <div class="id-card" onclick="playSound()" style="cursor:pointer;">
+        <div class="id-header">ID Card</div>
+        <a href="beer.html" style="text-decoration: none; color: inherit;">
+          <img src="imge/photo_4_2025-07-09_20-39-24.jpg" alt="Profile" class="profile-img">
+        </a>
+        <i data-visualcompletion="image" class="#" aria-hidden="true" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/yN/r/5H6Shgkabew.png?_nc_eui2=AeFIbZWkPACVfcGMLNBKw44FP6-Gf7bX2FM_r4Z_ttfYUxqgn8CKV4Eward0roeIZUmd_BZ63Ax9VzSTne03tXQP&quot;); background-position: 0px -80px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat;display: inline-table;"></i>
+        <div class="name">Ms. Arissara T.</div>
+        <div class="info">
+          ตำแหน่ง : นิ่งเป็นหลับ<br>
+          รหัส : ZZZ999<br>
+          แผนก : ขยับเป็นแดก
+        </div>
+        <img src="imge/chatea.jpg" alt="QR Code" class="qr-code">
+      </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("light-mode");
+    }
+
+    function playSound() {
+      const sound = document.getElementById("clickSound");
+      sound.currentTime = 0;
+      sound.play();
+    }
+
+    function toggleMenu() {
+      document.getElementById('nav').classList.toggle('active');
+    }
+  </script>
+</body>
+
+</html>

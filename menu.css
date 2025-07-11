@@ -1,0 +1,83 @@
+
+
+    body {
+        font-family: 'Sarabun', sans-serif;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .container {
+        max-width: 1140px;
+        margin: 0 auto;
+    }
+
+    nav {
+        padding: 1rem;
+        background-color: black;
+    
+    }
+    .nav-con {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .logo a {
+        font-size:  2rem;
+        color: #ffff;
+        text-decoration: none;
+    
+    }
+    .menu {
+        display: flex;
+        align-items: center;
+    }
+    .menu li {
+        margin: 0 1rem;
+    }
+    .menu li a {
+        color: #ffff;
+        text-decoration: none;
+
+    }
+
+
+    /* Hero */
+    .hero {
+        background-color: #f0f0f0;
+    }
+
+    .hero-con {
+        display: flex;
+    
+    }
+
+    .hero-info {
+        width: 100%;
+        padding: 2rem;
+    }
+    .hero-info h3 {
+        font-size: 2rem;
+    }
+    .hero-info p {
+        margin: 1rem 0;
+    }
+
+    .hero-info .hero-btn {
+        display: inline-block;
+        background-color: orange;
+        color: #ffff ;
+        padding: 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .hero-img  img {
+        width: 100%;
+        padding: 2rem;
+    }
+
+
+

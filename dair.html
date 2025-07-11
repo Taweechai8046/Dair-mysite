@@ -1,0 +1,427 @@
+<!-- dair.html -->
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dair - MySite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="dair.css" /> -->
+  <link rel="shortcut icon" href="imge/icon1.png" type="image/x-icon">
+</head>
+<body>
+  <!-- วิดีโอพื้นหลัง -->
+    <!-- <video class="bg-video" autoplay muted loop>
+      <source src="video/video_2025-07-08_21-46-00.mp4" type="video/mp4">
+      วิดีโอไม่รองรับ
+    </video> -->
+  <header>
+    <div class="logo">Dair-MySite</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav id="nav">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="card.html" class="active">ID card</a></li>
+        <li><a href="notes.html">My note</a></li>
+        <li><a href="login.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="card-container">
+    <!-- Card 1 -->
+    <div class="id-card">
+      <div class="id-header">Dair Mawing</div>
+        <!-- <video autoplay muted loop>
+          <source src="video/video_2025-07-08_21-46-00.mp4" type="video/mp4">
+        </video><br> -->
+      <img src="imge/photo_2025-04-13_12-07-35.jpg" alt="Profile" class="profile-img"><br>
+
+      <!-- ลิงก์เฉพาะ -->
+    <p>
+      <a href="https://web.facebook.com/dair.mawing/" style="color: #007bff; text-decoration: underline;">
+        👉 ดูโปรไฟล์เพิ่มเติม
+      </a>
+    </p><br>
+      <i data-visualcompletion="image" class="#" aria-hidden="true" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/yN/r/5H6Shgkabew.png?_nc_eui2=AeFIbZWkPACVfcGMLNBKw44FP6-Gf7bX2FM_r4Z_ttfYUxqgn8CKV4Eward0roeIZUmd_BZ63Ax9VzSTne03tXQP&quot;); background-position: 0px -80px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat;display: inline-table;"></i>
+      <div class="name">Mr. Taweechai M.</div>
+      <div class="info">
+        Position : Beer Drinker<br>
+        Employee ID : SINGHA<br>
+        Department : ICU
+      </div>
+      <img src="imge/qr-code.png" alt="QR Code" class="qr-code">
+
+      <!-- Audio player -->
+      <audio id="audio" controls>
+        <source src="audio/โลกทั้งใบ - เล็ก รัชเมศฐ์「Official MV」_From_ytmp3-ch.mp3" type="audio/mpeg">
+        เบราว์เซอร์ของคุณไม่รองรับการเล่นเพลง
+      </audio>
+      <!-- Equalizer effect -->
+      <div class="equalizer paused" id="equalizer">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <!-- song-title -->
+      <div class="song-title">🎵 music : โลกทั้งใบ - เล็ก รัชเมศฐ์ </div>
+    </div>
+
+      <div class="bio">
+      <h2>ประวัติส่วนตัว</h2>
+      <p>เป็นผู้เชี่ยวชาญด้านการดื่มเบียร์จากแผนก ICU ที่รู้จักกันในวงการว่าเป็นตำนานนักดื่มประจำบริษัท SINGHA ด้วยความมุ่งมั่น ความสามารถในการดื่มแบบมืออาชีพ และการสร้างรอยยิ้มให้เพื่อนร่วมงาน</p>
+      <p>จบการศึกษาจากมหาวิทยาลัยเบียร์แห่งชาติ และมีความสนใจด้านธรรมชาติ การท่องเที่ยว และการเลี้ยงหมา</p>
+      <br>
+      <!-- imge -->
+      <img src="imge/72888.JPG" alt="">
+      <img src="imge/72883_0.JPG" alt="">
+      <img src="imge/mota22025-06-28_20-38-20.jpg" alt="">
+      <img src="imge/niht2025-06-28_20-38-20.jpg" alt="">
+      <img src="imge/photo_3_2025-06-22_17-46-04.jpg" alt="">
+      <!-- <img src="#" alt="">
+      <img src="#" alt="">
+      <img src="#" alt="">
+      <img src="#" alt=""> -->
+      <!-- video -->
+      <video autoplay muted loop>
+        <source src="video/video_2025-07-08_21-39-43 (3).mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop>
+        <source src="video/video_2025-07-08_21-39-43 (2).mp4" type="video/mp4">
+      </video>
+
+    </div>
+  </div>
+
+  <!-- เสียงคลิก -->
+  <audio id="clickSound">
+    <source src="audio/click.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 MySite. All rights reserved.</p>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    }
+  </script>
+    <!-- Script audio 3D -->
+    <script>
+      const audio = document.getElementById('audio');
+      const equalizer = document.getElementById('equalizer');
+  
+      audio.addEventListener('play', () => {
+        equalizer.classList.remove('paused');
+      });
+  
+      audio.addEventListener('pause', () => {
+        equalizer.classList.add('paused');
+      });
+  
+      audio.addEventListener('ended', () => {
+        equalizer.classList.add('paused');
+      });
+    </script>
+</body>
+</html>
+
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Mitr', sans-serif;
+      background-image: url(imge/1212.jpg);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.6);
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2980b9;
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      display: none;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: #3498db;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      font-size: 20px;
+    }
+
+    .nav-links li a:hover {
+      color: #333;
+      font-size: 24px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .id-card {
+      width: 300px;
+      padding: 20px;
+      border-radius: 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s;
+      color: #000;
+    }
+
+    .id-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .id-header {
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, rgb(212, 173, 66), transparent);
+      color: #333;
+      font-size: 1.2em;
+      padding: 10px 0;
+      border-radius: 15px 15px 0 0;
+      font-weight: bold;
+    }
+
+    .id-card video {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 7px solid rgb(212, 173, 66);
+      margin-bottom: 10px;
+    }
+
+    .name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .info {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .qr-code {
+      margin-top: 10px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .profile-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 7px solid rgb(212, 173, 66);    
+    }
+
+    .bio {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .bio:hover {
+      transform: translateY(-10px);
+    }
+
+    .bio img {
+      width: 111px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 50px;
+      border: 2px solid whitesmoke;
+      filter: saturate(20%);
+      margin: 5px;
+      transition: 0.4s ease;
+      cursor: pointer;
+    }
+
+    .bio video {
+      width: 220px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 50px;
+      border: 2px solid whitesmoke;
+      filter: saturate(20%);
+      margin: 5px;
+      transition: 0.4s ease;
+      cursor: pointer;
+    }
+    
+
+    .bio img:hover, .bio video:hover {
+      filter: saturate(100%);
+      width: 25%;
+      height: 550px;
+    }
+
+    /* Audio 3D */
+    .song-title {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    audio {
+      margin-top: 15px;
+      width: 100%;
+    }
+    /* Equalizer bars */
+    .equalizer {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      height: 20px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 0 5px #00f);
+    }
+
+    .bar {
+      width: 4px;
+      height: 100%;
+      background: #0077ff;
+      animation: equalizer 1s infinite ease-in-out;
+      border-radius: 2px;
+    }
+
+    .bar:nth-child(1) { animation-delay: 0s; }
+    .bar:nth-child(2) { animation-delay: 0.2s; }
+    .bar:nth-child(3) { animation-delay: 0.4s; }
+    .bar:nth-child(4) { animation-delay: 0.6s; }
+    .bar:nth-child(5) { animation-delay: 0.8s; }
+
+    @keyframes equalizer {
+      0%, 100% { transform: scaleY(0.4); }
+      50% { transform: scaleY(1.2); }
+    }
+
+    .equalizer.paused .bar {
+      animation-play-state: paused;
+    }
+
+    /* Glow effect */
+    .glow {
+      animation: glowEffect 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowEffect {
+      from {
+        box-shadow: 0 0 5px #0077ff, 0 0 10px #00f;
+      }
+      to {
+        box-shadow: 0 0 15px #0077ff, 0 0 25px #00f;
+      }
+    }
+
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.1);
+      color: #cdcbcb;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        background-color: rgba(255, 255, 255, 0.95);
+        position: absolute;
+        top: 70px;
+        right: 25px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        z-index: 100;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .card-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .id-card, .bio {
+        width: 90%;
+      }
+
+      .id-card video {
+        width: 180px;
+        height: 180px;
+      }
+
+      .bio img, .bio video {
+        width: 100%;
+        height: auto;
+      }
+    }
+  </style>
+
+
+ 
