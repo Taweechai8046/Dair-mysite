@@ -294,6 +294,38 @@
         width: 100%;
         height: auto;
       }
+
+
+      /* theme */
+    body.light-mode {
+      background: #1e1e1e;
+      color: #f0f0f0;
+    }
+    body.light-mode header {
+      background: rgba(34, 34, 34, 0.9);
+    }
+    .toggle-btn {
+      background: #ffd700;
+      border: 1px solid #888;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .toggle-btn:hover {
+      background: #595a59;
+    }
+    body.light-mode .toggle-btn:hover {
+      background: rgba(34, 34, 34, 0.9);
+    }
+    body.light-mode .id-card {
+      background: rgba(34, 34, 34, 0.9);
+      color: #f0f0f0;
+    }
+    body.light-mode .bio {
+      background: rgba(34, 34, 34, 0.9);
+      color: #f0f0f0;
+    }
     }
   </style>
 </head>
@@ -394,6 +426,9 @@
   <script>
     function toggleMenu() {
       document.querySelector('.nav-links').classList.toggle('active');
+    }
+    function toggleTheme() {
+      document.body.classList.toggle("light-mode");
     }
   </script>
 
