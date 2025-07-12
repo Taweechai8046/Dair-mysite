@@ -36,8 +36,8 @@
       background: rgba(75, 72, 72, 0.9);
       padding: 15px 25px;
       display: flex;
-      /* justify-content: space-between; */
-      justify-content: center;
+      justify-content: space-between;
+      /* justify-content: center; */
       align-items: center;
       position: sticky;
       top: 0;
@@ -56,6 +56,11 @@
       font-size: 24px;
       font-weight: bold;
       color: #3498db;
+    }
+    div.logo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
     nav {
@@ -219,7 +224,7 @@
 
   <!-- Header -->
   <header>
-    <!-- <div class="logo">My ID Cards</div> -->
+    <div class="logo">My ID Cards</div>
     <!-- <div class="menu-toggle" onclick="toggleMenu()">☰</div> -->
     <nav id="nav">
       <a href="index.html" onclick="playSound()">Home</a>
@@ -272,7 +277,9 @@
         <a href="beer.html" style="text-decoration: none; color: inherit;">
           <img src="imge/photo_4_2025-07-09_20-39-24.jpg" alt="Profile" class="profile-img">
         </a>
-        <i data-visualcompletion="image" class="#" aria-hidden="true" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/yN/r/5H6Shgkabew.png?_nc_eui2=AeFIbZWkPACVfcGMLNBKw44FP6-Gf7bX2FM_r4Z_ttfYUxqgn8CKV4Eward0roeIZUmd_BZ63Ax9VzSTne03tXQP&quot;); background-position: 0px -80px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat;display: inline-table;"></i>
+        <div class="icon-container">
+          <i data-visualcompletion="image" class="#" aria-hidden="true" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/yN/r/5H6Shgkabew.png?_nc_eui2=AeFIbZWkPACVfcGMLNBKw44FP6-Gf7bX2FM_r4Z_ttfYUxqgn8CKV4Eward0roeIZUmd_BZ63Ax9VzSTne03tXQP&quot;); background-position: 0px -80px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat;display: inline-table;"></i>
+        </div>
         <div class="name">Ms. Arissara T.</div>
         <div class="info">
           ตำแหน่ง : นิ่งเป็นหลับ<br>
