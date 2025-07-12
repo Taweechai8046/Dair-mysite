@@ -7,6 +7,13 @@
   <script src="https://s3.tradingview.com/tv.js"></script>
   <link rel="shortcut icon" href="imge/ChatGPT Image 12 ก.ค. 2568 15_29_00.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+  <!-- สำหรับ PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffd700">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  
   <style>
     body {
       font-family: 'Sarabun', sans-serif;
@@ -239,8 +246,8 @@
 
     // จำลองราคาทองไทย (แทนด้วย API จริงได้ในอนาคต)
     function fetchThaiGoldPrice() {
-      const barPrice = (51500 + Math.random() * 200).toFixed(2);
-      const ornamentPrice = (52200 + Math.random() * 200).toFixed(2);
+      const barPrice = (32500 + Math.random() * 200).toFixed(2);
+      const ornamentPrice = (33000 + Math.random() * 200).toFixed(2);
       const now = new Date().toLocaleTimeString('th-TH');
 
       document.getElementById('barPrice').textContent = barPrice;
@@ -252,7 +259,17 @@
     setInterval(fetchThaiGoldPrice, 60000); // ทุก 1 นาที
   </script>
 
-    <!-- JavaScript -->
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log("✅ Service Worker ลงทะเบียนแล้ว"))
+        .catch(err => console.error("❌ ลงทะเบียน Service Worker ล้มเหลว:", err));
+    });
+  }
+</script>
+
+<!-- JavaScript -->
     <script>
         function toggleMenu() {
           document.getElementById('nav').classList.toggle('active');
