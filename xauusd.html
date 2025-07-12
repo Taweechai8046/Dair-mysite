@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ราคาทองคำแบบเรียลไทม์</title>
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <link rel="shortcut icon" href="imge/ChatGPT Image 12 ก.ค. 2568 15_29_00.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: linear-gradient(to bottom, #fffbe6, #fef9dc);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background: rgba(243, 242, 242, 0.5);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      color: #c59d00;
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .time-range {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .time-range button {
+      margin: 5px;
+      padding: 10px 16px;
+      border: none;
+      background-color: #ffd700;
+      color: #222;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .time-range button:hover {
+      background-color: #e6c200;
+      transform: scale(1.05);
+    }
+
+    .tradingview-widget-container {
+      margin-top: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .thai-price {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      margin-top: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .thai-price h2 {
+      color: #c59d00;
+      margin-bottom: 15px;
+      font-size: 22px;
+    }
+
+    .thai-price p {
+      font-size: 18px;
+      margin: 8px 0;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      padding: 20px;
+      color: #888;
+    }
+
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1px;
+      align-items: center;
+      justify-content: right;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #3498db;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background 0.3s;
+      font-weight: bold;
+
+    }
+
+    nav a:hover {
+      background: #c59d00;
+      color: #222;
+    }
+
+    .menu-toggle {
+        font-size: 24px;
+        display: none;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .menu-toggle {
+        display: block;
+        }
+
+        nav {
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        background-color: #fff;
+        position: absolute;
+        top: 60px;
+        right: 25px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        z-index: 100;
+        }
+        nav.active {
+        display: flex;
+        }
+}
+
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 22px;
+      }
+
+      .thai-price p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+    <header>
+        <h1>XAU/USD กราฟราคาทองคำแบบเรียลไทม์</h1>
+        <nav id="nav">
+            <a href="index.html" onclick="playSound()">Home</a>
+            <a href="card.html" onclick="playSound()">ID card</a>
+            <a href="notes.html" onclick="playSound()">My note</a>
+            <a href="about.html" onclick="playSound()">About</a>
+            <a href="login.html" onclick="playSound()">Logout</a>
+        </nav>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    </header>
+
+  <div class="container">
+
+    <!-- ตัวเลือกช่วงเวลา -->
+    <div class="time-range">
+      <button onclick="changeInterval('1')">1 นาที</button>
+      <button onclick="changeInterval('5')">5 นาที</button>
+      <button onclick="changeInterval('15')">15 นาที</button>
+      <button onclick="changeInterval('30')">30 นาที</button>
+      <button onclick="changeInterval('60')">1 ชั่วโมง</button>
+      <button onclick="changeInterval('D')">1 วัน</button>
+      <button onclick="changeInterval('W')">1 สัปดาห์</button>
+      <button onclick="changeInterval('M')">1 เดือน</button>
+    </div>
+
+    <!-- กราฟ TradingView -->
+    <div class="tradingview-widget-container">
+      <div id="tvchart"></div>
+    </div>
+
+    <!-- ราคาทองคำไทย -->
+    <div class="thai-price" id="thaiPriceBox">
+      <h2>ราคาทองคำในประเทศไทย (จำลอง)</h2>
+      <p>🔹 ทองคำแท่ง: <span id="barPrice">--</span> บาท</p>
+      <p>🔸 ทองรูปพรรณ: <span id="ornamentPrice">--</span> บาท</p>
+      <p>⏱ อัปเดตล่าสุด: <span id="updatedAt">--</span></p>
+    </div>
+
+    <footer>
+      © 2025 เว็บไซต์ราคาทองคำ | ข้อมูลกราฟจาก TradingView
+    </footer>
+
+  </div>
+
+  <script>
+    let widget;
+
+    function createChart(interval = '1') {
+      if (widget) widget.remove();
+
+      widget = new TradingView.widget({
+        "width": "100%",
+        "height": 500,
+        "symbol": "OANDA:XAUUSD",
+        "interval": interval,
+        "timezone": "Asia/Bangkok",
+        "theme": "light",
+        "style": "1",
+        "locale": "th",
+        "toolbar_bg": "#f1f3f6",
+        "enable_publishing": false,
+        "hide_top_toolbar": false,
+        "withdateranges": true,
+        "allow_symbol_change": false,
+        "container_id": "tvchart"
+      });
+    }
+
+    function changeInterval(interval) {
+      createChart(interval);
+    }
+
+    createChart(); // สร้างกราฟเริ่มต้น
+
+    // จำลองราคาทองไทย (แทนด้วย API จริงได้ในอนาคต)
+    function fetchThaiGoldPrice() {
+      const barPrice = (51500 + Math.random() * 200).toFixed(2);
+      const ornamentPrice = (52200 + Math.random() * 200).toFixed(2);
+      const now = new Date().toLocaleTimeString('th-TH');
+
+      document.getElementById('barPrice').textContent = barPrice;
+      document.getElementById('ornamentPrice').textContent = ornamentPrice;
+      document.getElementById('updatedAt').textContent = now;
+    }
+
+    fetchThaiGoldPrice();
+    setInterval(fetchThaiGoldPrice, 60000); // ทุก 1 นาที
+  </script>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleMenu() {
+          document.getElementById('nav').classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>

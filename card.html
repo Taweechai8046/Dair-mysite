@@ -170,6 +170,19 @@
       display: none;
     }
 
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.0);
+      color: #cdcbcb;
+    }
+
     @media (max-width: 768px) {
 
       nav {
@@ -183,22 +196,14 @@
         border-radius: 10px;
         display: none;
       }
-
       nav.active {
         display: flex;
       }
-
       .menu-toggle {
         display: block;
-        font-size: 24px;
-        cursor: pointer;
       }
-
-      
     }
-      .menu-toggle {
-        display: block;
-      }
+      
 
   </style>
 </head>
@@ -215,7 +220,7 @@
     <!-- <div class="menu-toggle" onclick="toggleMenu()">☰</div> -->
     <nav id="nav">
       <a href="index.html" onclick="playSound()">Home</a>
-      <a href="#" onclick="playSound()">Preview</a>
+      <a href="xauusd.html" onclick="playSound()">XAUUSD</a>
       <a href="notes.html" onclick="playSound()">My note</a>
       <a href="about.html" onclick="playSound()">About</a>
       <a href="login.html" onclick="playSound()">Logout</a>
@@ -274,6 +279,11 @@
         <img src="imge/chatea.jpg" alt="QR Code" class="qr-code">
       </div>
   </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 MySite. All rights reserved.</p>
+  </footer>
 
   <!-- JavaScript -->
   <script>
