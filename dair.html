@@ -1,154 +1,23 @@
-<!-- dair.html -->
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dair - MySite</title>
-  <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="dair.css" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dair-MySite</title>
   <link rel="shortcut icon" href="imge/icon1.png" type="image/x-icon">
-</head>
-<body>
-  <!-- วิดีโอพื้นหลัง -->
-    <!-- <video class="bg-video" autoplay muted loop>
-      <source src="video/video_2025-07-08_21-46-00.mp4" type="video/mp4">
-      วิดีโอไม่รองรับ
-    </video> -->
-  <header>
-    <div class="logo">Dair-MySite</div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <nav id="nav">
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="card.html" class="active">ID card</a></li>
-        <li><a href="notes.html">My note</a></li>
-        <li><a href="login.html">Logout</a></li>
-        <button class="toggle-btn" onclick="toggleTheme()">🌞 / 🌙</button>
-      </ul>
-    </nav>
-  </header>
-
-  <div class="card-container">
-    <!-- Card 1 -->
-    <div class="id-card">
-      <div class="id-header">Dair Mawing</div>
-        <!-- <video autoplay muted loop>
-          <source src="video/video_2025-07-08_21-46-00.mp4" type="video/mp4">
-        </video><br> -->
-      <img src="imge/photo_2025-04-13_12-07-35.jpg" alt="Profile" class="profile-img"><br>
-
-      <!-- ลิงก์เฉพาะ -->
-    <p>
-      <a href="https://web.facebook.com/dair.mawing/" style="color: #007bff; text-decoration: underline;">
-        👉 ดูโปรไฟล์เพิ่มเติม
-      </a>
-    </p><br>
-      <i data-visualcompletion="image" class="#" aria-hidden="true" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/yN/r/5H6Shgkabew.png?_nc_eui2=AeFIbZWkPACVfcGMLNBKw44FP6-Gf7bX2FM_r4Z_ttfYUxqgn8CKV4Eward0roeIZUmd_BZ63Ax9VzSTne03tXQP&quot;); background-position: 0px -80px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat;display: inline-table;"></i>
-      <div class="name">Mr. Taweechai M.</div>
-      <div class="info">
-        Position : Beer Drinker<br>
-        Employee ID : SINGHA<br>
-        Department : ICU
-      </div>
-      <img src="imge/qr-code.png" alt="QR Code" class="qr-code">
-
-      <!-- Audio player -->
-      <audio id="audio" controls>
-        <source src="music/โลกทั้งใบ - เล็ก รัชเมศฐ์「Official MV」_From_ytmp3-ch.mp3" type="audio/mpeg">
-        เบราว์เซอร์ของคุณไม่รองรับการเล่นเพลง
-      </audio>
-      <!-- Equalizer effect -->
-      <div class="equalizer paused" id="equalizer">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
-      <!-- song-title -->
-      <div class="song-title">🎵 music : โลกทั้งใบ - เล็ก รัชเมศฐ์ </div>
-    </div>
-
-      <div class="bio">
-      <h2>ประวัติส่วนตัว</h2>
-      <p>เป็นผู้เชี่ยวชาญด้านการดื่มเบียร์จากแผนก ICU ที่รู้จักกันในวงการว่าเป็นตำนานนักดื่มประจำบริษัท SINGHA ด้วยความมุ่งมั่น ความสามารถในการดื่มแบบมืออาชีพ และการสร้างรอยยิ้มให้เพื่อนร่วมงาน</p>
-      <p>จบการศึกษาจากมหาวิทยาลัยเบียร์แห่งชาติ และมีความสนใจด้านธรรมชาติ การท่องเที่ยว และการเลี้ยงหมา</p>
-      <br>
-
-      <div class="afu3UQ">
-        <span>
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.874 18.503c-.033 3.118-.218 4.89-1.232 6.174a5.771 5.771 0 0 1-.96.959c-1.572 1.239-3.876 1.239-8.484 1.239h-.53c-4.607 0-6.91 0-8.483-1.239a5.772 5.772 0 0 1-.96-.959c-1.24-1.571-1.24-3.872-1.24-8.475v-.53c0-4.602 0-6.903 1.24-8.475.281-.356.603-.678.96-.958C7.758 5 10.061 5 14.67 5h.53c4.607 0 6.91 0 8.483 1.239.357.28.679.602.96.958 1.014 1.285 1.199 3.057 1.232 6.175l3.612-2.114a.962.962 0 0 1 1.449.83v7.698a.962.962 0 0 1-1.449.83l-3.612-2.113Zm-12.984 2.19 5.482-3.167c1.498-.851 1.498-2.213.034-3.064l-5.516-3.167c-1.464-.85-2.69-.136-2.69 1.566v6.265c0 1.703 1.192 2.418 2.69 1.567Z" fill="currentColor"></path></svg>
-        </span>
-      </div>
-      <!-- imge -->
-      <img src="imge/72888.JPG" alt="">
-      <img src="imge/72883_0.JPG" alt="">
-      <img src="imge/mota22025-06-28_20-38-20.jpg" alt="">
-      <img src="imge/photo_3_2025-06-22_17-46-04.jpg" alt="">
-      <!-- <img src="#" alt="">
-      <img src="#" alt="">
-      <img src="#" alt="">
-      <img src="#" alt=""> -->
-      <!-- video -->
-      <video autoplay muted loop>
-        <source src="video/video_2025-06-28_20-37-54 (2).mp4" type="video/mp4">
-      </video>
-      <video autoplay muted loop>
-        <source src="video/video_2025-06-29_14-05-11 (3).mp4" type="video/mp4">
-      </video>
-
-    </div>
-  </div>
-
-  <!-- เสียงคลิก -->
-  <audio id="clickSound">
-    <source src="audio/click.mp3" type="audio/mp3">
-  </audio>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 MySite. All rights reserved.</p>
-  </footer>
-
-  <!-- Script -->
-  <script>
-    function toggleMenu() {
-      document.querySelector('.nav-links').classList.toggle('active');
-    }
-    function toggleTheme() {
-      document.body.classList.toggle("light-mode");
-    }
-  </script>
-    <!-- Script audio 3D -->
-    <script>
-      const audio = document.getElementById('audio');
-      const equalizer = document.getElementById('equalizer');
-  
-      audio.addEventListener('play', () => {
-        equalizer.classList.remove('paused');
-      });
-  
-      audio.addEventListener('pause', () => {
-        equalizer.classList.add('paused');
-      });
-  
-      audio.addEventListener('ended', () => {
-        equalizer.classList.add('paused');
-      });
-    </script>
-</body>
-</html>
-
-<style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifesttt.json">
+  <meta name="theme-color" content="#1877f2" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
+      background: #f0f0f0;
+      color: #222;
+      display: flex;
+      flex-direction: column;
       font-family: 'Mitr', sans-serif;
       background-image: url(imge/1212.jpg);
       background-size: cover;
@@ -156,22 +25,13 @@
       background-attachment: fixed;
       min-height: 100vh;
     }
-
-    .bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -2;
-    }
+    
 
     header {
       background: rgba(255, 255, 255, 0.9);
       padding: 15px 25px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       position: sticky;
@@ -179,37 +39,196 @@
       z-index: 10;
     }
 
-    .logo {
+    .logo-logo {
       font-size: 24px;
       font-weight: bold;
       color: #2980b9;
     }
 
     .menu-toggle {
-      font-size: 24px;
       display: none;
-      cursor: pointer;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-    }
-
-    .nav-links li a {
-      text-decoration: none;
-      color: #3498db;
-      font-weight: 500;
-      transition: color 0.3s ease;
-      font-size: 20px;
-    }
-
-    .nav-links li a:hover {
-      color: #333;
+      position: absolute;
+      top: 15px;
+      left: 15px;
       font-size: 24px;
+      background: #1877f2;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1100;
     }
 
+    .container {
+      display: flex;
+      width: 100%;
+      flex: 1;
+    }
+
+    .sidebar {
+      /* background: #1877f2; */
+      background: rgba(255, 255, 255, 0.1);
+      width: 60px;
+      transition: width 0.3s ease;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .sidebar:hover {
+      width: 250px;
+      background: rgba(255, 255, 255, 0.6);
+    }
+    .sidebar:hover .logo {
+      transform: rotate(360deg);
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    .username {
+      opacity: 0;
+      white-space: nowrap;
+      transition: opacity 0.4s ease;
+      /* color: #fff; */
+      color: black;
+      font-size: 20px;
+      
+    }
+
+    .sidebar:hover .username,
+    .sidebar.active .username {
+      opacity: 1;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    .sidebar ul li {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      /* color: #fff; */
+      color: black;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .sidebar ul li:hover {
+      /* background: rgba(2, 86, 243, 0.507); */
+      background: rgb(212, 173, 66); 
+    }
+    body.light-mode  .sidebar ul li:hover {
+        background: rgb(8, 184, 253);
+    }
+    
+
+    .sidebar ul li i {
+      font-size: 18px;
+      margin-right: 15px;
+      width: 20px;
+      text-align: center;
+      
+    }
+
+    .sidebar ul li span {
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .sidebar:hover ul li span,
+    .sidebar.active ul li span {
+      opacity: 1;
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      transition: margin-left 0.3s ease;
+    }
+
+    .sidebar:hover ~ .content {
+      margin-left: 200px;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .sidebar {
+        position: fixed;
+        left: -200px;
+        top: 0;
+        height: 100vh;
+        z-index: 1000;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .sidebar:hover {
+        width: 200px;
+      }
+      .container {
+        flex-direction: column;
+      }
+      .sidebar:hover ~ .content {
+        margin-left: 0;
+      }
+    }
+
+    body.light-mode {
+      /* background: #fff; */
+      color: #222;
+      background: #000;
+    }
+    body.light-mode .sidebar {
+        background: #000;
+      /* background: #1877f2; */
+    }
+    body.light-mode .sidebar ul li {
+      /* color: #000; */
+      color: #f0f0f0;
+    }
+    body.light-mode .username {
+      /* color: #000; */
+      color: #f0f0f0;
+    }
+    body.light-mode .id-card {
+      /* color: #000; */
+      color: #f0f0f0;
+      background: rgba(7, 7, 7, 0.10);
+    }
+    body.light-mode .bio {
+      /* color: #000; */
+      color: #f0f0f0;
+      background: rgba(7, 7, 7, 0.10);
+    }
+    body.light-mode .logo-logo {
+      /* color: #000; */
+      color: #050505;
+    }
+    body.light-mode .song-title {
+      /* color: #000; */
+      color: #fcf8f8;
+    }
+    
+
+
+
+
+    /* ID card */
     .card-container {
       display: flex;
       flex-wrap: wrap;
@@ -277,52 +296,6 @@
     margin-bottom: 10px;
     border: 7px solid rgb(212, 173, 66);    
     }
-
-    .bio {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.6);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-
-    .bio:hover {
-      transform: translateY(-10px);
-    }
-
-    .bio img {
-      width: 111px;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 50px;
-      border: 2px solid whitesmoke;
-      filter: saturate(20%);
-      margin: 5px;
-      transition: 0.4s ease;
-      cursor: pointer;
-    }
-
-    .bio video {
-      width: 220px;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 50px;
-      border: 2px solid whitesmoke;
-      filter: saturate(100%);
-      margin: 5px;
-      transition: 0.4s ease;
-      cursor: pointer;
-    }
-    
-
-    .bio img:hover, .bio video:hover {
-      filter: saturate(100%);
-      width: 25%;
-      height: 550px;
-    }
-
     /* Audio 3D */
     .song-title {
       font-size: 16px;
@@ -381,95 +354,235 @@
     }
 
 
-  /* theme */
-    body.light-mode {
-      color: #f0f0f0;
+    /* bio-video */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
     }
-    body.light-mode header {
-      background: rgba(34, 34, 34, 0.9);
-    }
-    .toggle-btn {
-      background: #ffd700;
-      border: 1px solid #888;
-      padding: 6px 12px;
-      border-radius: 5px;
+    .bio {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       cursor: pointer;
-      transition: background 0.3s;
+      transition: transform 0.3s;
     }
-    .toggle-btn:hover {
-      background: #595a59;
+    .bio:hover {
+      transform: translateY(-10px);
     }
-    body.light-mode .toggle-btn:hover {
-      background: rgba(34, 34, 34, 0.9);
+    .bio img {
+      width: 111px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 50px;
+      border: 2px solid whitesmoke;
+      filter: saturate(20%);
+      margin: 5px;
+      transition: 0.4s ease;
+      cursor: pointer;
     }
-    body.light-mode .id-card {
-      background: rgba(34, 34, 34, 0.9);
-      color: #f0f0f0;
+    .bio video {
+      width: 220px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 50px;
+      border: 2px solid whitesmoke;
+      filter: saturate(100%);
+      margin: 5px;
+      transition: 0.4s ease;
+      cursor: pointer;
     }
-    body.light-mode .bio {
-      background: rgba(34, 34, 34, 0.9);
-      color: #f0f0f0;
+    .bio img:hover, .bio video:hover {
+      filter: saturate(100%);
+      width: 25%;
+      height: 550px;
     }
-    body.light-mode .song-title {
-      background: rgba(34, 34, 34, 0.1);
-      color: #f0f0f0;
-    }
-    body.light-mode .nav-links li a:hover {
-      color: #ffd700;
-      font-size: 24px;
-    }
-
-
+    
     footer {
       text-align: center;
-      padding: 20px;
       background: rgba(0, 0, 0, 0.0);
       color: #cdcbcb;
     }
 
     @media (max-width: 768px) {
-      .menu-toggle {
-        display: block;
-      }
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .sidebar.active {
+    transform: translateX(0);
+  }
+}
 
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        gap: 15px;
-        background-color: rgba(255, 255, 255, 0.95);
-        position: absolute;
-        top: 70px;
-        right: 25px;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        z-index: 100;
-      }
+</style>
+</head>
+<body>
 
-      .nav-links.active {
-        display: flex;
-      }
+    <header>
+        <div class="logo-logo">Dair-MySite</div>
+    </header>
+    <div class="menu-toggle" onclick="toggleMobileSidebar()">☰</div>
+    <div class="container">
+    <div class="sidebar" id="sidebar">
+      <div class="logo-section">
+        <img src="icons/Bitcoin-Logo.png" alt="logo" class="logo">
+        <span class="username">Mr.Taweechai M</span>
+      </div>
+      <ul>
+        <li onclick="navigateTo('index.html')"><i class='bx bxs-home-heart' ></i></i><span>Home</span></li>
+        <li onclick="navigateTo('card.html')"><i class='bx bxs-id-card' ></i></i></i><span>ID card</span></li>
+        <li onclick="navigateTo('xauusd.html')"><i class='bx bxl-bitcoin' ></i></i><span>Gold spot</span></li>
+        <li onclick="navigateTo('https://web.facebook.com/dair.mawing/')"><i class='bx bxl-facebook-circle' ></i></i><span>facebook</span></li>
+        <li onclick="navigateTo('https://www.instagram.com/dair_mawing/')"><i class='bx bxl-instagram' ></i></i><span>instagram</span></li>
+        <li onclick="navigateTo('https://www.tiktok.com/@drive8046?is_from_webapp=1&sender_device=pc')"><i class='bx bxl-tiktok' ></i></i><span>tiktok</span></li>
+        <li onclick="navigateTo('notes.html')"><i class='bx bx-save' ></i></i><span>Note</span></li>
+        <li onclick="navigateTo('about.html')"><i class='bx bx-error-alt' ></i></i><span>About</span></li>
+        <li onclick="navigateTo('login.html')"><i class='bx bxs-lock-open-alt' ></i></i><span>Logout</span></li>
+        <li onclick="toggleTheme()"><i class='bx bx-sun' ></i></i><span>Theme</span></li>
+      </ul>
+    </div>
+    <!-- <div class="content">
+      <h1>ยินดีต้อนรับ</h1>
+      <p>Sidebar Hover พร้อมโลโก้, ธีม, รองรับมือถือ และ PWA</p>
+    </div>
+    </div> -->
 
-      .card-container {
-        flex-direction: column;
-        align-items: center;
-      }
+    <div class="card-container">
+        <!-- Card 1 -->
+        <div class="id-card">
+          <div class="id-header">Dair Mawing</div>
+            <!-- <video autoplay muted loop>
+              <source src="video/video_2025-07-08_21-46-00.mp4" type="video/mp4">
+            </video><br> -->
+          <img src="imge/photo_2025-04-13_12-07-35.jpg" alt="Profile" class="profile-img"><br>
+    
+          <!-- ลิงก์เฉพาะ -->
+        <p>
+          <a href="https://web.facebook.com/dair.mawing/" style="color: #007bff; text-decoration: underline;">
+            👉 ดูโปรไฟล์เพิ่มเติม
+          </a>
+        </p><br>
+          <i data-visualcompletion="image" class="#" aria-hidden="true" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/yN/r/5H6Shgkabew.png?_nc_eui2=AeFIbZWkPACVfcGMLNBKw44FP6-Gf7bX2FM_r4Z_ttfYUxqgn8CKV4Eward0roeIZUmd_BZ63Ax9VzSTne03tXQP&quot;); background-position: 0px -80px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat;display: inline-table;"></i>
+          <div class="name">Mr. Taweechai M.</div>
+          <div class="info">
+            Position : Beer Drinker<br>
+            Employee ID : SINGHA<br>
+            Department : ICU
+          </div>
+          <img src="imge/qr-code.png" alt="QR Code" class="qr-code">
+    
+          <!-- Audio player -->
+          <audio id="audio" controls>
+            <source src="music/โลกทั้งใบ - เล็ก รัชเมศฐ์「Official MV」_From_ytmp3-ch.mp3" type="audio/mpeg">
+            เบราว์เซอร์ของคุณไม่รองรับการเล่นเพลง
+          </audio>
+          <!-- Equalizer effect -->
+          <div class="equalizer paused" id="equalizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+          <!-- song-title -->
+            <div class="song-title">🎵 music : โลกทั้งใบ - เล็ก รัชเมศฐ์ </div>
+    </div>
 
-      .id-card, .bio {
-        width: 90%;
-      }
+        <div class="bio">
+            <h2>ประวัติส่วนตัว</h2>
+            <p>เป็นผู้เชี่ยวชาญด้านการดื่มเบียร์จากแผนก ICU ที่รู้จักกันในวงการว่าเป็นตำนานนักดื่มประจำบริษัท SINGHA ด้วยความมุ่งมั่น ความสามารถในการดื่มแบบมืออาชีพ และการสร้างรอยยิ้มให้เพื่อนร่วมงาน</p>
+            <p>จบการศึกษาจากมหาวิทยาลัยเบียร์แห่งชาติ และมีความสนใจด้านธรรมชาติ การท่องเที่ยว และการเลี้ยงหมา</p>
+            <br>
+      
+            <div class="afu3UQ">
+              <span>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.874 18.503c-.033 3.118-.218 4.89-1.232 6.174a5.771 5.771 0 0 1-.96.959c-1.572 1.239-3.876 1.239-8.484 1.239h-.53c-4.607 0-6.91 0-8.483-1.239a5.772 5.772 0 0 1-.96-.959c-1.24-1.571-1.24-3.872-1.24-8.475v-.53c0-4.602 0-6.903 1.24-8.475.281-.356.603-.678.96-.958C7.758 5 10.061 5 14.67 5h.53c4.607 0 6.91 0 8.483 1.239.357.28.679.602.96.958 1.014 1.285 1.199 3.057 1.232 6.175l3.612-2.114a.962.962 0 0 1 1.449.83v7.698a.962.962 0 0 1-1.449.83l-3.612-2.113Zm-12.984 2.19 5.482-3.167c1.498-.851 1.498-2.213.034-3.064l-5.516-3.167c-1.464-.85-2.69-.136-2.69 1.566v6.265c0 1.703 1.192 2.418 2.69 1.567Z" fill="currentColor"></path></svg>
+              </span>
+            </div>
+            <!-- imge -->
+            <img src="imge/72888.JPG" alt="">
+            <img src="imge/72883_0.JPG" alt="">
+            <img src="imge/mota22025-06-28_20-38-20.jpg" alt="">
+            <img src="imge/photo_3_2025-06-22_17-46-04.jpg" alt="">
+            <!-- <img src="#" alt="">
+            <img src="#" alt="">
+            <img src="#" alt="">
+            <img src="#" alt=""> -->
+            <!-- video -->
+            <video autoplay muted loop>
+              <source src="video/video_2025-06-28_20-37-54 (2).mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop>
+              <source src="video/video_2025-06-29_14-05-11 (3).mp4" type="video/mp4">
+            </video>
+      
+          </div>
+        </div>
+      
+        <!-- เสียงคลิก -->
+        <audio id="clickSound">
+          <source src="audio/click.mp3" type="audio/mp3">
+        </audio>
+      
+    <!-- Footer -->
+    <!-- <footer>
+        <p>&copy; 2025 MySite. All rights reserved.</p>
+    </footer> -->
 
-      .id-card video {
-        width: 180px;
-        height: 180px;
-      }
-
-      .bio img, .bio video {
-        width: 100%;
-        height: auto;
-      }
+  <!-- Script -->
+  <script>
+    function toggleMobileSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
     }
-  </style>
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
+      playClickSound();
+    }
+    function playClickSound() {
+      const audio = document.getElementById("clickSound");
+      if (audio) audio.play();
+    }
+    function navigateTo(page) {
+      playClickSound();
+      window.location.href = page;
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+    window.addEventListener('load', () => {
+      if (localStorage.getItem("theme") === "light") {
+        document.body.classList.add("light-mode");
+      }
+    });
+    
+  </script>
+    
+    </script>
+    <!-- Script audio 3D -->
+    <script>
+      const audio = document.getElementById('audio');
+      const equalizer = document.getElementById('equalizer');
+  
+      audio.addEventListener('play', () => {
+        equalizer.classList.remove('paused');
+      });
+  
+      audio.addEventListener('pause', () => {
+        equalizer.classList.add('paused');
+      });
+  
+      audio.addEventListener('ended', () => {
+        equalizer.classList.add('paused');
+      });
+    </script>
 
 
- 
+</body>
+</html>

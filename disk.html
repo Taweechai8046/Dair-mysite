@@ -2,18 +2,22 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Disky - MySite</title>
-  <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Disk-MySite</title>
   <link rel="shortcut icon" href="imge/icon1.png" type="image/x-icon">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifesttt.json">
+  <meta name="theme-color" content="#1877f2" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
+      background: #f0f0f0;
+      color: #222;
+      display: flex;
+      flex-direction: column;
       font-family: 'Mitr', sans-serif;
       background-image: url(imge/puja.JPG);
       background-size: cover;
@@ -21,22 +25,13 @@
       background-attachment: fixed;
       min-height: 100vh;
     }
-
-    .bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -2;
-    }
+    
 
     header {
       background: rgba(255, 255, 255, 0.9);
       padding: 15px 25px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       position: sticky;
@@ -44,37 +39,200 @@
       z-index: 10;
     }
 
-    .logo {
+    .logo-logo {
       font-size: 24px;
       font-weight: bold;
       color: #2980b9;
     }
 
     .menu-toggle {
-      font-size: 24px;
       display: none;
-      cursor: pointer;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-    }
-
-    .nav-links li a {
-      text-decoration: none;
-      color: #3498db;
-      font-weight: 500;
-      transition: color 0.3s ease;
-      font-size: 20px;
-    }
-
-    .nav-links li a:hover {
-      color: #333;
+      position: absolute;
+      top: 15px;
+      left: 15px;
       font-size: 24px;
+      background: #1877f2;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1100;
     }
 
+    .container {
+      display: flex;
+      width: 100%;
+      flex: 1;
+    }
+
+    .sidebar {
+      /* background: #1877f2; */
+      background: rgba(255, 255, 255, 0.1);
+      width: 60px;
+      transition: width 0.3s ease;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .sidebar:hover {
+      width: 250px;
+      background: rgba(255, 255, 255, 0.6);
+    }
+    .sidebar:hover .logo {
+      transform: rotate(360deg);
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    .username {
+      opacity: 0;
+      white-space: nowrap;
+      transition: opacity 0.4s ease;
+      /* color: #fff; */
+      color: black;
+      font-size: 20px;
+      
+    }
+
+    .sidebar:hover .username,
+    .sidebar.active .username {
+      opacity: 1;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    .sidebar ul li {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      /* color: #fff; */
+      color: black;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .sidebar ul li:hover {
+      /* background: rgba(2, 86, 243, 0.507); */
+      background: rgb(212, 173, 66); 
+    }
+    body.light-mode  .sidebar ul li:hover {
+        background: rgb(8, 184, 253);
+    }
+    
+
+    .sidebar ul li i {
+      font-size: 18px;
+      margin-right: 15px;
+      width: 20px;
+      text-align: center;
+      
+    }
+
+    .sidebar ul li span {
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .sidebar:hover ul li span,
+    .sidebar.active ul li span {
+      opacity: 1;
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      transition: margin-left 0.3s ease;
+    }
+
+    .sidebar:hover ~ .content {
+      margin-left: 200px;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .sidebar {
+        position: fixed;
+        left: -200px;
+        top: 0;
+        height: 100vh;
+        z-index: 1000;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .sidebar:hover {
+        width: 200px;
+      }
+      .container {
+        flex-direction: column;
+      }
+      .sidebar:hover ~ .content {
+        margin-left: 0;
+      }
+    }
+
+    body.light-mode {
+      /* background: #fff; */
+      color: #222;
+      background: #000;
+    }
+    body.light-mode .sidebar {
+        background: #000;
+      /* background: #1877f2; */
+    }
+    body.light-mode .sidebar ul li {
+      /* color: #000; */
+      color: #f0f0f0;
+    }
+    body.light-mode .username {
+      /* color: #000; */
+      color: #f0f0f0;
+    }
+    body.light-mode .id-card {
+      /* color: #000; */
+      color: #f0f0f0;
+      background: rgba(7, 7, 7, 0.10);
+    }
+    body.light-mode .bio {
+      /* color: #000; */
+      color: #f0f0f0;
+      background: rgba(7, 7, 7, 0.10);
+    }
+    body.light-mode .logo-logo {
+      /* color: #000; */
+      color: #050505;
+    }
+    body.light-mode .song-title {
+      /* color: #000; */
+      color: #fcf8f8;
+    }
+    body.light-mode .bg-video {
+      /* color: #000; */
+      background: #000;
+    }
+    
+
+
+
+
+    /* ID card */
     .card-container {
       display: flex;
       flex-wrap: wrap;
@@ -142,54 +300,6 @@
     margin-bottom: 10px;
     border: 7px solid rgb(212, 173, 66);    
     }
-
-    .bio {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.6);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-
-    .bio:hover {
-      transform: translateY(-10px);
-    }
-
-    .bio img {
-      width: 111px;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 50px;
-      border: 2px solid whitesmoke;
-      filter: saturate(20%);
-      margin: 5px;
-      transition: 0.4s ease;
-      cursor: pointer;
-    }
-
-    .bio video {
-      width: 220px;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 50px;
-      border: 2px solid whitesmoke;
-      filter: saturate(100%);
-      margin: 5px;
-      transition: 0.4s ease;
-      cursor: pointer;
-    }
-    
-
-    .bio img:hover, .bio video:hover {
-      filter: saturate(100%);
-      width: 25%;
-      height: 550px;
-    }
-
-
-    
     /* Audio 3D */
     .song-title {
       font-size: 16px;
@@ -248,118 +358,106 @@
     }
 
 
-    /* theme */
-    body.light-mode {
-      background: #1e1e1e;
-      color: #f0f0f0;
+    /* bio-video */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
     }
-    body.light-mode header {
-      background: rgba(34, 34, 34, 0.9);
-    }
-    .toggle-btn {
-      background: #ffd700;
-      border: 1px solid #888;
-      padding: 6px 12px;
-      border-radius: 5px;
+    .bio {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       cursor: pointer;
-      transition: background 0.3s;
+      transition: transform 0.3s;
     }
-    .toggle-btn:hover {
-      background: #595a59;
+    .bio:hover {
+      transform: translateY(-10px);
     }
-    body.light-mode .toggle-btn:hover {
-      background: rgba(34, 34, 34, 0.9);
+    .bio img {
+      width: 111px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 50px;
+      border: 2px solid whitesmoke;
+      filter: saturate(20%);
+      margin: 5px;
+      transition: 0.4s ease;
+      cursor: pointer;
     }
-    body.light-mode .id-card {
-      background: rgba(34, 34, 34, 0.9);
-      color: #f0f0f0;
+    .bio video {
+      width: 220px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 50px;
+      border: 2px solid whitesmoke;
+      filter: saturate(100%);
+      margin: 5px;
+      transition: 0.4s ease;
+      cursor: pointer;
     }
-    body.light-mode .bio {
-      background: rgba(34, 34, 34, 0.9);
-      color: #f0f0f0;
+    .bio img:hover, .bio video:hover {
+      filter: saturate(100%);
+      width: 25%;
+      height: 550px;
     }
-    body.light-mode .song-title {
-      background: rgba(34, 34, 34, 0.1);
-      color: #f0f0f0;
-    }
-    body.light-mode .nav-links li a:hover {
-      color: #ffd700;
-      font-size: 24px;
-    }
-
     
     footer {
       text-align: center;
-      padding: 20px;
       background: rgba(0, 0, 0, 0.0);
       color: #cdcbcb;
     }
 
     @media (max-width: 768px) {
-      .menu-toggle {
-        display: block;
-      }
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .sidebar.active {
+    transform: translateX(0);
+  }
+}
 
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        gap: 15px;
-        background-color: rgba(255, 255, 255, 0.95);
-        position: absolute;
-        top: 70px;
-        right: 25px;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        z-index: 100;
-      }
+</style>
 
-      .nav-links.active {
-        display: flex;
-      }
-
-      .card-container {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .id-card, .bio {
-        width: 90%;
-      }
-
-      .id-card video {
-        width: 180px;
-        height: 180px;
-      }
-
-      .bio img, .bio video {
-        width: 100%;
-        height: auto;
-      }
-    }
-  </style>
 </head>
 <body>
   <!-- วิดีโอพื้นหลัง -->
-  <video class="bg-video" autoplay muted loop>
+  <!-- <video class="bg-video" autoplay muted loop>
     <source src="video/video_2025-07-08_21-39-43.mp4" type="video/mp4">
     วิดีโอไม่รองรับ
-  </video>
+  </video> -->
 
   <!-- Header -->
   <header>
-    <div class="logo">Disky-MySite</div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <nav>
-      <ul class="nav-links" id="nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="card.html" class="active">ID card</a></li>
-        <li><a href="notes.html">My note</a></li>
-        <li><a href="login.html">Logout</a></li>
-        <button class="toggle-btn" onclick="toggleTheme()">🌞 / 🌙</button>
-      </ul>
-    </nav>
-  </header>
+    <div class="logo-logo">Disk-MySite</div>
+</header>
+<div class="menu-toggle" onclick="toggleMobileSidebar()">☰</div>
+<div class="container">
+<div class="sidebar" id="sidebar">
+  <div class="logo-section">
+    <img src="icons/Bitcoin-Logo.png" alt="logo" class="logo">
+    <span class="username">Mr.Taweechai M</span>
+  </div>
+  <ul>
+    <li onclick="navigateTo('index.html')"><i class='bx bxs-home-heart' ></i></i><span>Home</span></li>
+    <li onclick="navigateTo('card.html')"><i class='bx bxs-id-card' ></i></i></i><span>ID card</span></li>
+    <li onclick="navigateTo('xauusd.html')"><i class='bx bxl-bitcoin' ></i></i><span>Gold spot</span></li>
+    <li onclick="navigateTo('https://web.facebook.com/kritthichai.disky')"><i class='bx bxl-facebook-circle' ></i></i><span>facebook</span></li>
+    <li onclick="navigateTo('https://www.instagram.com/disk_syyo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==')"><i class='bx bxl-instagram' ></i></i><span>instagram</span></li>
+    <li onclick="navigateTo('https://www.tiktok.com/@kritthichai_?is_from_webapp=1&sender_device=pc')"><i class='bx bxl-tiktok' ></i></i><span>tiktok</span></li>
+    <li onclick="navigateTo('notes.html')"><i class='bx bx-save' ></i></i><span>Note</span></li>
+    <li onclick="navigateTo('about.html')"><i class='bx bx-error-alt' ></i></i><span>About</span></li>
+    <li onclick="navigateTo('login.html')"><i class='bx bxs-lock-open-alt' ></i></i><span>Logout</span></li>
+    <li onclick="toggleTheme()"><i class='bx bx-sun' ></i></i><span>Theme</span></li>
+  </ul>
+  </div>
 
   <!-- Cards -->
   <div class="card-container">
@@ -436,40 +534,56 @@
   </audio>
 
   <!-- Footer -->
-  <footer>
+  <!-- <footer>
     <p>&copy; 2025 MySite. All rights reserved.</p>
-  </footer>
+  </footer> -->
 
   <!-- Script -->
   <script>
-    function toggleMenu() {
-      document.querySelector('.nav-links').classList.toggle('active');
+    function toggleMobileSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
     }
     function toggleTheme() {
-      document.body.classList.toggle("light-mode");
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
+      playClickSound();
     }
+    function playClickSound() {
+      const audio = document.getElementById("clickSound");
+      if (audio) audio.play();
+    }
+    function navigateTo(page) {
+      playClickSound();
+      window.location.href = page;
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+    window.addEventListener('load', () => {
+      if (localStorage.getItem("theme") === "light") {
+        document.body.classList.add("light-mode");
+      }
+    });
+    
   </script>
-
-  <!-- Script Audio 3D -->
-  <script>
-    const audio = document.getElementById('audio');
-    const equalizer = document.getElementById('equalizer');
-    const card = document.getElementById('card');
-
-    audio.addEventListener('play', () => {
-      equalizer.classList.remove('paused');
-      card.classList.add('glow');
-    });
-
-    audio.addEventListener('pause', () => {
-      equalizer.classList.add('paused');
-      card.classList.remove('glow');
-    });
-
-    audio.addEventListener('ended', () => {
-      equalizer.classList.add('paused');
-      card.classList.remove('glow');
-    });
-  </script>
+    
+    </script>
+    <!-- Script audio 3D -->
+    <script>
+      const audio = document.getElementById('audio');
+      const equalizer = document.getElementById('equalizer');
+  
+      audio.addEventListener('play', () => {
+        equalizer.classList.remove('paused');
+      });
+  
+      audio.addEventListener('pause', () => {
+        equalizer.classList.add('paused');
+      });
+  
+      audio.addEventListener('ended', () => {
+        equalizer.classList.add('paused');
+      });
+    </script>
 </body>
 </html>
