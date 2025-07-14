@@ -26,7 +26,7 @@
       background-attachment: fixed;
       min-height: 100vh;
     }
-    
+
 
     header {
       background: rgba(255, 255, 255, 0.9);
@@ -68,7 +68,7 @@
 
     .sidebar {
       /* background: #1877f2; */
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.0);
       width: 60px;
       transition: width 0.3s ease;
       overflow-x: hidden;
@@ -79,7 +79,7 @@
 
     .sidebar:hover {
       width: 250px;
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.0);
     }
     .sidebar:hover .logo {
       transform: rotate(360deg);
@@ -121,7 +121,7 @@
     .sidebar ul li {
       display: flex;
       align-items: center;
-      padding: 12px 20px;
+      padding: 20px 20px;
       /* color: #fff; */
       color: black;
       cursor: pointer;
@@ -129,26 +129,27 @@
     }
 
     .sidebar ul li:hover {
-      /* background: rgba(2, 86, 243, 0.507); */
-      background: rgb(212, 173, 66); 
+      background: rgb(212, 173, 66);
+      /* background: rgb(8, 184, 253); */
     }
     body.light-mode  .sidebar ul li:hover {
-        background: rgb(8, 184, 253);
+        background: rgb(8, 184, 333);
+        /* background: rgb(212, 173, 66);  */
     }
     
 
     .sidebar ul li i {
-      font-size: 18px;
+      font-size: 28px;
       margin-right: 15px;
       width: 20px;
       text-align: center;
-      
     }
 
     .sidebar ul li span {
       white-space: nowrap;
       opacity: 0;
       transition: opacity 0.3s ease;
+      font-size: 20px;
     }
 
     .sidebar:hover ul li span,
@@ -174,12 +175,13 @@
         top: 0;
         height: 100vh;
         z-index: 1000;
+        width: 300px;
       }
       .sidebar.active {
         left: 0;
       }
       .sidebar:hover {
-        width: 200px;
+        width: 300px;
       }
       .container {
         flex-direction: column;
@@ -190,13 +192,14 @@
     }
 
     body.light-mode {
-      /* background: #fff; */
+      background: #fff;
       color: #222;
       background: #000;
     }
     body.light-mode .sidebar {
-        background: #000;
-      /* background: #1877f2; */
+        /* background: #000;
+        background: #1877f2; */
+        background: rgba(12, 12, 12, 0.6);
     }
     body.light-mode .sidebar ul li {
       /* color: #000; */
