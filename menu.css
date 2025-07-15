@@ -88,12 +88,25 @@
     display: flex;
     gap: 25px;
     }
-
+    
     .ul.menu li a {
     text-decoration: none;
     color: #333;
     font-weight: 500;
     transition: color 0.3s ease;
+    list-style: none;
+    }
+    .menu li a:hover {
+        color: #0746f5;
+        list-style: none;
+        background: #f0f0f0;
+        padding: 8px 12px;
+        border-radius: 15px;
+        transition: background 0.3s;
+        font-weight: bold;
+    }
+    .menu li{
+        list-style: none;
     }
 
 
@@ -102,6 +115,7 @@
   .menu-toggle {
     display: block;
     cursor: pointer;
+    background: #0746f5;
   }
 
   .menu li {
@@ -112,7 +126,7 @@
     position: absolute;
     top: 60px;
     right: 25px;
-    padding: 40px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
