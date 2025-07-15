@@ -1,7 +1,7 @@
 {
   "name": "กราฟราคาทองคำ",
   "short_name": "ราคาทอง",
-  "start_url": ".",
+  "start_url": "xauusd.html",
   "display": "standalone",
   "background_color": "#fffbe6",
   "theme_color": "#ffd700",
