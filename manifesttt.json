@@ -7,12 +7,12 @@
     "theme_color": "#ffffff",
     "icons": [
       {
-        "src": "icons/ChatGPT Image 15 ก.ค. 2568 20_52_59.png",
+        "src": "icons/ChatGPT coffee.png",
         "sizes": "192x192",
         "type": "image/png"
       },
       {
-        "src": "icons/ChatGPT Image 15 ก.ค. 2568 20_52_59.png",
+        "src": "icons/ChatGPT coffee.png",
         "sizes": "512x512",
         "type": "image/png"
       }
