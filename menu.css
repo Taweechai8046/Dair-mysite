@@ -16,7 +16,7 @@
 
     nav {
         padding: 1rem;
-        background-color: black;
+        background-color: rgba(0,0,0,0.9);
     
     }
     .nav-con {
@@ -78,6 +78,61 @@
         width: 100%;
         padding: 2rem;
     }
+    .menu-toggle {
+        font-size: 24px;
+        display: none;
+        cursor: pointer;
+    }
+    .ul.menu li {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    }
 
+    .ul.menu li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    }
+
+
+    /* Responsive */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    cursor: pointer;
+  }
+
+  .menu li {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #fff;
+    position: absolute;
+    top: 60px;
+    right: 25px;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    z-index: 100;
+
+  }
+  .menu li a {
+        color: #0a0a0a;
+        text-decoration: none;
+
+    }
+
+  .menu li.active {
+    display: flex;
+  }
+
+  .hero-con {
+    flex-direction: column;
+    text-align: center;
+  }
+}
 
 

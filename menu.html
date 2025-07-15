@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="imge/icon1.png" type="image/x-icon">
     <title>Document</title>
     <link rel="stylesheet" href="menu.css">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
@@ -12,17 +13,18 @@
         <div class="container">
             <div class="nav-con">
             <div class="logo">
-                <div class="menu-toggle" onclick="toggleMenu()">☰</div>
                 <a href="#">Menu</a>
             </div>
             <ul class="menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Portfolio</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="dair.html">Back</a></li>
+                <!-- <li><a href="about.html">About us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html">Contact Us</a></li> -->
             </ul>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
             </div>
+            
         </div>
     </nav>
 
@@ -42,6 +44,12 @@
         </div>    
     </section>
 
-      <script src="script.js"></script>
+      <!-- <script src="script.js"></script> -->
+      <script>
+        function toggleMenu() {
+        const nav = document.querySelector ('.menu li');
+        nav.classList.toggle('active');
+        }
+      </script>
 </body>
 </html>

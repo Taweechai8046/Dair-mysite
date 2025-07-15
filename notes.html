@@ -10,7 +10,7 @@
 
 <body>
   <div class="container">
-    <li><a href="index.html">Home</a></li>
+    <li><a href="card.html">Back to id card</a></li>
     <h1>📝 แอปจดบันทึก</h1>
     <textarea id="noteInput" placeholder="เขียนบันทึกที่นี่..."></textarea>
     <button onclick="saveNote()">บันทึก</button>
@@ -74,6 +74,12 @@ button {
   text-align: center;
   font-family: 'Mitr', sans-serif;
 }
+.container li {
+  list-style: none;
+  margin-bottom: 10px;
+  justify-content: space-between;
+}
+
 
 textarea {
   width: 100%;
@@ -134,22 +140,21 @@ header {
   color: #2980b9;
 }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 25px;
-}
 
-.nav-links li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  }
-
-.nav-links li a:hover {
+.container li a:hover {
   color: #3498db;
+  background: #e0e0e0;
 }
+.container li a {
+      text-decoration: none;
+      color: #3498db;
+      padding: 8px 12px;
+      border-radius: 25px;
+      transition: background 0.3s;
+      font-weight: bold;
+
+    }
+
 
 .menu-toggle {
   font-size: 24px;
