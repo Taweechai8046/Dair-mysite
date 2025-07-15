@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="manifest" href="manifesttt.json">
-    <link rel="shortcut icon" href="imge/icon1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="icons/ChatGPT Image 15 ก.ค. 2568 20_52_59.png" type="image/x-icon">
     <title>Login</title>
     <!-- สำหรับ PWA -->
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifesttt.json">
     <meta name="theme-color" content="#ffd700">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/ChatGPT Image 15 ก.ค. 2568 20_52_59.png">
 
     <style>
     body {
@@ -87,7 +86,7 @@
             const error = document.getElementById("error");
           // ตัวอย่าง Username/Password จริงๆ ควรเก็บในฐานข้อมูล
                 const validUsername = "Dair";
-                const validPassword = "1111";
+                const validPassword = "8046";
                 if (username === validUsername && password === validPassword) {
                 alert("Login successful!");
                 window.location.href = "dashboard.html"; // เปลี่ยนเป็นหน้าหลัง login
@@ -104,6 +103,15 @@
                 return false; // ป้องกัน form reload
             }
         }
+    </script>
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log("✅ Service Worker ลงทะเบียนแล้ว"))
+            .catch(err => console.error("❌ ลงทะเบียน Service Worker ล้มเหลว:", err));
+        });
+    }
     </script>
 </body>
 </html>
