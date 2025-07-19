@@ -417,10 +417,44 @@
       height: 550px;
     }
     
-    footer {
+    /* QR-Code ป๊อปอัป */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background: white;
+      margin: 10% auto;
+      padding: 20px;
+      width: 300px;
       text-align: center;
-      background: rgba(0, 0, 0, 0.0);
-      color: #cdcbcb;
+      border-radius: 8px;
+    }
+
+    .modal img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      background: #f44336;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background-color: #d32f2f;
     }
 
     @media (max-width: 768px) {
@@ -510,7 +544,7 @@
     <li onclick="navigateTo('https://www.instagram.com/disk_syyo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==')"><i class='bx bxl-instagram' ></i></i><span>instagram</span></li>
     <li onclick="navigateTo('https://www.tiktok.com/@kritthichai_?is_from_webapp=1&sender_device=pc')"><i class='bx bxl-tiktok' ></i></i><span>tiktok</span></li>
     <li onclick="navigateTo('notes.html')"><i class='bx bx-save' ></i></i><span>Note</span></li>
-    <li onclick="navigateTo('#')"><i class='bx bx-qr-scan'></i></i><span>Qr-code</span></li>
+    <li onclick="showQR()"><i class='bx bx-qr-scan'></i></i><span>Qr-code</span></li>
     <li onclick="navigateTo('about.html')"><i class='bx bx-error-alt' ></i></i><span>About</span></li>
     <li onclick="navigateTo('login.html')"><i class='bx bxs-lock-open-alt' ></i></i><span>Logout</span></li>
     <li onclick="toggleTheme()"><i class='bx bx-sun' ></i></i><span>Theme</span></li>
@@ -543,7 +577,7 @@
         Employee ID : CAFE123<br>
         Department : ถนัดแดก
       </div>
-      <img src="imge/qr-code.png" alt="QR Code" class="qr-code">
+      <img src="imge/Feels.jpeg" alt="QR Code" class="qr-code">
 
       <!-- Audio player -->
       <audio id="audio" controls>
@@ -606,10 +640,15 @@
     <source src="audio/click.mp3" type="audio/mp3">
   </audio>
 
-  <!-- Footer -->
-  <!-- <footer>
-    <p>&copy; 2025 MySite. All rights reserved.</p>
-  </footer> -->
+  <!-- กล่องแสดง QR Code -->
+  <div id="qrModal" class="modal">
+    <div class="modal-content">
+      <h3>สแกน QR Code</h3>
+      <img src="AE614DA3-87BF-47E1-8AB8-9442BB2B34B2.jpeg" alt="QR Code">
+      <br>
+      <button class="close-btn" onclick="closeQR()">ปิด</button>
+    </div>
+  </div>
 
   <!-- Script -->
   <script>
@@ -657,6 +696,25 @@
       audio.addEventListener('ended', () => {
         equalizer.classList.add('paused');
       });
+    </script>
+
+    <!-- Qr code -->
+    <script>
+      function showQR() {
+        document.getElementById('qrModal').style.display = 'block';
+      }
+    
+      function closeQR() {
+        document.getElementById('qrModal').style.display = 'none';
+      }
+    
+      // ปิดเมื่อคลิกพื้นที่นอกกล่อง
+      window.onclick = function(event) {
+        const modal = document.getElementById('qrModal');
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
     </script>
 </body>
 </html>
