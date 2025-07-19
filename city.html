@@ -7,6 +7,8 @@
   <link rel="shortcut icon" href="imge/icon1.png" type="image/x-icon">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifesttt.json">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <meta name="theme-color" content="#1877f2" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -377,6 +379,7 @@
         <li onclick="toggleTheme()"><i class='bx bx-sun' ></i></i><span>Theme</span></li>
       </ul>
     </div>
+    
     <div class="bio">
         <h1>ยินดีต้อนรับ ประตูสู่ล้านนา (เมืองแพร่ น่า อยู่)</h1>
             <p>เมืองแพร่เป็นเมืองเก่าแก่ที่มีประวัติศาสตร์ยาวนาน สันนิษฐานว่าสร้างขึ้นตั้งแต่ยุคเดียวกับอาณาจักรสุโขทัย เชียงใหม่ และลำพูน ชื่อเมืองแพร่ปรากฏในตำนานและพงศาวดารหลายแห่ง โดยในตำนานเมืองเหนือเรียกว่า "พลนคร" หรือ "เมืองพล" และปรากฏในศิลาจารึกพ่อขุนรามคำแหง ในสมัยที่ขอมเรืองอำนาจ เมืองแพร่ถูกเรียกว่า "โกศัยนคร" หรือ "นครโกศัย" ต่อมาได้เปลี่ยนมาเป็น "แพร่" ตามหลักภาษาศาสตร์ และชาวเมืองนิยมออกเสียงว่า "แป้" </p>
@@ -423,7 +426,15 @@
       localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
       playClickSound();
     }
-
+    function playClickSound() {
+      const audio = document.getElementById("clickSound");
+      if (audio) audio.play();
+    }
+    
+    function navigateTo(page) {
+      playClickSound();
+      window.location.href = page;
+    }
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js');
     }
@@ -434,6 +445,25 @@
     });
     
   </script>
+    
+    <!-- Qr code -->
+    <script>
+      function showQR() {
+        document.getElementById('qrModal').style.display = 'block';
+      }
+    
+      function closeQR() {
+        document.getElementById('qrModal').style.display = 'none';
+      }
+    
+      // ปิดเมื่อคลิกพื้นที่นอกกล่อง
+      window.onclick = function(event) {
+        const modal = document.getElementById('qrModal');
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
     
 
 </body>
