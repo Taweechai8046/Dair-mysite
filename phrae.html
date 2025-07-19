@@ -348,9 +348,6 @@
     } 
   }
 }
-
-
-
 </style>
 </head>
 <body>
@@ -426,14 +423,7 @@
       localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
       playClickSound();
     }
-    function playClickSound() {
-      const audio = document.getElementById("clickSound");
-      if (audio) audio.play();
-    }
-    function navigateTo(page) {
-      playClickSound();
-      window.location.href = page;
-    }
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js');
     }
