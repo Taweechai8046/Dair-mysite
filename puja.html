@@ -19,12 +19,20 @@
       display: flex;
       flex-direction: column;
       font-family: 'Mitr', sans-serif;
-      background-image: url(imge/Phrae\ cero.jpg);
+      background-image: url(imge/puja.JPG);
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       background-repeat: no-repeat;
       min-height: 100vh;
+    }
+    .afu3UQ-a,.afu3UQ-a {
+        justify-self: center;
+        font-size: 40px;
+    }
+    .afu3UQ-a,.afu3UQ-b {
+        justify-self: center;
+        font-size: 40px;
     }
     
 
@@ -66,7 +74,7 @@
       flex: 1;
     }
 
-    /* ประวัติแพร่ */
+    /* bio */
     .bio {
       flex: 1;
       padding: 30px;
@@ -82,6 +90,45 @@
     .bio h1 {
       color: #2980b9;
     }
+    /* bio-video */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+    }
+    .bio img {
+      width: 200px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 50px;
+      border: 2px solid whitesmoke;
+      filter: saturate(100%);
+      margin: 5px;
+      transition: 0.4s ease;
+      cursor: pointer;
+    }
+    .bio video {
+      width: 220px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 50px;
+      border: 2px solid whitesmoke;
+      filter: saturate(100%);
+      margin: 5px;
+      transition: 0.4s ease;
+      cursor: pointer;
+    }
+    /* .bio img:hover, .bio video:hover {
+      filter: saturate(100%);
+      width: 25%;
+      height: 550px;
+    } */
+
+
 
     .sidebar {
       /* background: #1877f2; */
@@ -301,13 +348,13 @@
     <div class="sidebar" id="sidebar">
       <div class="logo-section">
         <img src="icons/images loca2.jfif" alt="logo" class="logo">
-        <span class="username">Phrae/Thailand</span>
+        <span class="username">จ่าอู ปูแจ/ร้องกวาง</span>
       </div>
       <ul>
         <li onclick="navigateTo('index.html')"><i class='bx bxs-home-heart' ></i></i><span>Home</span></li>
         <li onclick="navigateTo('card.html')"><i class='bx bxs-id-card' ></i></i></i><span>ID card</span></li>
         <li onclick="navigateTo('city.html')"><i class='bx bxs-location-plus' ></i></i><span>อ่างแม่กำปอง/ร้องกวาง</span></li>
-        <li onclick="navigateTo('puja.html')"><i class='bx bxs-location-plus' ></i></i><span>จ่าอู ปูแจ/ร้องกวาง</span></li>
+        <li onclick="navigateTo('city.html')"><i class='bx bxs-location-plus' ></i></i><span>จ่าอู ปูแจ/ร้องกวาง</span></li>
         <li onclick="navigateTo('city.html')"><i class='bx bxs-location-plus' ></i></i><span>แพะเมืองผี/เมืองแพร่</span></li>
         <li onclick="navigateTo('city.html')"><i class='bx bxs-location-plus' ></i></i><span>วัดพระธาตุช่อแฮ/เมืองแพร่</span></li>
         <li onclick="navigateTo('city.html')"><i class='bx bxs-location-plus' ></i></i><span>Phrae city</span></li>
@@ -318,37 +365,43 @@
     </div>
     
     <div class="bio">
-        <h1>ยินดีต้อนรับสู่เมืองแพร่ ประตูสู่ล้านนา (เมืองแพร่ น่า อยู่)</h1>
-            <p>เมืองแพร่เป็นเมืองเก่าแก่ที่มีประวัติศาสตร์ยาวนาน สันนิษฐานว่าสร้างขึ้นตั้งแต่ยุคเดียวกับอาณาจักรสุโขทัย เชียงใหม่ และลำพูน ชื่อเมืองแพร่ปรากฏในตำนานและพงศาวดารหลายแห่ง โดยในตำนานเมืองเหนือเรียกว่า "พลนคร" หรือ "เมืองพล" และปรากฏในศิลาจารึกพ่อขุนรามคำแหง ในสมัยที่ขอมเรืองอำนาจ เมืองแพร่ถูกเรียกว่า "โกศัยนคร" หรือ "นครโกศัย" ต่อมาได้เปลี่ยนมาเป็น "แพร่" ตามหลักภาษาศาสตร์ และชาวเมืองนิยมออกเสียงว่า "แป้" </p>
+        <h2>คาเฟ่ · อาหารและเครื่องดื่ม</h2><br>
+      
+        <div class="afu3UQ-a">
+            <span>
+              <i class='bx bxs-camera'></i>
+            </span>
+        </div>
+            <!-- imge -->
+            <img src="imge/72888.JPG" alt="">
+            <img src="imge/72883_0.JPG" alt="">
+            <img src="imge/mota22025-06-28_20-38-20.jpg" alt="">
+            <img src="imge/photo_3_2025-06-22_17-46-04.jpg" alt="">
+            <img src="imge/72888.JPG" alt="">
+            <img src="imge/72883_0.JPG" alt="">
             <br>
-        <h3>ประวัติศาสตร์โดยย่อสมัยโบราณ:</h3>
-            <p>เมืองแพร่เป็นเมืองที่มีความสำคัญในฐานะเมืองหน้าด่านและศูนย์กลางการค้าในอดีต </p>
             <br>
-        <h3>สมัยล้านนา:</h3>
-            <p>ในสมัยล้านนา เมืองแพร่เป็นส่วนหนึ่งของอาณาจักรล้านนา มีการสร้างวัดและศาสนสถานสำคัญหลายแห่ง เช่น วัดพระธาตุช่อแฮ วัดพระบาทมิ่งเมือง และวัดพระธาตุช่อแฮ</p>
-            <br>
-        <h3>สมัยรัตนโกสินทร์:</h3>
-            <p>ในสมัยรัตนโกสินทร์ เมืองแพร่ได้รับการพัฒนาเป็นเมืองหน้าด่านสำคัญ มีการสร้างถนนและระบบขนส่งที่ดีขึ้น ทำให้เมืองแพร่กลายเป็นศูนย์กลางการค้าและวัฒนธรรมในภาคเหนือ</p>
-            <br>
-        <h3>วัฒนธรรมและประเพณี:</h3>
-            <p>เมืองแพร่มีวัฒนธรรมและประเพณีที่หลากหลาย เช่น การจัดงานประเพณีลอยกระทง การทำบุญตักบาตร การแสดงศิลปวัฒนธรรมพื้นบ้าน และการทำอาหารพื้นเมืองที่มีเอกลักษณ์เฉพาะตัว</p>
-            <br>
-        <h3>สถานที่ท่องเที่ยว:</h3>
-            <p>เมืองแพร่มีสถานที่ท่องเที่ยวที่น่าสนใจมากมาย เช่น วัดพระธาตุช่อแฮ วัดพระบาทมิ่งเมือง วัดพระธาตุช่อแฮ และพิพิธภัณฑ์เมืองแพร่ นอกจากนี้ยังมีธรรมชาติที่สวยงาม เช่น น้ำตกแม่จาง และอุทยานแห่งชาติแม่ยม</p>
-            <br>
-        <h3>สรุป:</h3>
-            <p>เมืองแพร่เป็นเมืองที่มีประวัติศาสตร์ยาวนานและวัฒนธรรมที่หลากหลาย เป็นสถานที่ท่องเที่ยวที่น่าสนใจในภาคเหนือของประเทศไทย นักท่องเที่ยวสามารถสัมผัสกับประวัติศาสตร์ วัฒนธรรม และธรรมชาติที่สวยงามได้ที่นี่</p>
-            <br>
-        <h3>ข้อมูลเพิ่มเติม:</h3>
-            <p>หากต้องการข้อมูลเพิ่มเติมเกี่ยวกับเมืองแพร่ สามารถเยี่ยมชมเว็บไซต์ท่องเที่ยวของจังหวัดแพร่ หรือสอบถามข้อมูลจากหน่วยงานท่องเที่ยวในพื้นที่ได้</p>
-            <br>
-        <h3>แหล่งอ้างอิง:</h3>
-        <ul>
-            <li>เว็บไซต์ท่องเที่ยวจังหวัดแพร่</li>
-            <li>หนังสือประวัติศาสตร์เมืองแพร่</li>
-            <li>บทความเกี่ยวกับวัฒนธรรมและประเพณีของเมืองแพร่</li>
-        </ul>
-    </div>
+
+        <div class="afu3UQ-b">
+            <span>
+              <i class='bx bxs-videos'></i>
+            </span>
+        </div>
+
+            <!-- video -->
+            <video autoplay muted loop>
+              <source src="video/video_2025-06-28_20-37-54 (2).mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop>
+              <source src="video/video_2025-06-29_14-05-11 (3).mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop>
+              <source src="video/video_2025-06-28_20-37-54 (2).mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop>
+              <source src="video/video_2025-06-29_14-05-11 (3).mp4" type="video/mp4">
+            </video>
+        </div>
     </div>
 
     
