@@ -503,16 +503,21 @@
 }
 /* 500px */
 @media (max-width: 500px) {
-  .bio img:hover, .bio video:hover {
-      filter: saturate(100%);
-      width: 75%;
-      height: 25%;
-    }
     .bio img, .bio video {
-      filter: saturate(30%);
-      width: 85%;
-      height: 120px;
-    } 
+      filter: saturate(100%);
+      width: 80%;
+      height: 15%;
+      flex: 1;
+    }
+    .bio {
+      text-align: center;
+      box-sizing: content-box;
+      width: auto;
+    }
+    .id-card {
+      box-sizing: content-box;
+      width: auto;
+    }
   }
 
 
