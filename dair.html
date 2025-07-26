@@ -168,30 +168,6 @@
       margin-left: 200px;
     }
 
-    @media (max-width: 820px) {
-      .menu-toggle { display: block; }
-      .sidebar {
-        top: 0;
-        position: fixed;
-        left: -200px;
-        height: 100vh;
-        z-index: 1000;
-        width: 300px;
-      }
-      .sidebar.active {
-        left: 0;
-      }
-      .sidebar:hover {
-        width: 300px;
-      }
-      .container {
-        flex-direction: column;
-      }
-      .sidebar:hover ~ .content {
-        margin-left: 0;
-      }
-    }
-
     body.light-mode {
       background: #fff;
       color: #222;
@@ -229,10 +205,6 @@
       color: #06c5ff;
     }
     
-
-
-
-
     /* ID card */
     .card-container {
       display: flex;
@@ -507,14 +479,38 @@
   .bio img:hover, .bio video:hover {
       filter: saturate(100%);
       width: 75%;
-      height: 25%;
+      height: 16%;
     }
     .bio img, .bio video {
-      filter: saturate(30%);
-      width: 85%;
-      height: 120px;
-    } 
+      filter: saturate(100%);
+      width: 70%;
+      height: 15%;
+    }
   }
+  
+  @media (max-width: 820px) {
+      .menu-toggle { display: block; }
+      .sidebar {
+        top: 0;
+        position: fixed;
+        left: -200px;
+        height: 100vh;
+        z-index: 1000;
+        width: 300px;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .sidebar:hover {
+        width: 300px;
+      }
+      .container {
+        flex-direction: column;
+      }
+      .sidebar:hover ~ .content {
+        margin-left: 0;
+      }
+    }
 
 
 
