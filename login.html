@@ -38,6 +38,7 @@
 
     .login-container h2 {
     margin-bottom: 20px;
+    font-size: 40px;
     }
 
     .login-container input[type="text"],
@@ -74,10 +75,10 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Login</h2>
+        <h2>Sign in</h2>
         <input type="text" id="username" placeholder="Username" />
-        <input type="password" id="password" placeholder="Password" />
-        <button onclick="login()">Login</button>
+        <input type="password" id="password" placeholder="Password" /><br><br><br>
+        <button onclick="login()">Sign in</button>
         <div class="error-message" id="error"></div>
     </div>
 
@@ -93,7 +94,7 @@
                 alert("Login successful!");
                 window.location.href = "dashboard.html"; // เปลี่ยนเป็นหน้าหลัง login
                 } else {
-                error.textContent = "ลองใหม่ อย่าใส่มั่วสิ";
+                error.textContent = "ลองใหม่ๆ คิดดีๆ ให้คิดอีกที";
             }
           // ตรวจสอบรหัสตรงนี้
                 if (username === "Dair" && password === "8046") {
