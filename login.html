@@ -82,11 +82,15 @@
 
     @media (max-width: 500px) {
         body {
-        background-size: 100%;
-        background-repeat: no-repeat;
+        background-size: 60%;
+        /* background-repeat: repeat; */
+        background-position: top;
     }
     .login-container span {
-        font-size: 35px;
+        font-size: 35px;;
+    }
+    .login-container {
+        background: rgba(239, 136, 89, 0.1);
     }
 }
     </style>
@@ -94,7 +98,7 @@
 <body>
     <div class="login-container">
         <h2>Sign in</h2>
-        <span class="absolute right-3 top-2.5 text-gray-400 cursor-pointer">☕</span>
+        <!-- <span class="absolute right-3 top-2.5 text-gray-400 cursor-pointer">☕</span> -->
         <input type="text" id="username" placeholder="Username" />
         <input type="password" id="password" placeholder="Password" /><br><br>
         <button onclick="login()">Sign in</button>
