@@ -39,6 +39,7 @@
     .login-container h2 {
     margin-bottom: 20px;
     font-size: 40px;
+    color: sienna;
     }
 
     .login-container input[type="text"],
@@ -70,14 +71,16 @@
     color: red;
     text-align: center;
     margin-top: 10px;
+    font-size: 18px;
     }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h2>Sign in</h2>
+        <span class="absolute right-3 top-2.5 text-gray-400 cursor-pointer">👁️</span>
         <input type="text" id="username" placeholder="Username" />
-        <input type="password" id="password" placeholder="Password" /><br><br><br>
+        <input type="password" id="password" placeholder="Password" /><br><br>
         <button onclick="login()">Sign in</button>
         <div class="error-message" id="error"></div>
     </div>
