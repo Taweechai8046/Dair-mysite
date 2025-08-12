@@ -119,7 +119,7 @@
             </div>
 
             <!-- Trading Summary in Sidebar -->
-            <div class="mb-6 p-4 bg-white rounded-lg shadow-sm border">
+            <div class="mb-4 p-4 bg-white rounded-lg shadow-sm border">
                 <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
                     📊 สรุปผลเทรด
                 </h3>
@@ -148,6 +148,77 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Recent Trades in Sidebar -->
+            <div class="mb-4 p-4 bg-white rounded-lg shadow-sm border">
+                <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center justify-between">
+                    🕒 เทรดล่าสุด
+                    <button onclick="refreshRecentTrades()" class="text-xs text-indigo-600 hover:text-indigo-800">
+                        🔄
+                    </button>
+                </h3>
+                <div id="sidebarRecentTrades" class="space-y-2 max-h-32 overflow-y-auto">
+                    <div class="text-xs text-gray-500 text-center py-2">
+                        ยังไม่มีรายการเทรด
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions in Sidebar -->
+            <div class="mb-4 p-4 bg-white rounded-lg shadow-sm border">
+                <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                    ⚡ เครื่องมือด่วน
+                </h3>
+                <div class="space-y-2">
+                    <button onclick="quickAddTrade()" class="w-full text-xs bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-3 rounded-lg transition-colors flex items-center justify-center">
+                        ➕ เพิ่มเทรดด่วน
+                    </button>
+                    <button onclick="showTodayTrades()" class="w-full text-xs bg-green-500 hover:bg-green-600 text-white py-2 px-3 rounded-lg transition-colors flex items-center justify-center">
+                        📅 เทรดวันนี้
+                    </button>
+                    <button onclick="showBestPair()" class="w-full text-xs bg-purple-500 hover:bg-purple-600 text-white py-2 px-3 rounded-lg transition-colors flex items-center justify-center">
+                        🏆 คู่สกุลเงินดีที่สุด
+                    </button>
+                </div>
+            </div>
+
+            <!-- Market Status in Sidebar -->
+            <div class="mb-4 p-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg text-white">
+                <h3 class="text-sm font-semibold mb-2 flex items-center">
+                    🌍 สถานะตลาด
+                </h3>
+                <div class="space-y-1 text-xs">
+                    <div class="flex justify-between">
+                        <span>London:</span>
+                        <span id="londonStatus" class="font-medium">🟢 เปิด</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>New York:</span>
+                        <span id="nyStatus" class="font-medium">🟡 ปิด</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Tokyo:</span>
+                        <span id="tokyoStatus" class="font-medium">🔴 ปิด</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Meter in Sidebar -->
+            <div class="mb-4 p-4 bg-white rounded-lg shadow-sm border">
+                <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                    📈 ประสิทธิภาพ
+                </h3>
+                <div class="space-y-2">
+                    <div class="text-xs text-gray-600">สัปดาห์นี้:</div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="weeklyPerformanceBar" class="bg-green-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span id="weeklyPerformanceText" class="text-gray-600">$0.00</span>
+                        <span id="weeklyPerformancePercent" class="text-gray-600">0%</span>
+                    </div>
+                </div>
+            </div>
             
             <nav class="space-y-3 flex-1">
                 <a href="#dashboard" onclick="showSection('dashboard')" class="nav-link active flex items-center p-3 rounded-lg hover:bg-indigo-50 transition-colors">
@@ -165,6 +236,10 @@
                 <a href="#calculator" onclick="showSection('calculator')" class="nav-link flex items-center p-3 rounded-lg hover:bg-indigo-50 transition-colors">
                     <span class="mr-3">🧮</span>
                     <span>คำนวณ Pip</span>
+                </a>
+                <a href="#chart" onclick="showSection('chart')" class="nav-link flex items-center p-3 rounded-lg hover:bg-indigo-50 transition-colors">
+                    <span class="mr-3">📊</span>
+                    <span>กราฟเทรด</span>
                 </a>
                 <a href="#settings" onclick="showSection('settings')" class="nav-link flex items-center p-3 rounded-lg hover:bg-indigo-50 transition-colors">
                     <span class="mr-3">⚙️</span>
@@ -463,6 +538,159 @@
                         <h3 class="text-lg font-semibold mb-4">ผลการคำนวณ</h3>
                         <div id="calcResult" class="text-2xl font-bold text-indigo-600">$0.00</div>
                         <p class="text-sm text-gray-600 mt-2">มูลค่าของ Pip ที่คำนวณได้</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div id="chart" class="section">
+            <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6">
+                <h2 class="text-xl lg:text-2xl font-semibold text-indigo-800 mb-4 lg:mb-6 flex items-center">
+                    📊 กราฟเทรด - ฝึกทักษะการวิเคราะห์
+                </h2>
+                
+                <!-- Chart Controls -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                    <div class="flex flex-col md:flex-row gap-4 items-center">
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">คู่สกุลเงิน</label>
+                            <select id="chartPair" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <option value="XAU/USD">XAU/USD (Gold) 🥇</option>
+                                <option value="EUR/USD">EUR/USD</option>
+                                <option value="GBP/USD">GBP/USD</option>
+                                <option value="USD/JPY">USD/JPY</option>
+                                <option value="AUD/USD">AUD/USD</option>
+                            </select>
+                        </div>
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">ช่วงเวลา</label>
+                            <select id="chartTimeframe" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <option value="1H">1 ชั่วโมง</option>
+                                <option value="4H" selected>4 ชั่วโมง</option>
+                                <option value="1D">1 วัน</option>
+                                <option value="1W">1 สัปดาห์</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="generateNewChart()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                🔄 สร้างกราฟใหม่
+                            </button>
+                            <button onclick="toggleTrendLines()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                📈 เส้นแนวโน้ม
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Canvas -->
+                <div class="mb-6">
+                    <div id="tradingChart" class="w-full h-96 bg-gray-900 rounded-lg relative overflow-hidden">
+                        <canvas id="chartCanvas" class="w-full h-full"></canvas>
+                        
+                        <!-- Chart Info Panel -->
+                        <div class="absolute top-4 left-4 bg-black bg-opacity-70 text-white p-3 rounded-lg text-sm">
+                            <div id="chartInfo">
+                                <div class="font-semibold mb-1" id="chartPairDisplay">XAU/USD - 4H</div>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div>Open: <span id="chartOpen" class="font-mono">1850.25</span></div>
+                                    <div>High: <span id="chartHigh" class="font-mono text-green-400">1865.80</span></div>
+                                    <div>Low: <span id="chartLow" class="font-mono text-red-400">1845.10</span></div>
+                                    <div>Close: <span id="chartClose" class="font-mono">1858.45</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart Tools -->
+                        <div class="absolute top-4 right-4 flex flex-col gap-2">
+                            <button onclick="addSupportLine()" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded text-xs" title="เพิ่มเส้น Support">
+                                📉 S
+                            </button>
+                            <button onclick="addResistanceLine()" class="bg-red-600 hover:bg-red-700 text-white p-2 rounded text-xs" title="เพิ่มเส้น Resistance">
+                                📈 R
+                            </button>
+                            <button onclick="clearLines()" class="bg-gray-600 hover:bg-gray-700 text-white p-2 rounded text-xs" title="ลบเส้นทั้งหมด">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Panel -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Technical Analysis -->
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            🔍 การวิเคราะห์เทคนิค
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">แนวโน้ม:</span>
+                                <span id="trendAnalysis" class="text-sm font-medium text-green-600">📈 ขาขึ้น</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">RSI (14):</span>
+                                <span id="rsiValue" class="text-sm font-medium text-yellow-600">65.2</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">MACD:</span>
+                                <span id="macdValue" class="text-sm font-medium text-green-600">+2.45</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Support:</span>
+                                <span id="supportLevel" class="text-sm font-medium text-blue-600">1845.00</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Resistance:</span>
+                                <span id="resistanceLevel" class="text-sm font-medium text-red-600">1870.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trading Signals -->
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            🎯 สัญญาณเทรด
+                        </h3>
+                        <div id="tradingSignals" class="space-y-2">
+                            <div class="flex items-center p-2 bg-green-100 rounded text-sm">
+                                <span class="text-green-600 mr-2">🟢</span>
+                                <span class="text-green-800">BUY Signal - ราคาเบรกเหนือ Resistance</span>
+                            </div>
+                            <div class="flex items-center p-2 bg-yellow-100 rounded text-sm">
+                                <span class="text-yellow-600 mr-2">🟡</span>
+                                <span class="text-yellow-800">รอสัญญาณยืนยัน - RSI ใกล้ Overbought</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 pt-3 border-t border-gray-300">
+                            <h4 class="text-sm font-semibold text-gray-700 mb-2">💡 คำแนะนำ:</h4>
+                            <p class="text-xs text-gray-600" id="tradingAdvice">
+                                พิจารณา BUY หากราคาปิดเหนือ 1860 พร้อม Volume สูง. ตั้ง Stop Loss ที่ 1845 และ Take Profit ที่ 1875
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practice Mode -->
+                <div class="mt-6 p-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg text-white">
+                    <h3 class="text-lg font-semibold mb-3 flex items-center">
+                        🎮 โหมดฝึกหัด
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold" id="practiceScore">0</div>
+                            <div class="text-sm opacity-90">คะแนนการวิเคราะห์</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold" id="practiceStreak">0</div>
+                            <div class="text-sm opacity-90">ต่อเนื่อง</div>
+                        </div>
+                        <div class="text-center">
+                            <button onclick="startPracticeMode()" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg transition-colors">
+                                🚀 เริ่มฝึกหัด
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -866,6 +1094,235 @@
             if (sidebarTotalLoss) {
                 sidebarTotalLoss.textContent = `$${totalLoss.toFixed(2)}`;
             }
+
+            // Update recent trades in sidebar
+            updateSidebarRecentTrades();
+            
+            // Update weekly performance
+            updateWeeklyPerformance();
+            
+            // Update market status
+            updateMarketStatus();
+        }
+
+        function updateSidebarRecentTrades() {
+            const container = document.getElementById('sidebarRecentTrades');
+            if (!container) return;
+
+            if (trades.length === 0) {
+                container.innerHTML = `
+                    <div class="text-xs text-gray-500 text-center py-2">
+                        ยังไม่มีรายการเทรด
+                    </div>
+                `;
+                return;
+            }
+
+            // Show last 3 trades
+            const recentTrades = trades.slice(0, 3);
+            container.innerHTML = recentTrades.map(trade => {
+                const pips = calculatePips(trade.currencyPair, trade.entryPrice, trade.exitPrice, trade.tradeType);
+                const pnl = calculatePnL(trade.currencyPair, trade.lotSize, pips);
+                const pnlClass = pnl >= 0 ? 'text-green-600' : 'text-red-600';
+                const pnlIcon = pnl >= 0 ? '📈' : '📉';
+                
+                return `
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded text-xs">
+                        <div class="flex flex-col">
+                            <span class="font-medium">${trade.currencyPair}</span>
+                            <span class="text-gray-500">${trade.tradeType} ${trade.lotSize}</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="${pnlClass} font-bold">${pnlIcon} $${Math.abs(pnl).toFixed(2)}</div>
+                            <div class="text-gray-500">${pips > 0 ? '+' : ''}${pips} pips</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateWeeklyPerformance() {
+            const weekAgo = new Date();
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            
+            const weeklyTrades = trades.filter(trade => new Date(trade.tradeDate) >= weekAgo);
+            const weeklyPnL = weeklyTrades.reduce((sum, trade) => {
+                const pips = calculatePips(trade.currencyPair, trade.entryPrice, trade.exitPrice, trade.tradeType);
+                const pnl = calculatePnL(trade.currencyPair, trade.lotSize, pips);
+                return sum + pnl;
+            }, 0);
+
+            const weeklyPerformanceBar = document.getElementById('weeklyPerformanceBar');
+            const weeklyPerformanceText = document.getElementById('weeklyPerformanceText');
+            const weeklyPerformancePercent = document.getElementById('weeklyPerformancePercent');
+
+            if (weeklyPerformanceBar && weeklyPerformanceText && weeklyPerformancePercent) {
+                const maxWeeklyPnL = 1000; // Assume max weekly target is $1000
+                const percentage = Math.min(Math.abs(weeklyPnL) / maxWeeklyPnL * 100, 100);
+                
+                weeklyPerformanceBar.style.width = `${percentage}%`;
+                weeklyPerformanceBar.className = `h-2 rounded-full transition-all duration-500 ${weeklyPnL >= 0 ? 'bg-green-500' : 'bg-red-500'}`;
+                
+                weeklyPerformanceText.textContent = `$${weeklyPnL.toFixed(2)}`;
+                weeklyPerformanceText.className = `text-xs ${weeklyPnL >= 0 ? 'text-green-600' : 'text-red-600'}`;
+                
+                weeklyPerformancePercent.textContent = `${percentage.toFixed(0)}%`;
+                weeklyPerformancePercent.className = `text-xs ${weeklyPnL >= 0 ? 'text-green-600' : 'text-red-600'}`;
+            }
+        }
+
+        function updateMarketStatus() {
+            const now = new Date();
+            const utcHour = now.getUTCHours();
+            
+            // London: 8:00-17:00 UTC (Monday-Friday)
+            // New York: 13:00-22:00 UTC (Monday-Friday)  
+            // Tokyo: 23:00-8:00 UTC (Sunday-Thursday)
+            
+            const isWeekday = now.getUTCDay() >= 1 && now.getUTCDay() <= 5;
+            
+            const londonOpen = isWeekday && utcHour >= 8 && utcHour < 17;
+            const nyOpen = isWeekday && utcHour >= 13 && utcHour < 22;
+            const tokyoOpen = (now.getUTCDay() === 0 && utcHour >= 23) || 
+                             (isWeekday && (utcHour >= 23 || utcHour < 8)) ||
+                             (now.getUTCDay() === 5 && utcHour < 8);
+
+            const londonStatus = document.getElementById('londonStatus');
+            const nyStatus = document.getElementById('nyStatus');
+            const tokyoStatus = document.getElementById('tokyoStatus');
+
+            if (londonStatus) {
+                londonStatus.innerHTML = londonOpen ? '🟢 เปิด' : '🔴 ปิด';
+            }
+            if (nyStatus) {
+                nyStatus.innerHTML = nyOpen ? '🟢 เปิด' : '🔴 ปิด';
+            }
+            if (tokyoStatus) {
+                tokyoStatus.innerHTML = tokyoOpen ? '🟢 เปิด' : '🔴 ปิด';
+            }
+        }
+
+        // Sidebar quick action functions
+        function refreshRecentTrades() {
+            updateSidebarRecentTrades();
+            showSuccessMessage('อัปเดตรายการเทรดล่าสุดแล้ว! 🔄');
+        }
+
+        function quickAddTrade() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            if (!hasPermission('trade')) {
+                showErrorMessage('คุณไม่มีสิทธิ์ในการเพิ่มรายการเทรด');
+                return;
+            }
+
+            // Auto-fill form with common values and focus
+            document.getElementById('currencyPair').value = 'XAU/USD';
+            document.getElementById('tradeType').value = 'BUY';
+            document.getElementById('lotSize').value = '0.10';
+            document.getElementById('tradeDate').valueAsDate = new Date();
+            
+            // Focus on entry price for quick input
+            document.getElementById('entryPrice').focus();
+            
+            // Close sidebar
+            toggleSidebar();
+            
+            // Show section
+            showSection('dashboard');
+            
+            showSuccessMessage('เตรียมฟอร์มเพิ่มเทรดแล้ว! กรอกราคาเปิดได้เลย 📝');
+        }
+
+        function showTodayTrades() {
+            const today = new Date().toISOString().split('T')[0];
+            const todayTrades = trades.filter(trade => trade.tradeDate === today);
+            
+            if (todayTrades.length === 0) {
+                showErrorMessage('ยังไม่มีรายการเทรดวันนี้');
+                return;
+            }
+
+            const todayPnL = todayTrades.reduce((sum, trade) => {
+                const pips = calculatePips(trade.currencyPair, trade.entryPrice, trade.exitPrice, trade.tradeType);
+                const pnl = calculatePnL(trade.currencyPair, trade.lotSize, pips);
+                return sum + pnl;
+            }, 0);
+
+            const message = `📅 เทรดวันนี้: ${todayTrades.length} รายการ<br>💰 P&L: $${todayPnL.toFixed(2)}`;
+            
+            // Create info dialog
+            const infoDialog = document.createElement('div');
+            infoDialog.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            infoDialog.innerHTML = `
+                <div class="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">📅</div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">เทรดวันนี้</h3>
+                        <div class="text-gray-600 mb-6">${message}</div>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-6 rounded-lg transition-colors">
+                            ตกลง
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(infoDialog);
+            
+            toggleSidebar();
+        }
+
+        function showBestPair() {
+            if (trades.length === 0) {
+                showErrorMessage('ยังไม่มีข้อมูลเทรดเพื่อวิเคราะห์');
+                return;
+            }
+
+            // Calculate P&L by currency pair
+            const pairStats = {};
+            trades.forEach(trade => {
+                if (!pairStats[trade.currencyPair]) {
+                    pairStats[trade.currencyPair] = { pnl: 0, count: 0 };
+                }
+                const pips = calculatePips(trade.currencyPair, trade.entryPrice, trade.exitPrice, trade.tradeType);
+                const pnl = calculatePnL(trade.currencyPair, trade.lotSize, pips);
+                pairStats[trade.currencyPair].pnl += pnl;
+                pairStats[trade.currencyPair].count += 1;
+            });
+
+            // Find best performing pair
+            let bestPair = '';
+            let bestPnL = -Infinity;
+            for (const [pair, stats] of Object.entries(pairStats)) {
+                if (stats.pnl > bestPnL) {
+                    bestPnL = stats.pnl;
+                    bestPair = pair;
+                }
+            }
+
+            const bestStats = pairStats[bestPair];
+            const message = `🏆 ${bestPair}<br>💰 กำไร: $${bestPnL.toFixed(2)}<br>📊 จำนวน: ${bestStats.count} เทรด`;
+            
+            // Create info dialog
+            const infoDialog = document.createElement('div');
+            infoDialog.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            infoDialog.innerHTML = `
+                <div class="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🏆</div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">คู่สกุลเงินดีที่สุด</h3>
+                        <div class="text-gray-600 mb-6">${message}</div>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="bg-purple-500 hover:bg-purple-600 text-white py-2 px-6 rounded-lg transition-colors">
+                            ตกลง
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(infoDialog);
+            
+            toggleSidebar();
         }
 
         function updateMonthlyChart() {
@@ -1348,9 +1805,490 @@
             }
         }
 
+        // Chart variables
+        let chartCanvas = null;
+        let chartCtx = null;
+        let chartData = [];
+        let supportLines = [];
+        let resistanceLines = [];
+        let showTrendLines = false;
+        let practiceScore = 0;
+        let practiceStreak = 0;
+
+        // Chart functions
+        function initChart() {
+            chartCanvas = document.getElementById('chartCanvas');
+            if (chartCanvas) {
+                chartCtx = chartCanvas.getContext('2d');
+                generateNewChart();
+            }
+        }
+
+        function generateNewChart() {
+            const pair = document.getElementById('chartPair').value;
+            const timeframe = document.getElementById('chartTimeframe').value;
+            
+            // Generate realistic price data
+            chartData = generatePriceData(pair, 50);
+            
+            // Update chart info
+            updateChartInfo(pair, timeframe);
+            
+            // Draw chart
+            drawChart();
+            
+            // Update technical analysis
+            updateTechnicalAnalysis();
+            
+            // Generate trading signals
+            generateTradingSignals();
+            
+            showSuccessMessage('สร้างกราฟใหม่เรียบร้อย! 📊');
+        }
+
+        function generatePriceData(pair, candles) {
+            const data = [];
+            let basePrice = getBasePriceForPair(pair);
+            let currentPrice = basePrice;
+            
+            for (let i = 0; i < candles; i++) {
+                // Generate realistic OHLC data
+                const volatility = getVolatilityForPair(pair);
+                const change = (Math.random() - 0.5) * volatility;
+                
+                const open = currentPrice;
+                const close = open + change;
+                const high = Math.max(open, close) + Math.random() * volatility * 0.3;
+                const low = Math.min(open, close) - Math.random() * volatility * 0.3;
+                
+                data.push({
+                    open: parseFloat(open.toFixed(5)),
+                    high: parseFloat(high.toFixed(5)),
+                    low: parseFloat(low.toFixed(5)),
+                    close: parseFloat(close.toFixed(5)),
+                    volume: Math.floor(Math.random() * 1000) + 100
+                });
+                
+                currentPrice = close;
+            }
+            
+            return data;
+        }
+
+        function getBasePriceForPair(pair) {
+            const basePrices = {
+                'XAU/USD': 1850 + Math.random() * 100,
+                'EUR/USD': 1.08 + Math.random() * 0.1,
+                'GBP/USD': 1.25 + Math.random() * 0.1,
+                'USD/JPY': 145 + Math.random() * 10,
+                'AUD/USD': 0.65 + Math.random() * 0.05
+            };
+            return basePrices[pair] || 1.0;
+        }
+
+        function getVolatilityForPair(pair) {
+            const volatilities = {
+                'XAU/USD': 15,
+                'EUR/USD': 0.005,
+                'GBP/USD': 0.008,
+                'USD/JPY': 0.8,
+                'AUD/USD': 0.006
+            };
+            return volatilities[pair] || 0.005;
+        }
+
+        function drawChart() {
+            if (!chartCtx || !chartData.length) return;
+            
+            const canvas = chartCanvas;
+            const width = canvas.width = canvas.offsetWidth;
+            const height = canvas.height = canvas.offsetHeight;
+            
+            // Clear canvas
+            chartCtx.fillStyle = '#1f2937';
+            chartCtx.fillRect(0, 0, width, height);
+            
+            // Calculate price range
+            const prices = chartData.flatMap(d => [d.high, d.low]);
+            const minPrice = Math.min(...prices);
+            const maxPrice = Math.max(...prices);
+            const priceRange = maxPrice - minPrice;
+            const padding = priceRange * 0.1;
+            
+            const chartMinPrice = minPrice - padding;
+            const chartMaxPrice = maxPrice + padding;
+            const chartPriceRange = chartMaxPrice - chartMinPrice;
+            
+            // Draw grid
+            drawGrid(width, height, chartMinPrice, chartMaxPrice);
+            
+            // Draw candlesticks
+            const candleWidth = (width - 100) / chartData.length;
+            
+            chartData.forEach((candle, index) => {
+                const x = 50 + index * candleWidth + candleWidth / 2;
+                const openY = height - 50 - ((candle.open - chartMinPrice) / chartPriceRange) * (height - 100);
+                const closeY = height - 50 - ((candle.close - chartMinPrice) / chartPriceRange) * (height - 100);
+                const highY = height - 50 - ((candle.high - chartMinPrice) / chartPriceRange) * (height - 100);
+                const lowY = height - 50 - ((candle.low - chartMinPrice) / chartPriceRange) * (height - 100);
+                
+                // Determine candle color
+                const isGreen = candle.close > candle.open;
+                chartCtx.strokeStyle = isGreen ? '#10b981' : '#ef4444';
+                chartCtx.fillStyle = isGreen ? '#10b981' : '#ef4444';
+                
+                // Draw wick
+                chartCtx.lineWidth = 1;
+                chartCtx.beginPath();
+                chartCtx.moveTo(x, highY);
+                chartCtx.lineTo(x, lowY);
+                chartCtx.stroke();
+                
+                // Draw body
+                const bodyHeight = Math.abs(closeY - openY);
+                const bodyY = Math.min(openY, closeY);
+                
+                if (bodyHeight < 2) {
+                    // Doji - draw line
+                    chartCtx.lineWidth = 2;
+                    chartCtx.beginPath();
+                    chartCtx.moveTo(x - candleWidth * 0.3, openY);
+                    chartCtx.lineTo(x + candleWidth * 0.3, openY);
+                    chartCtx.stroke();
+                } else {
+                    // Normal candle
+                    chartCtx.fillRect(x - candleWidth * 0.3, bodyY, candleWidth * 0.6, bodyHeight);
+                }
+            });
+            
+            // Draw support and resistance lines
+            drawSupportResistanceLines(width, height, chartMinPrice, chartMaxPrice, chartPriceRange);
+            
+            // Draw trend lines if enabled
+            if (showTrendLines) {
+                drawTrendLines(width, height, chartMinPrice, chartPriceRange);
+            }
+        }
+
+        function drawGrid(width, height, minPrice, maxPrice) {
+            chartCtx.strokeStyle = '#374151';
+            chartCtx.lineWidth = 1;
+            
+            // Horizontal grid lines
+            for (let i = 0; i <= 10; i++) {
+                const y = 50 + (i * (height - 100) / 10);
+                chartCtx.beginPath();
+                chartCtx.moveTo(50, y);
+                chartCtx.lineTo(width - 50, y);
+                chartCtx.stroke();
+                
+                // Price labels
+                const price = maxPrice - (i * (maxPrice - minPrice) / 10);
+                chartCtx.fillStyle = '#9ca3af';
+                chartCtx.font = '10px monospace';
+                chartCtx.textAlign = 'right';
+                chartCtx.fillText(price.toFixed(2), 45, y + 3);
+            }
+            
+            // Vertical grid lines
+            const gridLines = 10;
+            for (let i = 0; i <= gridLines; i++) {
+                const x = 50 + (i * (width - 100) / gridLines);
+                chartCtx.beginPath();
+                chartCtx.moveTo(x, 50);
+                chartCtx.lineTo(x, height - 50);
+                chartCtx.stroke();
+            }
+        }
+
+        function drawSupportResistanceLines(width, height, minPrice, maxPrice, priceRange) {
+            // Draw support lines
+            supportLines.forEach(level => {
+                const y = height - 50 - ((level - minPrice) / priceRange) * (height - 100);
+                chartCtx.strokeStyle = '#3b82f6';
+                chartCtx.lineWidth = 2;
+                chartCtx.setLineDash([5, 5]);
+                chartCtx.beginPath();
+                chartCtx.moveTo(50, y);
+                chartCtx.lineTo(width - 50, y);
+                chartCtx.stroke();
+                chartCtx.setLineDash([]);
+                
+                // Label
+                chartCtx.fillStyle = '#3b82f6';
+                chartCtx.font = '12px sans-serif';
+                chartCtx.textAlign = 'left';
+                chartCtx.fillText(`S: ${level.toFixed(2)}`, 55, y - 5);
+            });
+            
+            // Draw resistance lines
+            resistanceLines.forEach(level => {
+                const y = height - 50 - ((level - minPrice) / priceRange) * (height - 100);
+                chartCtx.strokeStyle = '#ef4444';
+                chartCtx.lineWidth = 2;
+                chartCtx.setLineDash([5, 5]);
+                chartCtx.beginPath();
+                chartCtx.moveTo(50, y);
+                chartCtx.lineTo(width - 50, y);
+                chartCtx.stroke();
+                chartCtx.setLineDash([]);
+                
+                // Label
+                chartCtx.fillStyle = '#ef4444';
+                chartCtx.font = '12px sans-serif';
+                chartCtx.textAlign = 'left';
+                chartCtx.fillText(`R: ${level.toFixed(2)}`, 55, y - 5);
+            });
+        }
+
+        function drawTrendLines(width, height, minPrice, priceRange) {
+            if (chartData.length < 10) return;
+            
+            // Simple trend line calculation
+            const recentData = chartData.slice(-20);
+            const firstPrice = recentData[0].close;
+            const lastPrice = recentData[recentData.length - 1].close;
+            
+            const startX = 50 + (chartData.length - 20) * ((width - 100) / chartData.length);
+            const endX = width - 50;
+            const startY = height - 50 - ((firstPrice - minPrice) / priceRange) * (height - 100);
+            const endY = height - 50 - ((lastPrice - minPrice) / priceRange) * (height - 100);
+            
+            chartCtx.strokeStyle = '#fbbf24';
+            chartCtx.lineWidth = 3;
+            chartCtx.setLineDash([10, 5]);
+            chartCtx.beginPath();
+            chartCtx.moveTo(startX, startY);
+            chartCtx.lineTo(endX, endY);
+            chartCtx.stroke();
+            chartCtx.setLineDash([]);
+        }
+
+        function updateChartInfo(pair, timeframe) {
+            if (!chartData.length) return;
+            
+            const lastCandle = chartData[chartData.length - 1];
+            
+            document.getElementById('chartPairDisplay').textContent = `${pair} - ${timeframe}`;
+            document.getElementById('chartOpen').textContent = lastCandle.open.toFixed(5);
+            document.getElementById('chartHigh').textContent = lastCandle.high.toFixed(5);
+            document.getElementById('chartLow').textContent = lastCandle.low.toFixed(5);
+            document.getElementById('chartClose').textContent = lastCandle.close.toFixed(5);
+        }
+
+        function updateTechnicalAnalysis() {
+            if (!chartData.length) return;
+            
+            const prices = chartData.map(d => d.close);
+            const lastPrice = prices[prices.length - 1];
+            
+            // Simple trend analysis
+            const trend = prices[prices.length - 1] > prices[prices.length - 10] ? '📈 ขาขึ้น' : '📉 ขาลง';
+            document.getElementById('trendAnalysis').textContent = trend;
+            document.getElementById('trendAnalysis').className = `text-sm font-medium ${trend.includes('ขาขึ้น') ? 'text-green-600' : 'text-red-600'}`;
+            
+            // Mock RSI
+            const rsi = 30 + Math.random() * 40;
+            document.getElementById('rsiValue').textContent = rsi.toFixed(1);
+            document.getElementById('rsiValue').className = `text-sm font-medium ${rsi > 70 ? 'text-red-600' : rsi < 30 ? 'text-green-600' : 'text-yellow-600'}`;
+            
+            // Mock MACD
+            const macd = (Math.random() - 0.5) * 10;
+            document.getElementById('macdValue').textContent = (macd >= 0 ? '+' : '') + macd.toFixed(2);
+            document.getElementById('macdValue').className = `text-sm font-medium ${macd >= 0 ? 'text-green-600' : 'text-red-600'}`;
+            
+            // Calculate support and resistance
+            const highs = chartData.map(d => d.high);
+            const lows = chartData.map(d => d.low);
+            const support = Math.min(...lows.slice(-10));
+            const resistance = Math.max(...highs.slice(-10));
+            
+            document.getElementById('supportLevel').textContent = support.toFixed(2);
+            document.getElementById('resistanceLevel').textContent = resistance.toFixed(2);
+        }
+
+        function generateTradingSignals() {
+            const signals = [
+                { type: 'buy', text: 'BUY Signal - ราคาเบรกเหนือ Resistance', color: 'green' },
+                { type: 'sell', text: 'SELL Signal - ราคาเบรกต่ำกว่า Support', color: 'red' },
+                { type: 'wait', text: 'รอสัญญาณยืนยัน - RSI ใกล้ Overbought', color: 'yellow' },
+                { type: 'neutral', text: 'ตลาดเป็นกลาง - รอการเบรกเอาท์', color: 'gray' }
+            ];
+            
+            const randomSignals = signals.sort(() => Math.random() - 0.5).slice(0, 2);
+            
+            const signalsHtml = randomSignals.map(signal => {
+                const colorClass = {
+                    green: 'bg-green-100 text-green-800',
+                    red: 'bg-red-100 text-red-800',
+                    yellow: 'bg-yellow-100 text-yellow-800',
+                    gray: 'bg-gray-100 text-gray-800'
+                }[signal.color];
+                
+                const icon = {
+                    green: '🟢',
+                    red: '🔴',
+                    yellow: '🟡',
+                    gray: '⚪'
+                }[signal.color];
+                
+                return `
+                    <div class="flex items-center p-2 ${colorClass} rounded text-sm">
+                        <span class="mr-2">${icon}</span>
+                        <span>${signal.text}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('tradingSignals').innerHTML = signalsHtml;
+            
+            // Update trading advice
+            const advices = [
+                'พิจารณา BUY หากราคาปิดเหนือ Resistance พร้อม Volume สูง',
+                'รอการ Pullback ก่อนเข้า Position เพื่อความปลอดภัย',
+                'ตั้ง Stop Loss ใต้ Support ล่าสุดเพื่อจำกัดความเสี่ยง',
+                'ใช้ Position Size เล็กในช่วงที่ตลาดไม่มีทิศทาง',
+                'รอสัญญาณยืนยันจาก Indicator หลายตัวก่อนเข้าเทรด'
+            ];
+            
+            const randomAdvice = advices[Math.floor(Math.random() * advices.length)];
+            document.getElementById('tradingAdvice').textContent = randomAdvice;
+        }
+
+        function addSupportLine() {
+            if (!chartData.length) return;
+            
+            const lows = chartData.map(d => d.low);
+            const recentLow = Math.min(...lows.slice(-10));
+            supportLines.push(recentLow);
+            
+            drawChart();
+            showSuccessMessage('เพิ่มเส้น Support แล้ว! 📉');
+        }
+
+        function addResistanceLine() {
+            if (!chartData.length) return;
+            
+            const highs = chartData.map(d => d.high);
+            const recentHigh = Math.max(...highs.slice(-10));
+            resistanceLines.push(recentHigh);
+            
+            drawChart();
+            showSuccessMessage('เพิ่มเส้น Resistance แล้ว! 📈');
+        }
+
+        function clearLines() {
+            supportLines = [];
+            resistanceLines = [];
+            drawChart();
+            showSuccessMessage('ลบเส้นทั้งหมดแล้ว! 🗑️');
+        }
+
+        function toggleTrendLines() {
+            showTrendLines = !showTrendLines;
+            drawChart();
+            showSuccessMessage(showTrendLines ? 'แสดงเส้นแนวโน้มแล้ว! 📈' : 'ซ่อนเส้นแนวโน้มแล้ว! 📊');
+        }
+
+        function startPracticeMode() {
+            // Create practice dialog
+            const practiceDialog = document.createElement('div');
+            practiceDialog.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            practiceDialog.innerHTML = `
+                <div class="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🎮</div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">โหมดฝึกหัด</h3>
+                        <p class="text-gray-600 mb-4">ดูกราฟและทำนายทิศทางราคาในแท่งเทียนถัดไป</p>
+                        <div class="mb-6">
+                            <p class="text-sm text-gray-500 mb-3">คุณคิดว่าราคาจะเป็นอย่างไร?</p>
+                            <div class="flex gap-3">
+                                <button onclick="makePrediction('up')" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg transition-colors">
+                                    📈 ขาขึ้น
+                                </button>
+                                <button onclick="makePrediction('down')" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-lg transition-colors">
+                                    📉 ขาลง
+                                </button>
+                            </div>
+                        </div>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-gray-500 hover:text-gray-700 text-sm">
+                            ยกเลิก
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(practiceDialog);
+        }
+
+        function makePrediction(direction) {
+            // Remove dialog
+            document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50').remove();
+            
+            // Generate next candle
+            const lastCandle = chartData[chartData.length - 1];
+            const pair = document.getElementById('chartPair').value;
+            const volatility = getVolatilityForPair(pair);
+            const actualDirection = Math.random() > 0.5 ? 'up' : 'down';
+            
+            const change = actualDirection === 'up' ? Math.random() * volatility : -Math.random() * volatility;
+            const newCandle = {
+                open: lastCandle.close,
+                close: lastCandle.close + change,
+                high: Math.max(lastCandle.close, lastCandle.close + change) + Math.random() * volatility * 0.2,
+                low: Math.min(lastCandle.close, lastCandle.close + change) - Math.random() * volatility * 0.2,
+                volume: Math.floor(Math.random() * 1000) + 100
+            };
+            
+            chartData.push(newCandle);
+            drawChart();
+            updateChartInfo(pair, document.getElementById('chartTimeframe').value);
+            
+            // Check prediction
+            const correct = (direction === 'up' && newCandle.close > newCandle.open) || 
+                           (direction === 'down' && newCandle.close < newCandle.open);
+            
+            if (correct) {
+                practiceScore += 10;
+                practiceStreak += 1;
+                showSuccessMessage(`ถูกต้อง! +10 คะแนน 🎉 (ต่อเนื่อง: ${practiceStreak})`);
+            } else {
+                practiceStreak = 0;
+                showErrorMessage(`ผิด! ลองใหม่อีกครั้ง 💪 (คะแนน: ${practiceScore})`);
+            }
+            
+            // Update display
+            document.getElementById('practiceScore').textContent = practiceScore;
+            document.getElementById('practiceStreak').textContent = practiceStreak;
+            
+            // Save to localStorage
+            localStorage.setItem('practiceScore', practiceScore.toString());
+            localStorage.setItem('practiceStreak', practiceStreak.toString());
+        }
+
+        // Load practice data
+        function loadPracticeData() {
+            practiceScore = parseInt(localStorage.getItem('practiceScore')) || 0;
+            practiceStreak = parseInt(localStorage.getItem('practiceStreak')) || 0;
+            
+            document.getElementById('practiceScore').textContent = practiceScore;
+            document.getElementById('practiceStreak').textContent = practiceStreak;
+        }
+
+        // Initialize chart when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                initChart();
+                loadPracticeData();
+            }, 100);
+        });
+
+        // Handle chart pair/timeframe changes
+        document.getElementById('chartPair').addEventListener('change', generateNewChart);
+        document.getElementById('chartTimeframe').addEventListener('change', generateNewChart);
+
         // Initialize display
         updateDisplay();
         initAuth();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96def9e2a49a45b7',t:'MTc1NDk5MTI1OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96df4670643b4b8e',t:'MTc1NDk5NDM5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
