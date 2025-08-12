@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forex Trading Journal - บันทึกการเทรด</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Sarabun', sans-serif;
+        }
+        
+        .profit {
+            color: #10b981;
+            background-color: #ecfdf5;
+        }
+        
+        .loss {
+            color: #ef4444;
+            background-color: #fef2f2;
+        }
+        
+        .chart-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .currency-pair {
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+        }
+        
+        .nav-link {
+            color: #6b7280;
+            text-decoration: none;
+        }
+        
+        .nav-link.active {
+            background-color: #eef2ff;
+            color: #4f46e5;
+            font-weight: 600;
+        }
+        
+        .nav-link:hover {
+            color: #4f46e5;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 relative">
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 opacity-5 pointer-events-none">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="chart-pattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+                    <!-- Grid lines -->
+                    <path d="M 0 0 L 200 0 M 0 50 L 200 50 M 0 100 L 200 100 M 0 150 L 200 150 M 0 200 L 200 200" stroke="#4f46e5" stroke-width="1" opacity="0.3"/>
+                    <path d="M 0 0 L 0 200 M 50 0 L 50 200 M 100 0 L 100 200 M 150 0 L 150 200 M 200 0 L 200 200" stroke="#4f46e5" stroke-width="1" opacity="0.3"/>
+                    
+                    <!-- Chart line -->
+                    <path d="M 20 150 Q 60 120 100 100 T 180 80" stroke="#10b981" stroke-width="3" fill="none" opacity="0.6"/>
+                    
+                    <!-- Candlesticks -->
+                    <rect x="30" y="110" width="8" height="30" fill="#ef4444" opacity="0.4"/>
+                    <rect x="50" y="100" width="8" height="40" fill="#10b981" opacity="0.4"/>
+                    <rect x="70" y="90" width="8" height="35" fill="#10b981" opacity="0.4"/>
+                    <rect x="90" y="105" width="8" height="25" fill="#ef4444" opacity="0.4"/>
+                    <rect x="110" y="85" width="8" height="45" fill="#10b981" opacity="0.4"/>
+                    <rect x="130" y="95" width="8" height="30" fill="#10b981" opacity="0.4"/>
+                    <rect x="150" y="80" width="8" height="40" fill="#10b981" opacity="0.4"/>
+                    <rect x="170" y="75" width="8" height="35" fill="#10b981" opacity="0.4"/>
+                    
+                    <!-- Dollar signs -->
+                    <text x="40" y="40" font-family="Arial" font-size="24" fill="#4f46e5" opacity="0.3">$</text>
+                    <text x="120" y="180" font-family="Arial" font-size="20" fill="#10b981" opacity="0.3">€</text>
+                    <text x="160" y="45" font-family="Arial" font-size="18" fill="#7c3aed" opacity="0.3">¥</text>
+                    
+                    <!-- Trend arrows -->
+                    <path d="M 25 60 L 35 50 L 30 55 L 40 45" stroke="#10b981" stroke-width="2" fill="none" opacity="0.4"/>
+                    <path d="M 140 160 L 150 170 L 145 165 L 155 175" stroke="#ef4444" stroke-width="2" fill="none" opacity="0.4"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#chart-pattern)"/>
+        </svg>
+    </div>
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+        <div class="p-6 h-full flex flex-col">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl font-bold text-indigo-800">📊 Trading Menu</h2>
+                <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- User Profile Section -->
+            <div id="userProfile" class="mb-6 p-4 bg-gradient-to-r from-green-500 to-blue-600 rounded-lg text-white">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-3">
+                        <span class="text-2xl">👤</span>
+                    </div>
+                    <div>
+                        <div class="font-semibold" id="userName">Guest User</div>
+                        <div class="text-sm opacity-90" id="userStatus">ออนไลน์</div>
+                    </div>
+                </div>
+                <button onclick="logout()" class="mt-3 w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-3 rounded-lg text-sm transition-colors">
+                    🚪 ออกจากระบบ
+                </button>
+            </div>
+            
+            <nav class="space-y-3 flex-1">
+                <a href="#dashboard" onclick="showSection('dashboard')" class="nav-link active flex items-center p-3 rounded-lg hover:bg-indigo-50 transition-colors">
+                    <span class="mr-3">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#trades" onclick="showSection('trades')" class="nav-link flex items-center p-3 rounded-lg hover:bg-indigo-50 transition-colors">
+                    <span class="mr-3">📋</span>
+                    <span>รายการเทรด</span>
+                </a>
+                <a href="#analytics" onclick="showSection('analytics')" class="nav-link flex items-center p-3 rounded-lg hover:bg-indigo-50 transition-colors">
+                    <span class="mr-3">📈</span>
+                    <span>วิเคราะห์ผล</span>
+                </a>
+                <a href="#calculator" onclick="showSection('calculator')" class="nav-link flex items-center p-3 rounded-lg hover:bg-indigo-50 transition-colors">
+                    <span class="mr-3">🧮</span>
+                    <span>คำนวณ Pip</span>
+                </a>
+                <a href="#settings" onclick="showSection('settings')" class="nav-link flex items-center p-3 rounded-lg hover:bg-indigo-50 transition-colors">
+                    <span class="mr-3">⚙️</span>
+                    <span>ตั้งค่า</span>
+                </a>
+            </nav>
+            
+            <div class="mt-auto p-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg text-white">
+                <h3 class="font-semibold mb-2">💡 เคล็ดลับ</h3>
+                <p class="text-sm opacity-90">บันทึกเทรดทุกครั้งเพื่อวิเคราะห์และปรับปรุงกลยุทธ์</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Menu Button -->
+    <button onclick="toggleSidebar()" class="fixed top-4 left-4 z-30 bg-white rounded-lg shadow-lg p-3 hover:bg-gray-50 transition-colors">
+        <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md">
+            <div class="p-6">
+                <div class="text-center mb-6">
+                    <div class="text-4xl mb-3">🔐</div>
+                    <h2 class="text-2xl font-bold text-indigo-800">เข้าสู่ระบบ</h2>
+                    <p class="text-gray-600">กรุณาเข้าสู่ระบบเพื่อใช้งาน Trading Journal</p>
+                </div>
+                
+                <form id="loginForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">ชื่อผู้ใช้</label>
+                        <input type="text" id="loginUsername" placeholder="กรอกชื่อผู้ใช้" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">รหัสผ่าน</label>
+                        <input type="password" id="loginPassword" placeholder="กรอกรหัสผ่าน" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input type="checkbox" id="rememberMe" class="mr-2">
+                        <label for="rememberMe" class="text-sm text-gray-600">จดจำการเข้าสู่ระบบ</label>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition-colors">
+                        🚀 เข้าสู่ระบบ
+                    </button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-500 mb-3">หรือเข้าสู่ระบบด้วย</p>
+                    <div class="flex gap-3">
+                        <button onclick="loginWithDemo('trader')" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 px-3 rounded-lg text-sm transition-colors">
+                            👨‍💼 Demo Trader
+                        </button>
+                        <button onclick="loginWithDemo('admin')" class="flex-1 bg-purple-500 hover:bg-purple-600 text-white py-2 px-3 rounded-lg text-sm transition-colors">
+                            👑 Demo Admin
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                    <p class="text-xs text-blue-700 mb-2">
+                        💡 <strong>บัญชีทดลอง:</strong> ใช้ปุ่ม Demo เพื่อทดลองใช้งานได้ทันที
+                    </p>
+                    <div class="text-xs text-gray-600">
+                        <strong>หรือใช้บัญชีเหล่านี้:</strong><br>
+                        • admin / admin123 (ผู้ดูแล)<br>
+                        • trader / trader123 (นักเทรด)<br>
+                        • user1 / 123456 (John Trader)<br>
+                        • user2 / password (Sarah Smith)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6 max-w-7xl ml-0 lg:ml-0">
+        <!-- Header -->
+        <div class="text-center mb-6 lg:mb-8 pt-16 lg:pt-0">
+            <h1 class="text-2xl lg:text-4xl font-bold text-indigo-800 mb-2">📊 Forex Trading Journal</h1>
+            <p class="text-sm lg:text-base text-gray-600">บันทึกและวิเคราะห์ผลการเทรดของคุณ</p>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="section active">
+            <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 lg:gap-6">
+                <!-- Add Trade Form -->
+                <div class="lg:col-span-1 order-1 lg:order-1">
+                    <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 mb-4 lg:mb-6">
+                        <h2 class="text-xl lg:text-2xl font-semibold text-indigo-800 mb-4 flex items-center">
+                            ➕ เพิ่มรายการเทรด
+                        </h2>
+                    
+                    <form id="tradeForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">คู่สกุลเงิน</label>
+                            <select id="currencyPair" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="XAU/USD">XAU/USD (Gold) 🥇</option>
+                                <option value="EUR/USD">EUR/USD</option>
+                                <option value="GBP/USD">GBP/USD</option>
+                                <option value="USD/JPY">USD/JPY</option>
+                                <option value="AUD/USD">AUD/USD</option>
+                                <option value="USD/CAD">USD/CAD</option>
+                                <option value="USD/CHF">USD/CHF</option>
+                                <option value="NZD/USD">NZD/USD</option>
+                                <option value="EUR/GBP">EUR/GBP</option>
+                                <option value="EUR/JPY">EUR/JPY</option>
+                                <option value="GBP/JPY">GBP/JPY</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">ประเภท</label>
+                                <select id="tradeType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option value="BUY">BUY 📈</option>
+                                    <option value="SELL">SELL 📉</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Lot Size</label>
+                                <input type="number" id="lotSize" step="0.01" placeholder="0.10" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">ราคาเปิด</label>
+                                <input type="number" id="entryPrice" step="0.00001" placeholder="1.12345" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">ราคาปิด</label>
+                                <input type="number" id="exitPrice" step="0.00001" placeholder="1.12445" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">วันที่เทรด</label>
+                            <input type="date" id="tradeDate" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">หมายเหตุ</label>
+                            <textarea id="notes" placeholder="บันทึกเพิ่มเติม..." rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition-colors">
+                            💾 บันทึกรายการเทรด
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Summary Stats -->
+                <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 order-3 lg:order-2">
+                    <h3 class="text-lg lg:text-xl font-semibold text-indigo-800 mb-4">📈 สรุปผลการเทรด</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                            <span class="text-green-700 font-medium">กำไรรวม</span>
+                            <span id="totalProfit" class="text-green-700 font-bold">$0.00</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                            <span class="text-red-700 font-medium">ขาดทุนรวม</span>
+                            <span id="totalLoss" class="text-red-700 font-bold">$0.00</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center p-3 bg-indigo-50 rounded-lg">
+                            <span class="text-indigo-700 font-medium">กำไร/ขาดทุนสุทธิ</span>
+                            <span id="netPnL" class="text-indigo-700 font-bold">$0.00</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span class="text-gray-700 font-medium">จำนวนเทรดทั้งหมด</span>
+                            <span id="totalTrades" class="text-gray-700 font-bold">0</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center p-3 bg-yellow-50 rounded-lg">
+                            <span class="text-yellow-700 font-medium">อัตราชนะ</span>
+                            <span id="winRate" class="text-yellow-700 font-bold">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trade History -->
+            <div class="lg:col-span-2 order-2 lg:order-3">
+                <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 lg:mb-6 gap-3">
+                        <h2 class="text-xl lg:text-2xl font-semibold text-indigo-800 flex items-center">
+                            📋 ประวัติการเทรด
+                        </h2>
+                        <button onclick="clearAllTrades()" class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm transition-colors w-full sm:w-auto ${!hasPermission('trade') ? 'opacity-50 cursor-not-allowed' : ''}" ${!hasPermission('trade') ? 'disabled' : ''}>
+                            🗑️ ลบทั้งหมด
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto -mx-4 lg:mx-0">
+                        <table class="w-full min-w-[800px] lg:min-w-0">
+                            <thead>
+                                <tr class="border-b-2 border-gray-200">
+                                    <th class="text-left py-2 lg:py-3 px-1 lg:px-2 font-semibold text-gray-700 text-xs lg:text-sm">วันที่</th>
+                                    <th class="text-left py-2 lg:py-3 px-1 lg:px-2 font-semibold text-gray-700 text-xs lg:text-sm">คู่สกุลเงิน</th>
+                                    <th class="text-left py-2 lg:py-3 px-1 lg:px-2 font-semibold text-gray-700 text-xs lg:text-sm">ประเภท</th>
+                                    <th class="text-left py-2 lg:py-3 px-1 lg:px-2 font-semibold text-gray-700 text-xs lg:text-sm">Lot</th>
+                                    <th class="text-left py-2 lg:py-3 px-1 lg:px-2 font-semibold text-gray-700 text-xs lg:text-sm">เปิด</th>
+                                    <th class="text-left py-2 lg:py-3 px-1 lg:px-2 font-semibold text-gray-700 text-xs lg:text-sm">ปิด</th>
+                                    <th class="text-left py-2 lg:py-3 px-1 lg:px-2 font-semibold text-gray-700 text-xs lg:text-sm">Pips</th>
+                                    <th class="text-left py-2 lg:py-3 px-1 lg:px-2 font-semibold text-gray-700 text-xs lg:text-sm">P&L</th>
+                                    <th class="text-left py-2 lg:py-3 px-1 lg:px-2 font-semibold text-gray-700 text-xs lg:text-sm">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tradesTableBody">
+                                <tr>
+                                    <td colspan="9" class="text-center py-8 text-gray-500">
+                                        ยังไม่มีรายการเทรด กรุณาเพิ่มรายการแรกของคุณ
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Monthly Chart -->
+                <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 mt-4 lg:mt-6">
+                    <h3 class="text-lg lg:text-xl font-semibold text-indigo-800 mb-4">📊 กราฟผลการเทรดรายเดือน</h3>
+                    <div id="monthlyChart" class="h-48 lg:h-64 chart-container rounded-lg flex items-center justify-center text-white">
+                        <div class="text-center">
+                            <div class="text-4xl mb-2">📈</div>
+                            <div class="text-lg">กราฟจะแสดงเมื่อมีข้อมูลการเทรด</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trades Section -->
+        <div id="trades" class="section">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-2xl font-semibold text-indigo-800 mb-6">📋 จัดการรายการเทรด</h2>
+                <div class="text-center py-12">
+                    <div class="text-6xl mb-4">📊</div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">รายการเทรดทั้งหมด</h3>
+                    <p class="text-gray-500">ดู แก้ไข และจัดการรายการเทรดของคุณที่นี่</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div id="analytics" class="section">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-2xl font-semibold text-indigo-800 mb-6">📈 วิเคราะห์ผลการเทรด</h2>
+                <div class="text-center py-12">
+                    <div class="text-6xl mb-4">📊</div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">รายงานและกราฟ</h3>
+                    <p class="text-gray-500">วิเคราะห์ประสิทธิภาพการเทรดด้วยกราฟและสถิติ</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator Section -->
+        <div id="calculator" class="section">
+            <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6">
+                <h2 class="text-xl lg:text-2xl font-semibold text-indigo-800 mb-4 lg:mb-6">🧮 เครื่องคำนวณ Pip</h2>
+                <div class="flex flex-col md:grid md:grid-cols-2 gap-4 lg:gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">คู่สกุลเงิน</label>
+                            <select id="calcPair" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <option value="XAU/USD">XAU/USD (Gold)</option>
+                                <option value="EUR/USD">EUR/USD</option>
+                                <option value="GBP/USD">GBP/USD</option>
+                                <option value="USD/JPY">USD/JPY</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Lot Size</label>
+                            <input type="number" id="calcLot" step="0.01" placeholder="0.10" class="w-full p-3 border border-gray-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">จำนวน Pips</label>
+                            <input type="number" id="calcPips" placeholder="10" class="w-full p-3 border border-gray-300 rounded-lg">
+                        </div>
+                        <button onclick="calculatePipValue()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg">
+                            คำนวณ
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4">ผลการคำนวณ</h3>
+                        <div id="calcResult" class="text-2xl font-bold text-indigo-600">$0.00</div>
+                        <p class="text-sm text-gray-600 mt-2">มูลค่าของ Pip ที่คำนวณได้</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settings" class="section">
+            <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6">
+                <h2 class="text-xl lg:text-2xl font-semibold text-indigo-800 mb-4 lg:mb-6">⚙️ ตั้งค่าระบบ</h2>
+                <div class="space-y-4 lg:space-y-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-3">การแสดงผล</h3>
+                        <div class="space-y-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-3" checked>
+                                <span>แสดงสกุลเงินเป็น USD</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-3" checked>
+                                <span>แสดงกราฟรายเดือน</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-3">ข้อมูล</h3>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button onclick="exportData()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex-1 sm:flex-none">
+                                📤 ส่งออกข้อมูล
+                            </button>
+                            <button onclick="importData()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex-1 sm:flex-none">
+                                📥 นำเข้าข้อมูล
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        let trades = JSON.parse(localStorage.getItem('forexTrades')) || [];
+        let tradeIdCounter = parseInt(localStorage.getItem('tradeIdCounter')) || 1;
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+        // Set today's date as default
+        document.getElementById('tradeDate').valueAsDate = new Date();
+
+        // Currency pair pip values (for major pairs)
+        const pipValues = {
+            'XAU/USD': 10, 'EUR/USD': 10, 'GBP/USD': 10, 'AUD/USD': 10, 'NZD/USD': 10,
+            'USD/JPY': 9.09, 'USD/CAD': 7.69, 'USD/CHF': 10,
+            'EUR/GBP': 12.82, 'EUR/JPY': 9.09, 'GBP/JPY': 9.09
+        };
+
+        function calculatePips(pair, entryPrice, exitPrice, tradeType) {
+            const priceDiff = tradeType === 'BUY' ? (exitPrice - entryPrice) : (entryPrice - exitPrice);
+            
+            // For XAU/USD (Gold), pip is 0.1, for JPY pairs pip is 0.01, for others it's 0.0001
+            let pipSize;
+            if (pair === 'XAU/USD') {
+                pipSize = 0.1;
+            } else if (pair.includes('JPY')) {
+                pipSize = 0.01;
+            } else {
+                pipSize = 0.0001;
+            }
+            
+            return Math.round(priceDiff / pipSize * 10) / 10;
+        }
+
+        function calculatePnL(pair, lotSize, pips) {
+            const pipValue = pipValues[pair] || 10;
+            return Math.round(lotSize * pips * pipValue * 100) / 100;
+        }
+
+        function addTrade(tradeData) {
+            // Check if user has permission to add trades
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            if (!hasPermission('trade')) {
+                showErrorMessage('คุณไม่มีสิทธิ์ในการเพิ่มรายการเทรด');
+                return;
+            }
+            
+            const trade = {
+                id: tradeIdCounter++,
+                ...tradeData,
+                timestamp: new Date().toISOString(),
+                userId: currentUser.username,
+                userDisplayName: currentUser.displayName
+            };
+            
+            trades.unshift(trade);
+            saveTrades();
+            updateDisplay();
+            
+            // Show success notification
+            showSuccessMessage('บันทึกรายการเทรดเรียบร้อยแล้ว! 📊');
+        }
+
+        function hasPermission(action) {
+            if (!currentUser || !currentUser.permissions) return false;
+            return currentUser.permissions.includes('all') || currentUser.permissions.includes(action);
+        }
+
+        function showErrorMessage(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+            errorDiv.innerHTML = `❌ ${message}`;
+            document.body.appendChild(errorDiv);
+            
+            // Animate in
+            setTimeout(() => errorDiv.classList.remove('translate-x-full'), 100);
+            
+            // Animate out and remove
+            setTimeout(() => {
+                errorDiv.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (errorDiv.parentNode) errorDiv.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        function deleteTrade(id) {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            if (!hasPermission('trade')) {
+                showErrorMessage('คุณไม่มีสิทธิ์ในการลบรายการเทรด');
+                return;
+            }
+            
+            // Create custom confirmation dialog
+            const confirmDialog = document.createElement('div');
+            confirmDialog.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            confirmDialog.innerHTML = `
+                <div class="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🗑️</div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">ลบรายการเทรด</h3>
+                        <p class="text-gray-600 mb-6">คุณแน่ใจหรือไม่ที่จะลบรายการนี้?</p>
+                        <div class="flex gap-3">
+                            <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded-lg transition-colors">
+                                ยกเลิก
+                            </button>
+                            <button onclick="confirmDeleteTrade(${id})" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors">
+                                ลบ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(confirmDialog);
+        }
+
+        function confirmDeleteTrade(id) {
+            trades = trades.filter(trade => trade.id !== id);
+            saveTrades();
+            updateDisplay();
+            
+            // Remove confirmation dialog
+            document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50').remove();
+            
+            showSuccessMessage('ลบรายการเทรดเรียบร้อยแล้ว');
+        }
+
+        function clearAllTrades() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            if (!hasPermission('trade')) {
+                showErrorMessage('คุณไม่มีสิทธิ์ในการลบรายการเทรด');
+                return;
+            }
+            
+            // Create custom confirmation dialog
+            const confirmDialog = document.createElement('div');
+            confirmDialog.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            confirmDialog.innerHTML = `
+                <div class="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">⚠️</div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">ลบรายการทั้งหมด</h3>
+                        <p class="text-gray-600 mb-6">คุณแน่ใจหรือไม่ที่จะลบรายการเทรดทั้งหมด? การกระทำนี้ไม่สามารถยกเลิกได้</p>
+                        <div class="flex gap-3">
+                            <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded-lg transition-colors">
+                                ยกเลิก
+                            </button>
+                            <button onclick="confirmClearAllTrades()" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors">
+                                ลบทั้งหมด
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(confirmDialog);
+        }
+
+        function confirmClearAllTrades() {
+            trades = [];
+            tradeIdCounter = 1;
+            saveTrades();
+            updateDisplay();
+            
+            // Remove confirmation dialog
+            document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50').remove();
+            
+            showSuccessMessage('ลบรายการเทรดทั้งหมดเรียบร้อยแล้ว');
+        }
+
+        function saveTrades() {
+            if (currentUser) {
+                // Save trades specific to current user
+                const userTradesKey = `forexTrades_${currentUser.username}`;
+                const userCounterKey = `tradeIdCounter_${currentUser.username}`;
+                
+                localStorage.setItem(userTradesKey, JSON.stringify(trades));
+                localStorage.setItem(userCounterKey, tradeIdCounter.toString());
+                
+                // Also save last activity timestamp
+                localStorage.setItem(`lastActivity_${currentUser.username}`, new Date().toISOString());
+            } else {
+                // Fallback to general storage if no user logged in
+                localStorage.setItem('forexTrades', JSON.stringify(trades));
+                localStorage.setItem('tradeIdCounter', tradeIdCounter.toString());
+            }
+        }
+
+        function updateDisplay() {
+            updateTradesTable();
+            updateSummaryStats();
+            updateMonthlyChart();
+            updateUIPermissions();
+        }
+
+        function updateUIPermissions() {
+            // Update form visibility based on permissions
+            const tradeForm = document.getElementById('tradeForm').parentElement;
+            const clearButton = document.querySelector('[onclick="clearAllTrades()"]');
+            
+            if (!hasPermission('trade')) {
+                // Disable form inputs
+                const inputs = tradeForm.querySelectorAll('input, select, textarea, button');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                    input.classList.add('opacity-50', 'cursor-not-allowed');
+                });
+                
+                // Add notice
+                if (!tradeForm.querySelector('.permission-notice')) {
+                    const notice = document.createElement('div');
+                    notice.className = 'permission-notice mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-700 text-sm';
+                    notice.innerHTML = '🔒 คุณมีสิทธิ์ดูข้อมูลเท่านั้น ไม่สามารถเพิ่มหรือแก้ไขรายการเทรดได้';
+                    tradeForm.appendChild(notice);
+                }
+                
+                // Disable clear button
+                if (clearButton) {
+                    clearButton.disabled = true;
+                    clearButton.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            } else {
+                // Enable form inputs
+                const inputs = tradeForm.querySelectorAll('input, select, textarea, button');
+                inputs.forEach(input => {
+                    input.disabled = false;
+                    input.classList.remove('opacity-50', 'cursor-not-allowed');
+                });
+                
+                // Remove notice
+                const notice = tradeForm.querySelector('.permission-notice');
+                if (notice) notice.remove();
+                
+                // Enable clear button
+                if (clearButton) {
+                    clearButton.disabled = false;
+                    clearButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+            }
+        }
+
+        function updateTradesTable() {
+            const tbody = document.getElementById('tradesTableBody');
+            
+            if (trades.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center py-8 text-gray-500">
+                            ยังไม่มีรายการเทรด กรุณาเพิ่มรายการแรกของคุณ
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = trades.map(trade => {
+                const pips = calculatePips(trade.currencyPair, trade.entryPrice, trade.exitPrice, trade.tradeType);
+                const pnl = calculatePnL(trade.currencyPair, trade.lotSize, pips);
+                const pnlClass = pnl >= 0 ? 'profit' : 'loss';
+                const pnlIcon = pnl >= 0 ? '📈' : '📉';
+                
+                return `
+                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                        <td class="py-2 lg:py-3 px-1 lg:px-2 text-xs lg:text-sm">${new Date(trade.tradeDate).toLocaleDateString('th-TH')}</td>
+                        <td class="py-2 lg:py-3 px-1 lg:px-2">
+                            <span class="currency-pair text-white px-1 lg:px-2 py-1 rounded text-xs lg:text-sm font-medium">
+                                ${trade.currencyPair}
+                            </span>
+                        </td>
+                        <td class="py-2 lg:py-3 px-1 lg:px-2">
+                            <span class="px-1 lg:px-2 py-1 rounded text-xs lg:text-sm font-medium ${trade.tradeType === 'BUY' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                                ${trade.tradeType}
+                            </span>
+                        </td>
+                        <td class="py-2 lg:py-3 px-1 lg:px-2 text-xs lg:text-sm">${trade.lotSize}</td>
+                        <td class="py-2 lg:py-3 px-1 lg:px-2 text-xs lg:text-sm font-mono">${trade.entryPrice}</td>
+                        <td class="py-2 lg:py-3 px-1 lg:px-2 text-xs lg:text-sm font-mono">${trade.exitPrice}</td>
+                        <td class="py-2 lg:py-3 px-1 lg:px-2 text-xs lg:text-sm font-bold ${pips >= 0 ? 'text-green-600' : 'text-red-600'}">${pips > 0 ? '+' : ''}${pips}</td>
+                        <td class="py-2 lg:py-3 px-1 lg:px-2">
+                            <span class="px-1 lg:px-2 py-1 rounded text-xs lg:text-sm font-bold ${pnlClass}">
+                                ${pnlIcon} ${pnl >= 0 ? '+' : ''}$${pnl.toFixed(2)}
+                            </span>
+                        </td>
+                        <td class="py-2 lg:py-3 px-1 lg:px-2">
+                            ${hasPermission('trade') ? `
+                                <button onclick="deleteTrade(${trade.id})" class="text-red-500 hover:text-red-700 text-xs lg:text-sm p-1 hover:bg-red-50 rounded transition-colors" title="ลบรายการ">
+                                    🗑️
+                                </button>
+                            ` : `
+                                <span class="text-gray-400 text-xs">🔒</span>
+                            `}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateSummaryStats() {
+            const totalProfit = trades.reduce((sum, trade) => {
+                const pips = calculatePips(trade.currencyPair, trade.entryPrice, trade.exitPrice, trade.tradeType);
+                const pnl = calculatePnL(trade.currencyPair, trade.lotSize, pips);
+                return sum + (pnl > 0 ? pnl : 0);
+            }, 0);
+
+            const totalLoss = trades.reduce((sum, trade) => {
+                const pips = calculatePips(trade.currencyPair, trade.entryPrice, trade.exitPrice, trade.tradeType);
+                const pnl = calculatePnL(trade.currencyPair, trade.lotSize, pips);
+                return sum + (pnl < 0 ? Math.abs(pnl) : 0);
+            }, 0);
+
+            const netPnL = totalProfit - totalLoss;
+            const winningTrades = trades.filter(trade => {
+                const pips = calculatePips(trade.currencyPair, trade.entryPrice, trade.exitPrice, trade.tradeType);
+                const pnl = calculatePnL(trade.currencyPair, trade.lotSize, pips);
+                return pnl > 0;
+            }).length;
+
+            const winRate = trades.length > 0 ? (winningTrades / trades.length * 100) : 0;
+
+            document.getElementById('totalProfit').textContent = `$${totalProfit.toFixed(2)}`;
+            document.getElementById('totalLoss').textContent = `$${totalLoss.toFixed(2)}`;
+            document.getElementById('netPnL').textContent = `$${netPnL.toFixed(2)}`;
+            document.getElementById('netPnL').className = `font-bold ${netPnL >= 0 ? 'text-green-700' : 'text-red-700'}`;
+            document.getElementById('totalTrades').textContent = trades.length;
+            document.getElementById('winRate').textContent = `${winRate.toFixed(1)}%`;
+        }
+
+        function updateMonthlyChart() {
+            const chartContainer = document.getElementById('monthlyChart');
+            
+            if (trades.length === 0) {
+                chartContainer.innerHTML = `
+                    <div class="text-center">
+                        <div class="text-4xl mb-2">📈</div>
+                        <div class="text-lg">กราฟจะแสดงเมื่อมีข้อมูลการเทรด</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Group trades by month
+            const monthlyData = {};
+            trades.forEach(trade => {
+                const date = new Date(trade.tradeDate);
+                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                
+                if (!monthlyData[monthKey]) {
+                    monthlyData[monthKey] = 0;
+                }
+                
+                const pips = calculatePips(trade.currencyPair, trade.entryPrice, trade.exitPrice, trade.tradeType);
+                const pnl = calculatePnL(trade.currencyPair, trade.lotSize, pips);
+                monthlyData[monthKey] += pnl;
+            });
+
+            // Create simple bar chart
+            const months = Object.keys(monthlyData).sort();
+            const maxValue = Math.max(...Object.values(monthlyData).map(Math.abs));
+            
+            chartContainer.innerHTML = `
+                <div class="w-full h-full p-4">
+                    <div class="flex items-end justify-around h-full">
+                        ${months.map(month => {
+                            const value = monthlyData[month];
+                            const height = Math.abs(value) / maxValue * 80;
+                            const color = value >= 0 ? 'bg-green-400' : 'bg-red-400';
+                            
+                            return `
+                                <div class="flex flex-col items-center">
+                                    <div class="text-xs text-white mb-1">$${value.toFixed(0)}</div>
+                                    <div class="${color} rounded-t" style="height: ${height}%; width: 40px; min-height: 4px;"></div>
+                                    <div class="text-xs text-white mt-2 transform rotate-45">${month}</div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Form submission
+        document.getElementById('tradeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check authentication first
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            if (!hasPermission('trade')) {
+                showErrorMessage('คุณไม่มีสิทธิ์ในการเพิ่มรายการเทรด');
+                return;
+            }
+            
+            const formData = {
+                currencyPair: document.getElementById('currencyPair').value,
+                tradeType: document.getElementById('tradeType').value,
+                lotSize: parseFloat(document.getElementById('lotSize').value),
+                entryPrice: parseFloat(document.getElementById('entryPrice').value),
+                exitPrice: parseFloat(document.getElementById('exitPrice').value),
+                tradeDate: document.getElementById('tradeDate').value,
+                notes: document.getElementById('notes').value.trim()
+            };
+
+            // Enhanced validation
+            const errors = [];
+            
+            if (!formData.lotSize || formData.lotSize <= 0) {
+                errors.push('Lot Size ต้องมากกว่า 0');
+            }
+            
+            if (!formData.entryPrice || formData.entryPrice <= 0) {
+                errors.push('ราคาเปิดต้องมากกว่า 0');
+            }
+            
+            if (!formData.exitPrice || formData.exitPrice <= 0) {
+                errors.push('ราคาปิดต้องมากกว่า 0');
+            }
+            
+            if (!formData.tradeDate) {
+                errors.push('กรุณาเลือกวันที่เทรด');
+            }
+            
+            if (formData.lotSize > 100) {
+                errors.push('Lot Size ไม่ควรเกิน 100');
+            }
+            
+            // Check if trade date is not in the future
+            const tradeDate = new Date(formData.tradeDate);
+            const today = new Date();
+            today.setHours(23, 59, 59, 999); // End of today
+            
+            if (tradeDate > today) {
+                errors.push('วันที่เทรดไม่สามารถเป็นอนาคตได้');
+            }
+
+            if (errors.length > 0) {
+                showErrorMessage(errors.join('<br>'));
+                return;
+            }
+
+            // Add loading state
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '⏳ กำลังบันทึก...';
+            submitButton.disabled = true;
+
+            // Simulate processing time for better UX
+            setTimeout(() => {
+                addTrade(formData);
+                
+                // Reset form
+                document.getElementById('tradeForm').reset();
+                document.getElementById('tradeDate').valueAsDate = new Date();
+                
+                // Reset button
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+                
+                // Focus on first input for next entry
+                document.getElementById('currencyPair').focus();
+            }, 500);
+        });
+
+        // Sidebar functions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+            
+            // Close sidebar and restore scrolling
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Calculator function
+        function calculatePipValue() {
+            const pair = document.getElementById('calcPair').value;
+            const lot = parseFloat(document.getElementById('calcLot').value);
+            const pips = parseFloat(document.getElementById('calcPips').value);
+            
+            if (!lot || !pips) {
+                alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+                return;
+            }
+            
+            const result = calculatePnL(pair, lot, pips);
+            document.getElementById('calcResult').textContent = `$${result.toFixed(2)}`;
+        }
+
+        // Export/Import functions
+        function exportData() {
+            const data = {
+                trades: trades,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `forex-trades-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (data.trades && Array.isArray(data.trades)) {
+                            trades = data.trades;
+                            saveTrades();
+                            updateDisplay();
+                            alert('นำเข้าข้อมูลสำเร็จ!');
+                        } else {
+                            alert('ไฟล์ข้อมูลไม่ถูกต้อง');
+                        }
+                    } catch (error) {
+                        alert('เกิดข้อผิดพลาดในการอ่านไฟล์');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        // Authentication functions
+        function checkAuth() {
+            if (!currentUser) {
+                showLoginModal();
+                return false;
+            }
+            return true;
+        }
+
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function login(username, password, remember = false) {
+            // Enhanced authentication with more validation
+            const validUsers = {
+                'admin': { password: 'admin123', role: 'admin', displayName: 'ผู้ดูแลระบบ', permissions: ['all'] },
+                'trader': { password: 'trader123', role: 'trader', displayName: 'นักเทรด', permissions: ['trade', 'view'] },
+                'demo': { password: 'demo', role: 'demo', displayName: 'ผู้ใช้ทดลอง', permissions: ['view'] },
+                'user1': { password: '123456', role: 'trader', displayName: 'John Trader', permissions: ['trade', 'view'] },
+                'user2': { password: 'password', role: 'trader', displayName: 'Sarah Smith', permissions: ['trade', 'view'] }
+            };
+
+            // Input validation
+            if (!username || !password) {
+                showLoginError('กรุณากรอกชื่อผู้ใช้และรหัสผ่าน');
+                return false;
+            }
+
+            if (validUsers[username] && validUsers[username].password === password) {
+                currentUser = {
+                    username: username,
+                    displayName: validUsers[username].displayName,
+                    role: validUsers[username].role,
+                    permissions: validUsers[username].permissions,
+                    loginTime: new Date().toISOString(),
+                    sessionId: generateSessionId()
+                };
+
+                if (remember) {
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    localStorage.setItem('rememberLogin', 'true');
+                }
+
+                updateUserProfile();
+                hideLoginModal();
+                showSuccessMessage(`ยินดีต้อนรับ ${currentUser.displayName}! 🎉`);
+                
+                // Load user-specific data
+                loadUserData();
+                return true;
+            } else {
+                showLoginError('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+                return false;
+            }
+        }
+
+        function generateSessionId() {
+            return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function showLoginError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'mt-3 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm animate-pulse';
+            errorDiv.innerHTML = `❌ ${message}`;
+            
+            // Remove existing error
+            const existingError = document.querySelector('.bg-red-50');
+            if (existingError) existingError.remove();
+            
+            // Add new error
+            document.getElementById('loginForm').appendChild(errorDiv);
+            
+            // Remove error after 4 seconds
+            setTimeout(() => {
+                if (errorDiv.parentNode) errorDiv.remove();
+            }, 4000);
+        }
+
+        function showSuccessMessage(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+            successDiv.innerHTML = message;
+            document.body.appendChild(successDiv);
+            
+            // Animate in
+            setTimeout(() => successDiv.classList.remove('translate-x-full'), 100);
+            
+            // Animate out and remove
+            setTimeout(() => {
+                successDiv.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (successDiv.parentNode) successDiv.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        function loadUserData() {
+            // Load user-specific trades
+            const userTradesKey = `forexTrades_${currentUser.username}`;
+            const userTrades = JSON.parse(localStorage.getItem(userTradesKey)) || [];
+            trades = userTrades;
+            
+            const userCounterKey = `tradeIdCounter_${currentUser.username}`;
+            tradeIdCounter = parseInt(localStorage.getItem(userCounterKey)) || 1;
+            
+            updateDisplay();
+        }
+
+        function loginWithDemo(type) {
+            if (type === 'trader') {
+                login('demo', 'demo', true);
+            } else if (type === 'admin') {
+                login('admin', 'admin123', true);
+            }
+        }
+
+        function logout() {
+            // Create custom confirmation dialog
+            const confirmDialog = document.createElement('div');
+            confirmDialog.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            confirmDialog.innerHTML = `
+                <div class="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🚪</div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">ออกจากระบบ</h3>
+                        <p class="text-gray-600 mb-6">คุณแน่ใจหรือไม่ที่จะออกจากระบบ?</p>
+                        <div class="flex gap-3">
+                            <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded-lg transition-colors">
+                                ยกเลิก
+                            </button>
+                            <button onclick="confirmLogout()" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors">
+                                ออกจากระบบ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(confirmDialog);
+        }
+
+        function confirmLogout() {
+            // Clear user data
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('rememberLogin');
+            
+            // Clear current trades data
+            trades = [];
+            tradeIdCounter = 1;
+            
+            // Remove confirmation dialog
+            document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50').remove();
+            
+            // Close sidebar
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+            
+            // Reset UI to initial state
+            updateDisplay();
+            
+            // Reset user profile display
+            document.getElementById('userName').textContent = 'Guest User';
+            document.getElementById('userStatus').textContent = 'ออฟไลน์';
+            
+            // Show success message
+            showSuccessMessage('ออกจากระบบเรียบร้อยแล้ว! 👋');
+            
+            // Show login modal after a short delay
+            setTimeout(() => {
+                showLoginModal();
+            }, 1000);
+        }
+
+        function updateUserProfile() {
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.displayName;
+                document.getElementById('userStatus').textContent = 'ออนไลน์';
+                
+                // Update profile colors based on role
+                const profileDiv = document.getElementById('userProfile');
+                if (currentUser.role === 'admin') {
+                    profileDiv.className = profileDiv.className.replace('from-green-500 to-blue-600', 'from-purple-500 to-pink-600');
+                } else if (currentUser.role === 'trader') {
+                    profileDiv.className = profileDiv.className.replace('from-green-500 to-blue-600', 'from-blue-500 to-indigo-600');
+                } else {
+                    profileDiv.className = profileDiv.className.replace(/from-\w+-500 to-\w+-600/, 'from-green-500 to-blue-600');
+                }
+            }
+        }
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const remember = document.getElementById('rememberMe').checked;
+            
+            if (login(username, password, remember)) {
+                // Reset form
+                this.reset();
+            } else {
+                // Show error message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'mt-3 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm';
+                errorDiv.textContent = '❌ ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+                
+                // Remove existing error
+                const existingError = document.querySelector('.bg-red-50');
+                if (existingError) existingError.remove();
+                
+                // Add new error
+                this.appendChild(errorDiv);
+                
+                // Remove error after 3 seconds
+                setTimeout(() => errorDiv.remove(), 3000);
+            }
+        });
+
+        // Initialize authentication
+        function initAuth() {
+            if (currentUser) {
+                updateUserProfile();
+                hideLoginModal();
+            } else {
+                showLoginModal();
+            }
+        }
+
+        // Initialize display
+        updateDisplay();
+        initAuth();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96dee2d4857b10d6',t:'MTc1NDk5MDMxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
