@@ -470,9 +470,9 @@
                     </div>
                 </div>
 
-                <!-- Monthly Chart -->
+                <!-- Weekly Chart -->
                 <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 mt-4 lg:mt-6">
-                    <h3 class="text-lg lg:text-xl font-semibold text-indigo-800 mb-4">📊 กราฟผลการเทรดรายเดือน</h3>
+                    <h3 class="text-lg lg:text-xl font-semibold text-indigo-800 mb-4">📊 กราฟผลการเทรดรายสัปดาห์</h3>
                     <div id="monthlyChart" class="h-48 lg:h-64 chart-container rounded-lg flex items-center justify-center text-white">
                         <div class="text-center">
                             <div class="text-4xl mb-2">📈</div>
@@ -1338,41 +1338,94 @@
                 return;
             }
 
-            // Group trades by month
-            const monthlyData = {};
+            // Group trades by week (last 12 weeks)
+            const weeklyData = {};
+            const today = new Date();
+            
+            // Initialize last 12 weeks with 0
+            for (let i = 11; i >= 0; i--) {
+                const weekStart = new Date(today);
+                weekStart.setDate(weekStart.getDate() - (weekStart.getDay() + 7 * i)); // Start of week (Sunday)
+                weekStart.setHours(0, 0, 0, 0);
+                
+                const weekEnd = new Date(weekStart);
+                weekEnd.setDate(weekEnd.getDate() + 6); // End of week (Saturday)
+                weekEnd.setHours(23, 59, 59, 999);
+                
+                const weekKey = `${weekStart.getFullYear()}-W${Math.ceil((weekStart.getDate() + weekStart.getDay()) / 7)}`;
+                weeklyData[weekKey] = {
+                    value: 0,
+                    startDate: new Date(weekStart),
+                    endDate: new Date(weekEnd),
+                    trades: 0
+                };
+            }
+            
+            // Add trade data
             trades.forEach(trade => {
-                const date = new Date(trade.tradeDate);
-                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                const tradeDate = new Date(trade.tradeDate);
                 
-                if (!monthlyData[monthKey]) {
-                    monthlyData[monthKey] = 0;
-                }
-                
-                const pips = calculatePips(trade.currencyPair, trade.entryPrice, trade.exitPrice, trade.tradeType);
-                const pnl = calculatePnL(trade.currencyPair, trade.lotSize, pips);
-                monthlyData[monthKey] += pnl;
+                // Find which week this trade belongs to
+                Object.keys(weeklyData).forEach(weekKey => {
+                    const weekData = weeklyData[weekKey];
+                    if (tradeDate >= weekData.startDate && tradeDate <= weekData.endDate) {
+                        const pips = calculatePips(trade.currencyPair, trade.entryPrice, trade.exitPrice, trade.tradeType);
+                        const pnl = calculatePnL(trade.currencyPair, trade.lotSize, pips);
+                        weeklyData[weekKey].value += pnl;
+                        weeklyData[weekKey].trades += 1;
+                    }
+                });
             });
 
             // Create simple bar chart
-            const months = Object.keys(monthlyData).sort();
-            const maxValue = Math.max(...Object.values(monthlyData).map(Math.abs));
+            const weeks = Object.keys(weeklyData).sort();
+            const maxValue = Math.max(...Object.values(weeklyData).map(w => Math.abs(w.value)), 200); // Minimum scale of 200
+            
+            // Get current week for highlighting
+            const currentWeekStart = new Date(today);
+            currentWeekStart.setDate(currentWeekStart.getDate() - currentWeekStart.getDay());
+            currentWeekStart.setHours(0, 0, 0, 0);
             
             chartContainer.innerHTML = `
                 <div class="w-full h-full p-4">
-                    <div class="flex items-end justify-around h-full">
-                        ${months.map(month => {
-                            const value = monthlyData[month];
+                    <div class="flex items-end justify-start h-full overflow-x-auto gap-2">
+                        ${weeks.map((weekKey, index) => {
+                            const weekData = weeklyData[weekKey];
+                            const value = weekData.value;
                             const height = Math.abs(value) / maxValue * 80;
-                            const color = value >= 0 ? 'bg-green-400' : 'bg-red-400';
+                            const color = value > 0 ? 'bg-green-400' : value < 0 ? 'bg-red-400' : 'bg-gray-300';
+                            
+                            // Check if this is current week
+                            const isCurrentWeek = weekData.startDate.getTime() === currentWeekStart.getTime();
+                            
+                            // Get week label (start date)
+                            const weekLabel = `${weekData.startDate.getDate()}/${weekData.startDate.getMonth() + 1}`;
                             
                             return `
-                                <div class="flex flex-col items-center">
-                                    <div class="text-xs text-white mb-1">$${value.toFixed(0)}</div>
-                                    <div class="${color} rounded-t" style="height: ${height}%; width: 40px; min-height: 4px;"></div>
-                                    <div class="text-xs text-white mt-2 transform rotate-45">${month}</div>
+                                <div class="flex flex-col items-center min-w-0" style="flex: 0 0 auto; width: 40px;">
+                                    <div class="text-xs text-white mb-1 ${value !== 0 ? 'font-bold' : ''}" style="writing-mode: vertical-rl; text-orientation: mixed;">
+                                        ${value !== 0 ? '$' + value.toFixed(0) : ''}
+                                    </div>
+                                    <div class="${color} rounded-t ${isCurrentWeek ? 'ring-2 ring-yellow-300' : ''}" 
+                                         style="height: ${Math.max(height, 2)}%; width: 32px; min-height: 4px;"
+                                         title="สัปดาห์ ${weekLabel}: $${value.toFixed(2)} (${weekData.trades} เทรด)">
+                                    </div>
+                                    <div class="text-xs text-white mt-1 ${isCurrentWeek ? 'font-bold text-yellow-300' : ''} text-center">
+                                        <div>${weekLabel}</div>
+                                        ${weekData.trades > 0 ? `<div class="text-xs opacity-75">${weekData.trades}T</div>` : ''}
+                                    </div>
                                 </div>
                             `;
                         }).join('')}
+                    </div>
+                    <div class="text-center mt-2">
+                        <div class="text-xs text-white opacity-75">📅 ผลการเทรดรายสัปดาห์ (12 สัปดาห์ล่าสุด)</div>
+                        <div class="flex justify-center gap-4 mt-1 text-xs text-white opacity-75">
+                            <span>🟢 กำไร</span>
+                            <span>🔴 ขาดทุน</span>
+                            <span>⚪ ไม่มีเทรด</span>
+                            <span>💛 สัปดาห์นี้</span>
+                        </div>
                     </div>
                 </div>
             `;
@@ -2290,5 +2343,5 @@
         updateDisplay();
         initAuth();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96df4670643b4b8e',t:'MTc1NDk5NDM5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e0b443d4ad33b6',t:'MTc1NTAwOTM3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
