@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ประวัติแนะนำตัว</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Kanit', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .skill-bar {
+            transition: width 1s ease-in-out;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header Section -->
+    <header class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-6 text-center animate-fade-in">
+            <div class="relative w-32 h-32 mx-auto mb-6">
+                <div id="profileImageContainer" class="w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300" onclick="document.getElementById('profileImageInput').click()">
+                    <img id="profileImage" class="w-full h-full object-cover rounded-full hidden" alt="รูปโปรไฟล์">
+                    <svg id="defaultAvatar" class="w-20 h-20 text-indigo-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="absolute -bottom-2 -right-2 bg-indigo-600 text-white rounded-full p-2 shadow-lg cursor-pointer hover:bg-indigo-700 transition-colors duration-300" onclick="document.getElementById('profileImageInput').click()">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
+                <input type="file" id="profileImageInput" accept="image/*" class="hidden" onchange="changeProfileImage(event)">
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">สวัสดีครับ! 👋</h1>
+            <h2 class="text-2xl md:text-3xl font-light mb-6">ผม นายสมชาย ใจดี</h2>
+            <p class="text-xl opacity-90 max-w-2xl mx-auto">นักพัฒนาเว็บไซต์และนักออกแบบ UI/UX ที่หลงใหลในการสร้างสรรค์ประสบการณ์ดิจิทัลที่น่าประทับใจ</p>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">เกี่ยวกับฉัน</h3>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="animate-fade-in">
+                        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                            ผมเป็นนักพัฒนาเว็บไซต์ที่มีประสบการณ์มากกว่า 5 ปี ในการสร้างเว็บไซต์และแอปพลิเคชันที่ทันสมัย 
+                            ผมชอบเรียนรู้เทคโนโลยีใหม่ๆ และนำมาประยุกต์ใช้ในงานเพื่อสร้างผลงานที่มีคุณภาพ
+                        </p>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            นอกจากการเขียนโปรแกรมแล้ว ผมยังสนใจในด้านการออกแบบ UX/UI และการถ่ายภาพ 
+                            ซึ่งช่วยให้ผมมองเห็นภาพรวมของโปรเจกต์ได้ดีขึ้น
+                        </p>
+                    </div>
+                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-2xl">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-4">ข้อมูลส่วนตัว</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-3">🎂</span>
+                                <span class="text-gray-700">อายุ: 28 ปี</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-3">📍</span>
+                                <span class="text-gray-700">ที่อยู่: กรุงเทพมหานคร</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-3">🎓</span>
+                                <span class="text-gray-700">การศึกษา: วิทยาการคอมพิวเตอร์</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-3">💼</span>
+                                <span class="text-gray-700">ตำแหน่ง: Senior Developer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h3 class="text-3xl font-bold text-gray-800 mb-12 text-center">ทักษะและความเชี่ยวชาญ</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-6">เทคนิคการเขียนโปรแกรม</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-700">JavaScript</span>
+                                    <span class="text-gray-500">90%</span>
+                                </div>
+                                <div class="bg-gray-200 rounded-full h-3">
+                                    <div class="bg-indigo-600 h-3 rounded-full skill-bar" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-700">React.js</span>
+                                    <span class="text-gray-500">85%</span>
+                                </div>
+                                <div class="bg-gray-200 rounded-full h-3">
+                                    <div class="bg-blue-600 h-3 rounded-full skill-bar" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-700">Node.js</span>
+                                    <span class="text-gray-500">80%</span>
+                                </div>
+                                <div class="bg-gray-200 rounded-full h-3">
+                                    <div class="bg-green-600 h-3 rounded-full skill-bar" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-700">Python</span>
+                                    <span class="text-gray-500">75%</span>
+                                </div>
+                                <div class="bg-gray-200 rounded-full h-3">
+                                    <div class="bg-yellow-600 h-3 rounded-full skill-bar" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-6">ทักษะอื่นๆ</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-700">UI/UX Design</span>
+                                    <span class="text-gray-500">85%</span>
+                                </div>
+                                <div class="bg-gray-200 rounded-full h-3">
+                                    <div class="bg-purple-600 h-3 rounded-full skill-bar" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-700">Database Design</span>
+                                    <span class="text-gray-500">80%</span>
+                                </div>
+                                <div class="bg-gray-200 rounded-full h-3">
+                                    <div class="bg-red-600 h-3 rounded-full skill-bar" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-700">Project Management</span>
+                                    <span class="text-gray-500">75%</span>
+                                </div>
+                                <div class="bg-gray-200 rounded-full h-3">
+                                    <div class="bg-pink-600 h-3 rounded-full skill-bar" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-700">Photography</span>
+                                    <span class="text-gray-500">70%</span>
+                                </div>
+                                <div class="bg-gray-200 rounded-full h-3">
+                                    <div class="bg-teal-600 h-3 rounded-full skill-bar" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h3 class="text-3xl font-bold text-gray-800 mb-12 text-center">ประสบการณ์การทำงาน</h3>
+                <div class="space-y-8">
+                    <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-2xl card-hover">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h4 class="text-xl font-semibold text-gray-800">Senior Web Developer</h4>
+                            <span class="text-indigo-600 font-medium">2021 - ปัจจุบัน</span>
+                        </div>
+                        <p class="text-gray-600 mb-3">บริษัท เทคโนโลยี จำกัด</p>
+                        <p class="text-gray-700">พัฒนาและดูแลเว็บแอปพลิเคชันขนาดใหญ่ นำทีมในการออกแบบ architecture และ mentoring นักพัฒนารุ่นใหม่</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-blue-50 to-cyan-50 p-8 rounded-2xl card-hover">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h4 class="text-xl font-semibold text-gray-800">Frontend Developer</h4>
+                            <span class="text-blue-600 font-medium">2019 - 2021</span>
+                        </div>
+                        <p class="text-gray-600 mb-3">บริษัท ดิจิทัล โซลูชั่น จำกัด</p>
+                        <p class="text-gray-700">สร้างและพัฒนา user interface ที่ responsive และ user-friendly สำหรับเว็บไซต์และแอปพลิเคชันต่างๆ</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-8 rounded-2xl card-hover">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h4 class="text-xl font-semibold text-gray-800">Junior Developer</h4>
+                            <span class="text-green-600 font-medium">2018 - 2019</span>
+                        </div>
+                        <p class="text-gray-600 mb-3">บริษัท สตาร์ทอัพ เทค จำกัด</p>
+                        <p class="text-gray-700">เริ่มต้นอาชีพในการพัฒนาเว็บไซต์ เรียนรู้และฝึกฝนทักษะการเขียนโปรแกรมในสภาพแวดล้อมจริง</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 gradient-bg text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-3xl font-bold mb-8">ติดต่อฉัน</h3>
+            <p class="text-xl opacity-90 mb-12 max-w-2xl mx-auto">
+                หากคุณสนใจที่จะทำงานร่วมกันหรือมีโปรเจกต์ที่น่าสนใจ อย่าลังเลที่จะติดต่อมา!
+            </p>
+            <div class="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+                <div class="bg-white bg-opacity-10 p-6 rounded-2xl card-hover backdrop-blur-sm">
+                    <div class="text-3xl mb-4">📧</div>
+                    <h4 class="font-semibold mb-2">อีเมล</h4>
+                    <p class="opacity-90">somchai@email.com</p>
+                </div>
+                <div class="bg-white bg-opacity-10 p-6 rounded-2xl card-hover backdrop-blur-sm">
+                    <div class="text-3xl mb-4">📱</div>
+                    <h4 class="font-semibold mb-2">โทรศัพท์</h4>
+                    <p class="opacity-90">081-234-5678</p>
+                </div>
+                <div class="bg-white bg-opacity-10 p-6 rounded-2xl card-hover backdrop-blur-sm">
+                    <div class="text-3xl mb-4">💼</div>
+                    <h4 class="font-semibold mb-2">LinkedIn</h4>
+                    <p class="opacity-90">linkedin.com/in/somchai</p>
+                </div>
+            </div>
+            <div class="mt-12 space-y-4">
+                <div class="flex flex-wrap justify-center gap-4 mb-6">
+                    <a href="portfolio.html" class="bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300 shadow-lg inline-flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        ดูผลงาน
+                    </a>
+                    <a href="blog.html" class="bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300 shadow-lg inline-flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                        บล็อก
+                    </a>
+                    <a href="contact.html" class="bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300 shadow-lg inline-flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        ติดต่อ
+                    </a>
+                    <a href="dair.html" class="bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300 shadow-lg inline-flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        เรซูเม่
+                    </a>
+                </div>
+                <button onclick="scrollToTop()" class="bg-white bg-opacity-20 text-white px-8 py-3 rounded-full font-semibold hover:bg-opacity-30 transition duration-300 shadow-lg border border-white border-opacity-30">
+                    กลับไปด้านบน ↑
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Change profile image function
+        function changeProfileImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const profileImage = document.getElementById('profileImage');
+                    const defaultAvatar = document.getElementById('defaultAvatar');
+                    
+                    profileImage.src = e.target.result;
+                    profileImage.classList.remove('hidden');
+                    defaultAvatar.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Animate skill bars when they come into view
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-bar');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const width = entry.target.style.width;
+                        entry.target.style.width = '0%';
+                        setTimeout(() => {
+                            entry.target.style.width = width;
+                        }, 200);
+                    }
+                });
+            });
+
+            skillBars.forEach(bar => observer.observe(bar));
+        }
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            animateSkillBars();
+        });
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e929d842f44b64',t:'MTc1NTA5ODA4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
