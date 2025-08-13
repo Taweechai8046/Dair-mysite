@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ร้านค้าออนไลน์</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Kanit', sans-serif;
+        }
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .cart-badge {
+            animation: bounce 0.5s ease-in-out;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 -z-10">
+        <!-- Base gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50"></div>
+        
+        <!-- Floating geometric shapes -->
+        <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-30 animate-pulse"></div>
+        <div class="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-blue-200 to-purple-200 transform rotate-45 opacity-25 animate-bounce"></div>
+        <div class="absolute bottom-40 left-20 w-40 h-40 bg-gradient-to-r from-pink-200 to-purple-200 rounded-full opacity-20 animate-pulse" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-20 right-40 w-28 h-28 bg-gradient-to-r from-purple-200 to-blue-200 transform rotate-12 opacity-30 animate-bounce" style="animation-delay: 2s;"></div>
+        
+        <!-- Subtle pattern overlay -->
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 25% 25%, #8b5cf6 2px, transparent 2px), radial-gradient(circle at 75% 75%, #ec4899 2px, transparent 2px); background-size: 50px 50px;"></div>
+    </div>
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-white/20">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">🛍️</span>
+                    </div>
+                    <h1 class="text-2xl font-bold text-gray-800">ร้านค้าออนไลน์</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="about.html" class="text-gray-600 hover:text-purple-600 transition-colors duration-300 font-medium">เกี่ยวกับเรา</a>
+                    <a href="dair.html" class="text-gray-600 hover:text-purple-600 transition-colors duration-300 font-medium">ติดต่อ</a>
+                    <a href="products.html" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-200 transition-all duration-300">สินค้าทั้งหมด</a>
+                    <button id="cartBtn" class="relative bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 flex items-center space-x-2">
+                        <span>🛒</span>
+                        <span>ตะกร้า</span>
+                        <span id="cartCount" class="bg-white text-purple-500 rounded-full px-2 py-1 text-sm font-bold">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4">สินค้าคุณภาพดี</h2>
+            <p class="text-xl mb-8">ราคาสุดคุ้ม ส่งฟรีทั่วประเทศ</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="scrollToProducts()" class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-300">
+                    เลือกซื้อเลย
+                </button>
+                <a href="catalog.html" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-all duration-300 text-center">
+                    ดูแคตตาล็อก
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-16">
+        <div class="container mx-auto px-4">
+            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800">สินค้าแนะนำ</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-white/20">
+                    <div class="h-64 bg-gradient-to-br from-blue-100 to-blue-200 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop&crop=center" alt="สมาร์ทโฟน รุ่นใหม่" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src=''; this.alt='รูปภาพไม่สามารถโหลดได้'; this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-6xl\'>📱</div>';">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">สมาร์ทโฟน รุ่นใหม่</h4>
+                        <p class="text-gray-600 mb-4">หน้าจอ 6.5 นิ้ว กล้องความละเอียดสูง แบตเตอรี่ทนทาน</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-purple-600">฿15,990</span>
+                            <button onclick="addToCart('สมาร์ทโฟน รุ่นใหม่', 15990)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                                เพิ่มลงตะกร้า
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-white/20">
+                    <div class="h-64 bg-gradient-to-br from-green-100 to-green-200 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop&crop=center" alt="เสื้อยืดคุณภาพพรีเมียม" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src=''; this.alt='รูปภาพไม่สามารถโหลดได้'; this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-6xl\'>👕</div>';">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">เสื้อยืดคุณภาพพรีเมียม</h4>
+                        <p class="text-gray-600 mb-4">ผ้าคอตตอน 100% นุ่มสบาย ไม่หด ไม่ย้วย</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-purple-600">฿590</span>
+                            <button onclick="addToCart('เสื้อยืดคุณภาพพรีเมียม', 590)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                                เพิ่มลงตะกร้า
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-white/20">
+                    <div class="h-64 bg-gradient-to-br from-yellow-100 to-yellow-200 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&crop=center" alt="หูฟังไร้สาย" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src=''; this.alt='รูปภาพไม่สามารถโหลดได้'; this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-6xl\'>🎧</div>';">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">หูฟังไร้สาย</h4>
+                        <p class="text-gray-600 mb-4">เสียงใส เบสหนัก เชื่อมต่อ Bluetooth 5.0</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-purple-600">฿2,990</span>
+                            <button onclick="addToCart('หูฟังไร้สาย', 2990)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                                เพิ่มลงตะกร้า
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-white/20">
+                    <div class="h-64 bg-gradient-to-br from-red-100 to-red-200 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop&crop=center" alt="รองเท้าผ้าใบ" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src=''; this.alt='รูปภาพไม่สามารถโหลดได้'; this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-6xl\'>👟</div>';">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">รองเท้าผ้าใบ</h4>
+                        <p class="text-gray-600 mb-4">สไตล์สปอร์ต ใส่สบาย เหมาะกับทุกกิจกรรม</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-purple-600">฿1,890</span>
+                            <button onclick="addToCart('รองเท้าผ้าใบ', 1890)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                                เพิ่มลงตะกร้า
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-white/20">
+                    <div class="h-64 bg-gradient-to-br from-indigo-100 to-indigo-200 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop&crop=center" alt="แล็ปท็อป" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src=''; this.alt='รูปภาพไม่สามารถโหลดได้'; this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-6xl\'>💻</div>';">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">แล็ปท็อป</h4>
+                        <p class="text-gray-600 mb-4">หน้าจอ 14 นิ้ว RAM 8GB SSD 256GB เร็วแรง</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-purple-600">฿25,990</span>
+                            <button onclick="addToCart('แล็ปท็อป', 25990)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                                เพิ่มลงตะกร้า
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-white/20">
+                    <div class="h-64 bg-gradient-to-br from-pink-100 to-pink-200 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop&crop=center" alt="สมาร์ทวอทช์" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src=''; this.alt='รูปภาพไม่สามารถโหลดได้'; this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-6xl\'>⌚</div>';">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">สมาร์ทวอทช์</h4>
+                        <p class="text-gray-600 mb-4">วัดชีพจร ติดตามการออกกำลังกาย กันน้ำ</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-purple-600">฿4,990</span>
+                            <button onclick="addToCart('สมาร์ทวอทช์', 4990)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                                เพิ่มลงตะกร้า
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white/95 backdrop-blur-md rounded-2xl max-w-md w-full p-6 border border-white/20 shadow-2xl">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">ตะกร้าสินค้า</h3>
+                    <button onclick="closeCart()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                </div>
+                <div id="cartItems" class="space-y-4 mb-6">
+                    <p class="text-gray-500 text-center">ไม่มีสินค้าในตะกร้า</p>
+                </div>
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xl font-semibold">รวมทั้งหมด:</span>
+                        <span id="totalPrice" class="text-2xl font-bold text-purple-600">฿0</span>
+                    </div>
+                    <button id="checkoutBtn" onclick="checkout()" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-full font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-300 disabled:opacity-50" disabled>
+                        สั่งซื้อ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white/95 backdrop-blur-md rounded-2xl max-w-md w-full p-6 text-center border border-white/20 shadow-2xl">
+                <div class="text-6xl mb-4">✅</div>
+                <h3 class="text-2xl font-bold mb-4">สั่งซื้อสำเร็จ!</h3>
+                <p class="text-gray-600 mb-6">ขอบคุณที่ใช้บริการ เราจะจัดส่งสินค้าให้เร็วที่สุด</p>
+                <button onclick="closeSuccess()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                    ปิด
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">เกี่ยวกับเรา</h4>
+                    <p class="text-gray-300">ร้านค้าออนไลน์ที่มีสินค้าคุณภาพดี ราคาสุดคุ้ม พร้อมบริการส่งฟรีทั่วประเทศ</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">ติดต่อเรา</h4>
+                    <p class="text-gray-300">📞 02-123-4567</p>
+                    <p class="text-gray-300">📧 info@shop.com</p>
+                    <p class="text-gray-300">📍 กรุงเทพมหานคร</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">ลิงก์ด่วน</h4>
+                    <div class="space-y-2">
+                        <a href="policy.html" class="block text-gray-300 hover:text-white transition-colors duration-300">นโยบายความเป็นส่วนตัว</a>
+                        <a href="terms.html" class="block text-gray-300 hover:text-white transition-colors duration-300">ข้อกำหนดการใช้งาน</a>
+                        <a href="shipping.html" class="block text-gray-300 hover:text-white transition-colors duration-300">ข้อมูลการจัดส่ง</a>
+                        <a href="return.html" class="block text-gray-300 hover:text-white transition-colors duration-300">การคืนสินค้า</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 ร้านค้าออนไลน์ สงวนลิขสิทธิ์</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let cart = [];
+        let cartCount = 0;
+        let totalPrice = 0;
+
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function addToCart(productName, price) {
+            const existingItem = cart.find(item => item.name === productName);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: productName,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            cartCount++;
+            totalPrice += price;
+            
+            updateCartDisplay();
+            
+            // Add bounce animation to cart button
+            const cartBtn = document.getElementById('cartBtn');
+            cartBtn.classList.add('cart-badge');
+            setTimeout(() => {
+                cartBtn.classList.remove('cart-badge');
+            }, 500);
+        }
+
+        function updateCartDisplay() {
+            document.getElementById('cartCount').textContent = cartCount;
+            document.getElementById('totalPrice').textContent = `฿${totalPrice.toLocaleString()}`;
+            
+            const cartItems = document.getElementById('cartItems');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-gray-500 text-center">ไม่มีสินค้าในตะกร้า</p>';
+                checkoutBtn.disabled = true;
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <div>
+                            <h5 class="font-semibold">${item.name}</h5>
+                            <p class="text-sm text-gray-600">จำนวน: ${item.quantity}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold">฿${(item.price * item.quantity).toLocaleString()}</p>
+                            <button onclick="removeFromCart('${item.name}')" class="text-red-500 text-sm hover:text-red-700">ลบ</button>
+                        </div>
+                    </div>
+                `).join('');
+                checkoutBtn.disabled = false;
+            }
+        }
+
+        function removeFromCart(productName) {
+            const itemIndex = cart.findIndex(item => item.name === productName);
+            if (itemIndex > -1) {
+                const item = cart[itemIndex];
+                cartCount -= item.quantity;
+                totalPrice -= (item.price * item.quantity);
+                cart.splice(itemIndex, 1);
+                updateCartDisplay();
+            }
+        }
+
+        function openCart() {
+            document.getElementById('cartModal').classList.remove('hidden');
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').classList.add('hidden');
+        }
+
+        function checkout() {
+            if (cart.length > 0) {
+                // Clear cart
+                cart = [];
+                cartCount = 0;
+                totalPrice = 0;
+                updateCartDisplay();
+                
+                // Close cart modal
+                closeCart();
+                
+                // Show success modal
+                document.getElementById('successModal').classList.remove('hidden');
+            }
+        }
+
+        function closeSuccess() {
+            document.getElementById('successModal').classList.add('hidden');
+        }
+
+        // Event listeners
+        document.getElementById('cartBtn').addEventListener('click', openCart);
+
+        // Close modals when clicking outside
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCart();
+            }
+        });
+
+        document.getElementById('successModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSuccess();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e9127286ce4b89',t:'MTc1NTA5NzEyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
