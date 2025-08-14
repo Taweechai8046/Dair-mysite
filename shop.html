@@ -50,9 +50,11 @@
                     <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
                         <span class="text-white font-bold text-xl">🛍️</span>
                     </div>
-                    <h1 class="text-2xl font-bold text-gray-800">ร้านค้าออนไลน์</h1>
+                    <h1 class="text-xl md:text-2xl font-bold text-gray-800">ร้านค้าออนไลน์</h1>
                 </div>
-                <div class="flex items-center space-x-4">
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-4">
                     <a href="about.html" class="text-gray-600 hover:text-purple-600 transition-colors duration-300 font-medium">เกี่ยวกับเรา</a>
                     <a href="dair.html" class="text-gray-600 hover:text-purple-600 transition-colors duration-300 font-medium">ติดต่อ</a>
                     <a href="products.html" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-200 transition-all duration-300">สินค้าทั้งหมด</a>
@@ -62,20 +64,42 @@
                         <span id="cartCount" class="bg-white text-purple-500 rounded-full px-2 py-1 text-sm font-bold">0</span>
                     </button>
                 </div>
+
+                <!-- Mobile Navigation -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <button id="cartBtn" class="relative bg-gradient-to-r from-purple-500 to-pink-500 text-white p-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                        <span class="text-lg">🛒</span>
+                        <span id="cartCount" class="absolute -top-2 -right-2 bg-white text-purple-500 rounded-full px-2 py-1 text-xs font-bold min-w-[20px] text-center">0</span>
+                    </button>
+                    <button id="mobileMenuBtn" class="text-gray-600 hover:text-purple-600 p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden hidden mt-4 pb-4 border-t border-gray-200">
+                <div class="flex flex-col space-y-3 pt-4">
+                    <a href="about.html" class="text-gray-600 hover:text-purple-600 transition-colors duration-300 font-medium py-2">เกี่ยวกับเรา</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-purple-600 transition-colors duration-300 font-medium py-2">ติดต่อ</a>
+                    <a href="products.html" class="bg-gray-100 text-gray-700 px-4 py-3 rounded-full hover:bg-gray-200 transition-all duration-300 text-center">สินค้าทั้งหมด</a>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-16">
+    <section class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-12 md:py-16">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl md:text-6xl font-bold mb-4">สินค้าคุณภาพดี</h2>
-            <p class="text-xl mb-8">ราคาสุดคุ้ม ส่งฟรีทั่วประเทศ</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="scrollToProducts()" class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-300">
+            <h2 class="text-3xl md:text-4xl lg:text-6xl font-bold mb-4">สินค้าคุณภาพดี</h2>
+            <p class="text-lg md:text-xl mb-8">ราคาสุดคุ้ม ส่งฟรีทั่วประเทศ</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md sm:max-w-none mx-auto">
+                <button onclick="scrollToProducts()" class="bg-white text-purple-600 px-6 md:px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-300 touch-manipulation">
                     เลือกซื้อเลย
                 </button>
-                <a href="catalog.html" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-all duration-300 text-center">
+                <a href="catalog.html" class="bg-transparent border-2 border-white text-white px-6 md:px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-all duration-300 text-center touch-manipulation">
                     ดูแคตตาล็อก
                 </a>
             </div>
@@ -83,10 +107,10 @@
     </section>
 
     <!-- Products Section -->
-    <section id="products" class="py-16">
+    <section id="products" class="py-12 md:py-16">
         <div class="container mx-auto px-4">
-            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800">สินค้าแนะนำ</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">สินค้าแนะนำ</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Product 1 -->
                 <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-white/20">
                     <div class="h-64 bg-gradient-to-br from-blue-100 to-blue-200 overflow-hidden">
@@ -95,9 +119,9 @@
                     <div class="p-6">
                         <h4 class="text-xl font-semibold mb-2">สมาร์ทโฟน รุ่นใหม่</h4>
                         <p class="text-gray-600 mb-4">หน้าจอ 6.5 นิ้ว กล้องความละเอียดสูง แบตเตอรี่ทนทาน</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-purple-600">฿15,990</span>
-                            <button onclick="addToCart('สมาร์ทโฟน รุ่นใหม่', 15990)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
+                            <span class="text-xl md:text-2xl font-bold text-purple-600">฿15,990</span>
+                            <button onclick="addToCart('สมาร์ทโฟน รุ่นใหม่', 15990)" class="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 md:px-6 py-2 md:py-3 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 text-sm md:text-base touch-manipulation">
                                 เพิ่มลงตะกร้า
                             </button>
                         </div>
@@ -112,9 +136,9 @@
                     <div class="p-6">
                         <h4 class="text-xl font-semibold mb-2">เสื้อยืดคุณภาพพรีเมียม</h4>
                         <p class="text-gray-600 mb-4">ผ้าคอตตอน 100% นุ่มสบาย ไม่หด ไม่ย้วย</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-purple-600">฿590</span>
-                            <button onclick="addToCart('เสื้อยืดคุณภาพพรีเมียม', 590)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
+                            <span class="text-xl md:text-2xl font-bold text-purple-600">฿590</span>
+                            <button onclick="addToCart('เสื้อยืดคุณภาพพรีเมียม', 590)" class="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 md:px-6 py-2 md:py-3 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 text-sm md:text-base touch-manipulation">
                                 เพิ่มลงตะกร้า
                             </button>
                         </div>
@@ -129,9 +153,9 @@
                     <div class="p-6">
                         <h4 class="text-xl font-semibold mb-2">หูฟังไร้สาย</h4>
                         <p class="text-gray-600 mb-4">เสียงใส เบสหนัก เชื่อมต่อ Bluetooth 5.0</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-purple-600">฿2,990</span>
-                            <button onclick="addToCart('หูฟังไร้สาย', 2990)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
+                            <span class="text-xl md:text-2xl font-bold text-purple-600">฿2,990</span>
+                            <button onclick="addToCart('หูฟังไร้สาย', 2990)" class="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 md:px-6 py-2 md:py-3 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 text-sm md:text-base touch-manipulation">
                                 เพิ่มลงตะกร้า
                             </button>
                         </div>
@@ -146,9 +170,9 @@
                     <div class="p-6">
                         <h4 class="text-xl font-semibold mb-2">รองเท้าผ้าใบ</h4>
                         <p class="text-gray-600 mb-4">สไตล์สปอร์ต ใส่สบาย เหมาะกับทุกกิจกรรม</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-purple-600">฿1,890</span>
-                            <button onclick="addToCart('รองเท้าผ้าใบ', 1890)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
+                            <span class="text-xl md:text-2xl font-bold text-purple-600">฿1,890</span>
+                            <button onclick="addToCart('รองเท้าผ้าใบ', 1890)" class="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 md:px-6 py-2 md:py-3 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 text-sm md:text-base touch-manipulation">
                                 เพิ่มลงตะกร้า
                             </button>
                         </div>
@@ -163,9 +187,9 @@
                     <div class="p-6">
                         <h4 class="text-xl font-semibold mb-2">แล็ปท็อป</h4>
                         <p class="text-gray-600 mb-4">หน้าจอ 14 นิ้ว RAM 8GB SSD 256GB เร็วแรง</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-purple-600">฿25,990</span>
-                            <button onclick="addToCart('แล็ปท็อป', 25990)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
+                            <span class="text-xl md:text-2xl font-bold text-purple-600">฿25,990</span>
+                            <button onclick="addToCart('แล็ปท็อป', 25990)" class="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 md:px-6 py-2 md:py-3 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 text-sm md:text-base touch-manipulation">
                                 เพิ่มลงตะกร้า
                             </button>
                         </div>
@@ -180,9 +204,9 @@
                     <div class="p-6">
                         <h4 class="text-xl font-semibold mb-2">สมาร์ทวอทช์</h4>
                         <p class="text-gray-600 mb-4">วัดชีพจร ติดตามการออกกำลังกาย กันน้ำ</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-purple-600">฿4,990</span>
-                            <button onclick="addToCart('สมาร์ทวอทช์', 4990)" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
+                            <span class="text-xl md:text-2xl font-bold text-purple-600">฿4,990</span>
+                            <button onclick="addToCart('สมาร์ทวอทช์', 4990)" class="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 md:px-6 py-2 md:py-3 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 text-sm md:text-base touch-manipulation">
                                 เพิ่มลงตะกร้า
                             </button>
                         </div>
@@ -231,31 +255,31 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
+    <footer class="bg-gray-800 text-white py-8 md:py-12">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h4 class="text-xl font-semibold mb-4">เกี่ยวกับเรา</h4>
-                    <p class="text-gray-300">ร้านค้าออนไลน์ที่มีสินค้าคุณภาพดี ราคาสุดคุ้ม พร้อมบริการส่งฟรีทั่วประเทศ</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="text-center md:text-left">
+                    <h4 class="text-lg md:text-xl font-semibold mb-4">เกี่ยวกับเรา</h4>
+                    <p class="text-gray-300 text-sm md:text-base">ร้านค้าออนไลน์ที่มีสินค้าคุณภาพดี ราคาสุดคุ้ม พร้อมบริการส่งฟรีทั่วประเทศ</p>
                 </div>
-                <div>
-                    <h4 class="text-xl font-semibold mb-4">ติดต่อเรา</h4>
-                    <p class="text-gray-300">📞 02-123-4567</p>
-                    <p class="text-gray-300">📧 info@shop.com</p>
-                    <p class="text-gray-300">📍 กรุงเทพมหานคร</p>
+                <div class="text-center md:text-left">
+                    <h4 class="text-lg md:text-xl font-semibold mb-4">ติดต่อเรา</h4>
+                    <p class="text-gray-300 text-sm md:text-base">📞 02-123-4567</p>
+                    <p class="text-gray-300 text-sm md:text-base">📧 info@shop.com</p>
+                    <p class="text-gray-300 text-sm md:text-base">📍 กรุงเทพมหานคร</p>
                 </div>
-                <div>
-                    <h4 class="text-xl font-semibold mb-4">ลิงก์ด่วน</h4>
+                <div class="text-center md:text-left">
+                    <h4 class="text-lg md:text-xl font-semibold mb-4">ลิงก์ด่วน</h4>
                     <div class="space-y-2">
-                        <a href="policy.html" class="block text-gray-300 hover:text-white transition-colors duration-300">นโยบายความเป็นส่วนตัว</a>
-                        <a href="terms.html" class="block text-gray-300 hover:text-white transition-colors duration-300">ข้อกำหนดการใช้งาน</a>
-                        <a href="shipping.html" class="block text-gray-300 hover:text-white transition-colors duration-300">ข้อมูลการจัดส่ง</a>
-                        <a href="return.html" class="block text-gray-300 hover:text-white transition-colors duration-300">การคืนสินค้า</a>
+                        <a href="policy.html" class="block text-gray-300 hover:text-white transition-colors duration-300 text-sm md:text-base">นโยบายความเป็นส่วนตัว</a>
+                        <a href="terms.html" class="block text-gray-300 hover:text-white transition-colors duration-300 text-sm md:text-base">ข้อกำหนดการใช้งาน</a>
+                        <a href="shipping.html" class="block text-gray-300 hover:text-white transition-colors duration-300 text-sm md:text-base">ข้อมูลการจัดส่ง</a>
+                        <a href="return.html" class="block text-gray-300 hover:text-white transition-colors duration-300 text-sm md:text-base">การคืนสินค้า</a>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p class="text-gray-300">&copy; 2024 ร้านค้าออนไลน์ สงวนลิขสิทธิ์</p>
+            <div class="border-t border-gray-700 mt-6 md:mt-8 pt-6 md:pt-8 text-center">
+                <p class="text-gray-300 text-sm md:text-base">&copy; 202ถ ร้านค้าออนไลน์ สงวนลิขสิทธิ์</p>
             </div>
         </div>
     </footer>
@@ -361,8 +385,20 @@
             document.getElementById('successModal').classList.add('hidden');
         }
 
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
         // Event listeners
         document.getElementById('cartBtn').addEventListener('click', openCart);
+        
+        // Mobile menu button
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        }
 
         // Close modals when clicking outside
         document.getElementById('cartModal').addEventListener('click', function(e) {
@@ -377,5 +413,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e9127286ce4b89',t:'MTc1NTA5NzEyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96f0e4e570b655a1',t:'MTc1NTE3OTE0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
