@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Emergency Alert</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#dc2626">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SOS Emergency">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9IiNkYzI2MjYiLz4KPHRleHQgeD0iOTYiIHk9IjEyMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjcyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U09TPC90ZXh0Pgo8L3N2Zz4K">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iI2RjMjYyNiIvPgo8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlNPUzwvdGV4dD4KPC9zdmc+Cg==">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlNPUyBFbWVyZ2VuY3kgQWxlcnQiLAogICJzaG9ydF9uYW1lIjogIlNPUyIsCiAgImRlc2NyaXB0aW9uIjogIuC5geC4reC4m+C5geC4iuC5ieC5gOC4leC4t+C4reC4meC4n+C4uOC4geC5gOC4q+C4leC4uSIsCiAgInN0YXJ0X3VybCI6ICIuLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzFmMjkzNyIsCiAgInRoZW1lX2NvbG9yIjogIiNkYzI2MjYiLAogICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU1Ua3lJaUJvWldsbmFIUTlJakU1TWlJZ2RtbGxkMEp2ZUQwaU1DQXdJREU1TWlBeE9USWlJR1pwYkd3OUltNXZibVVpSUhodGJHNXpQU0pvZEhSd09pOHZkM2QzTG5jekxtOXlaeTh5TURBd0wzTjJaeUkrQ2p4eVpXTjBJSGRwWkhSb1BTSXhPVElpSUdobGFXZG9kRDBpTVRreUlpQnllRDBpTWpRaUlHWnBiR3c5SWlOa1l6STJNallpTHo0S1BIUmxlSFFnZUQwaU9UWWlJSGs5SWpFeU1DSWdabTl1ZEMxbVlXMXBiSGs5SWtGeWFXRnNMQ0J6WVc1ekxYTmxjbWxtSWlCbWIyNTBMWE5wZW1VOUlqY3lJaUJtYVd4c1BTSjNhR2wwWlNJZ2RHVjRkQzFoYm1Ob2IzSTlJbTFwWkdSc1pTSStVMDlUUEM5MFpYaDBQZ284TDNOMlp6NEsiLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9LAogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU5USXlJaUJvWldsbmFIUTlJalV5TWlJZ2RtbGxkMEp2ZUQwaU1DQXdJRFV5TWlBMU1qSWlJR1pwYkd3OUltNXZibVVpSUhodGJHNXpQU0pvZEhSd09pOHZkM2QzTG5jekxtOXlaeTh5TURBd0wzTjJaeUkrQ2p4eVpXTjBJSGRwWkhSb1BTSTFNaklpSUdobGFXZG9kRDBpTlRJeUlpQnllRDBpTmpRaUlHWnBiR3c5SWlOa1l6STJNall1THo0S1BIUmxlSFFnZUQwaU1qWXhJaUI1UFNJek5qQWlJR1p2Ym5RdFptRnRhV3g1UFNKQmNtbGhiQ3dnYzJGdWN5MXpaWEpwWmlJZ1ptOXVkQzF6YVhwbFBTSXhPVElpSUdacGJHdzlJbmRvYVhSbElpQjBaWGgwTFdGdVkyaHZjajBpYldsa1pHeGxJajVUVDFNOEwzUmxlSFErQ2p3dmMzWm5QZ29LIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfQogIF0KfQ==">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Kanit', sans-serif;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+        
+        .emergency-flash {
+            animation: flash 1s infinite alternate;
+        }
+        
+        @keyframes flash {
+            0% { background-color: #dc2626; }
+            100% { background-color: #ef4444; }
+        }
+        
+        .countdown {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-red-900 via-red-800 to-red-900 min-h-screen">
+    <div class="container mx-auto px-4 py-6 max-w-md">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="text-6xl mb-4">🚨</div>
+            <h1 class="text-3xl font-bold text-white mb-2">SOS Emergency</h1>
+            <p class="text-red-100">แอปแจ้งเตือนฉุกเฉิน</p>
+        </div>
+
+        <!-- Emergency Status -->
+        <div id="statusCard" class="bg-white rounded-2xl p-6 mb-6 shadow-2xl">
+            <div id="normalStatus" class="text-center">
+                <div class="text-4xl mb-3">✅</div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">สถานะปกติ</h2>
+                <p class="text-gray-600">กดปุ่ม SOS เมื่อเกิดเหตุฉุกเฉิน</p>
+            </div>
+            
+            <div id="emergencyStatus" class="text-center hidden">
+                <div class="text-4xl mb-3">⚠️</div>
+                <h2 class="text-xl font-semibold text-red-600 mb-2">กำลังส่งสัญญาณ SOS</h2>
+                <div id="countdown" class="countdown text-red-600 mb-3">5</div>
+                <p class="text-red-500 mb-4">กำลังแจ้งเตือนผู้ติดต่อฉุกเฉิน...</p>
+                <button id="cancelBtn" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-full font-medium transition-colors">
+                    ยกเลิก
+                </button>
+            </div>
+            
+            <div id="sentStatus" class="text-center hidden">
+                <div class="text-4xl mb-3">📱</div>
+                <h2 class="text-xl font-semibold text-green-600 mb-2">ส่งสัญญาณ SOS แล้ว</h2>
+                <p class="text-green-600 mb-4">แจ้งเตือนผู้ติดต่อฉุกเฉินเรียบร้อย</p>
+                <button id="resetBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full font-medium transition-colors">
+                    รีเซ็ต
+                </button>
+            </div>
+        </div>
+
+        <!-- Main SOS Button -->
+        <div class="text-center mb-8">
+            <button id="sosBtn" class="pulse-animation bg-red-600 hover:bg-red-700 text-white text-2xl font-bold py-8 px-8 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <div class="text-4xl mb-2">🆘</div>
+                SOS
+            </button>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <button onclick="callPolice()" class="bg-blue-600 hover:bg-blue-700 text-white py-4 px-4 rounded-xl font-medium transition-colors shadow-lg">
+                <div class="text-2xl mb-1">👮</div>
+                ตำรวจ 191
+            </button>
+            <button onclick="callAmbulance()" class="bg-green-600 hover:bg-green-700 text-white py-4 px-4 rounded-xl font-medium transition-colors shadow-lg">
+                <div class="text-2xl mb-1">🚑</div>
+                รพ.ฉุกเฉิน 1669
+            </button>
+            <button onclick="callFire()" class="bg-orange-600 hover:bg-orange-700 text-white py-4 px-4 rounded-xl font-medium transition-colors shadow-lg">
+                <div class="text-2xl mb-1">🚒</div>
+                ดับเพลิง 199
+            </button>
+            <button onclick="shareLocation()" class="bg-purple-600 hover:bg-purple-700 text-white py-4 px-4 rounded-xl font-medium transition-colors shadow-lg">
+                <div class="text-2xl mb-1">📍</div>
+                แชร์ตำแหน่ง
+            </button>
+        </div>
+
+        <!-- Emergency Contacts -->
+        <div class="bg-white bg-opacity-10 rounded-xl p-4 backdrop-blur-sm">
+            <h3 class="text-white font-semibold mb-3 flex items-center">
+                <span class="text-xl mr-2">📞</span>
+                ผู้ติดต่อฉุกเฉิน
+            </h3>
+            <div class="space-y-2">
+                <div class="flex justify-between items-center bg-white bg-opacity-20 rounded-lg p-3">
+                    <div>
+                        <div class="text-white font-medium">คุณ Dair</div>
+                        <div class="text-red-100 text-sm">094-684-4046</div>
+                    </div>
+                    <button onclick="callContact('094-684-4046')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-full text-sm transition-colors">
+                        โทร
+                    </button>
+                </div>
+                <div class="flex justify-between items-center bg-white bg-opacity-20 rounded-lg p-3">
+                    <div>
+                        <div class="text-white font-medium">คุณ Beer</div>
+                        <div class="text-red-100 text-sm">065-5709-3840</div>
+                    </div>
+                    <button onclick="callContact('065-5709-3840')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-full text-sm transition-colors">
+                        โทร
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Display -->
+        <div id="locationInfo" class="mt-4 bg-white bg-opacity-10 rounded-xl p-4 backdrop-blur-sm hidden">
+            <h3 class="text-white font-semibold mb-2 flex items-center">
+                <span class="text-xl mr-2">🗺️</span>
+                ตำแหน่งปัจจุบัน
+            </h3>
+            <div id="coordinates" class="text-red-100 text-sm"></div>
+        </div>
+
+        <!-- Install Prompt -->
+        <div id="installPrompt" class="fixed bottom-4 left-4 right-4 bg-white rounded-xl p-4 shadow-2xl border-2 border-red-500 hidden">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="text-2xl mr-3">📱</div>
+                    <div>
+                        <div class="font-semibold text-gray-800">ติดตั้งแอป SOS</div>
+                        <div class="text-sm text-gray-600">ใช้งานได้แม้ไม่มีอินเทอร์เน็ต</div>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button id="installBtn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                        ติดตั้ง
+                    </button>
+                    <button id="dismissBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-3 py-2 rounded-lg text-sm transition-colors">
+                        ✕
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let countdownTimer;
+        let countdownValue = 5;
+        let deferredPrompt;
+        
+        const sosBtn = document.getElementById('sosBtn');
+        const normalStatus = document.getElementById('normalStatus');
+        const emergencyStatus = document.getElementById('emergencyStatus');
+        const sentStatus = document.getElementById('sentStatus');
+        const countdownDisplay = document.getElementById('countdown');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const statusCard = document.getElementById('statusCard');
+        const installPrompt = document.getElementById('installPrompt');
+        const installBtn = document.getElementById('installBtn');
+        const dismissBtn = document.getElementById('dismissBtn');
+        
+        sosBtn.addEventListener('click', startEmergency);
+        cancelBtn.addEventListener('click', cancelEmergency);
+        resetBtn.addEventListener('click', resetApp);
+        installBtn.addEventListener('click', installApp);
+        dismissBtn.addEventListener('click', dismissInstallPrompt);
+        
+        // PWA Install Prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install prompt after 3 seconds if not already installed
+            setTimeout(() => {
+                if (!window.matchMedia('(display-mode: standalone)').matches) {
+                    installPrompt.classList.remove('hidden');
+                }
+            }, 3000);
+        });
+        
+        // Hide install prompt if already installed
+        window.addEventListener('appinstalled', () => {
+            installPrompt.classList.add('hidden');
+            deferredPrompt = null;
+        });
+        
+        function startEmergency() {
+            // Hide normal status, show emergency status
+            normalStatus.classList.add('hidden');
+            emergencyStatus.classList.remove('hidden');
+            statusCard.classList.add('emergency-flash');
+            
+            // Start countdown
+            countdownValue = 5;
+            countdownDisplay.textContent = countdownValue;
+            
+            countdownTimer = setInterval(() => {
+                countdownValue--;
+                countdownDisplay.textContent = countdownValue;
+                
+                if (countdownValue <= 0) {
+                    clearInterval(countdownTimer);
+                    sendSOSAlert();
+                }
+            }, 1000);
+        }
+        
+        function cancelEmergency() {
+            clearInterval(countdownTimer);
+            resetToNormal();
+        }
+        
+        function sendSOSAlert() {
+            // Hide emergency status, show sent status
+            emergencyStatus.classList.add('hidden');
+            sentStatus.classList.remove('hidden');
+            statusCard.classList.remove('emergency-flash');
+            statusCard.classList.add('bg-green-50');
+            
+            // Get location and send alerts
+            getCurrentLocation();
+            
+            // Simulate sending alerts to emergency contacts
+            setTimeout(() => {
+                alert('✅ ส่งข้อความ SOS ไปยังผู้ติดต่อฉุกเฉินเรียบร้อยแล้ว\n\n"ฉันต้องการความช่วยเหลือฉุกเฉิน กรุณาติดต่อกลับด่วน"');
+            }, 1000);
+        }
+        
+        function resetApp() {
+            resetToNormal();
+        }
+        
+        function resetToNormal() {
+            clearInterval(countdownTimer);
+            normalStatus.classList.remove('hidden');
+            emergencyStatus.classList.add('hidden');
+            sentStatus.classList.add('hidden');
+            statusCard.classList.remove('emergency-flash', 'bg-green-50');
+            document.getElementById('locationInfo').classList.add('hidden');
+        }
+        
+        function callPolice() {
+            if (confirm('โทรหาตำรวจ 191?')) {
+                window.open('tel:191', '_self');
+            }
+        }
+        
+        function callAmbulance() {
+            if (confirm('โทรหารถพยาบาล 1669?')) {
+                window.open('tel:1669', '_self');
+            }
+        }
+        
+        function callFire() {
+            if (confirm('โทรหาดับเพลิง 199?')) {
+                window.open('tel:199', '_self');
+            }
+        }
+        
+        function callContact(number) {
+            if (confirm(`โทรหา ${number}?`)) {
+                window.open(`tel:${number}`, '_self');
+            }
+        }
+        
+        function shareLocation() {
+            getCurrentLocation();
+        }
+        
+        function getCurrentLocation() {
+            const locationInfo = document.getElementById('locationInfo');
+            const coordinates = document.getElementById('coordinates');
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude.toFixed(6);
+                        const lng = position.coords.longitude.toFixed(6);
+                        
+                        coordinates.innerHTML = `
+                            <div class="mb-2">📍 ${lat}, ${lng}</div>
+                            <div class="text-xs">ความแม่นยำ: ${position.coords.accuracy} เมตร</div>
+                            <button onclick="openMaps(${lat}, ${lng})" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                                เปิดแผนที่
+                            </button>
+                        `;
+                        locationInfo.classList.remove('hidden');
+                    },
+                    (error) => {
+                        coordinates.innerHTML = '<div class="text-red-200">ไม่สามารถระบุตำแหน่งได้</div>';
+                        locationInfo.classList.remove('hidden');
+                    }
+                );
+            } else {
+                coordinates.innerHTML = '<div class="text-red-200">เบราว์เซอร์ไม่รองรับการระบุตำแหน่ง</div>';
+                locationInfo.classList.remove('hidden');
+            }
+        }
+        
+        function openMaps(lat, lng) {
+            window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank');
+        }
+        
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                    installPrompt.classList.add('hidden');
+                });
+            }
+        }
+        
+        function dismissInstallPrompt() {
+            installPrompt.classList.add('hidden');
+            // Don't show again for this session
+            sessionStorage.setItem('installPromptDismissed', 'true');
+        }
+        
+        // Auto-get location on page load
+        window.addEventListener('load', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(() => {}, () => {});
+            }
+            
+            // Check if install prompt was dismissed this session
+            if (sessionStorage.getItem('installPromptDismissed')) {
+                installPrompt.classList.add('hidden');
+            }
+            
+            // Register service worker for offline functionality
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('data:application/javascript;base64,Y29uc3QgQ0FDSEVfTkFNRSA9ICdzb3MtYXBwLXYxJzsKY29uc3QgdXJsc1RvQ2FjaGUgPSBbCiAgJy4vJwpdOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZXZlbnQgPT4gewogIGV2ZW50LndhaXRVbnRpbCgKICAgIGNhY2hlcy5vcGVuKENBQ0hFX05BTUUpCiAgICAgIC50aGVuKGNhY2hlID0+IGNhY2hlLmFkZEFsbCh1cmxzVG9DYWNoZSkpCiAgKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgZXZlbnQgPT4gewogIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgY2FjaGVzLm1hdGNoKGV2ZW50LnJlcXVlc3QpCiAgICAgIC50aGVuKHJlc3BvbnNlID0+IHsKICAgICAgICByZXR1cm4gcmVzcG9uc2UgfHwgZmV0Y2goZXZlbnQucmVxdWVzdCk7CiAgICAgIH0pCiAgKTsKfSk7')
+                .then(() => console.log('Service Worker registered'))
+                .catch(err => console.log('Service Worker registration failed'));
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96f07d7896279102',t:'MTc1NTE3NDkwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
