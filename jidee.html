@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ห้างทองสุวรรณ - เครื่องประดับทองคำแท้</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Sarabun', sans-serif; }
+        .gold-gradient { background: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00); }
+        .shine-effect { animation: shine 2s infinite; }
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .product-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        .cart-badge { animation: pulse 0.5s ease-in-out; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="min-h-screen relative" style="background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    <div class="relative z-10">
+    <!-- Header -->
+    <header class="gold-gradient shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="text-4xl">💍</div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-white">ห้างทองดีใจ</h1>
+                        <p class="text-yellow-100 text-sm">เครื่องประดับทองคำแท้ 96.5%</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleCart()" class="relative bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg transition-all duration-300">
+                        <span class="text-xl">🛒</span>
+                        <span class="ml-2">ตะกร้า</span>
+                        <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center cart-badge">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gold-gradient py-16 text-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="shine-effect absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent w-1/3 h-full"></div>
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-5xl font-bold mb-4">✨ ทองแท้เยาว์ราช ✨</h2>
+            <p class="text-xl mb-8">เครื่องประดับทองคำคุณภาพสูง ราคายุติธรรม</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+                <div class="bg-white bg-opacity-20 px-6 py-4 rounded-xl backdrop-blur-sm">
+                    <div class="text-center">
+                        <div class="text-sm text-yellow-100 mb-1">ทองคำแท่ง ซื้อ</div>
+                        <div id="goldBuyPrice" class="text-xl font-bold">฿52,350/บาท</div>
+                        <div id="goldBuyChange" class="text-sm text-green-300">+120 (0.31%)</div>
+                    </div>
+                </div>
+                <div class="bg-white bg-opacity-20 px-6 py-4 rounded-xl backdrop-blur-sm">
+                    <div class="text-center">
+                        <div class="text-sm text-yellow-100 mb-1">ทองคำแท่ง ขาย</div>
+                        <div id="goldSellPrice" class="text-xl font-bold">฿52,150/บาท</div>
+                        <div id="goldSellChange" class="text-sm text-green-300">+120 (0.31%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 text-sm text-yellow-100">
+                <span id="lastUpdate">อัพเดทล่าสุด: วันนี้ 14:30 น.</span>
+                <span class="mx-2">•</span>
+                <span class="animate-pulse">🔄 อัพเดทอัตโนมัติ</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="py-12 bg-white bg-opacity-95 backdrop-blur-sm">
+        <div class="container mx-auto px-4">
+            <h3 class="text-3xl font-bold text-center mb-8 text-amber-800">หมวดหมู่สินค้า</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                <button onclick="filterProducts('all')" class="category-btn bg-white hover:bg-amber-100 p-6 rounded-xl shadow-lg text-center transition-all duration-300 border-2 border-transparent hover:border-amber-300">
+                    <div class="text-4xl mb-2">💎</div>
+                    <div class="font-semibold text-amber-800">ทั้งหมด</div>
+                </button>
+                <button onclick="filterProducts('necklace')" class="category-btn bg-white hover:bg-amber-100 p-6 rounded-xl shadow-lg text-center transition-all duration-300 border-2 border-transparent hover:border-amber-300">
+                    <div class="text-4xl mb-2">📿</div>
+                    <div class="font-semibold text-amber-800">สร้อยคอ</div>
+                </button>
+                <button onclick="filterProducts('ring')" class="category-btn bg-white hover:bg-amber-100 p-6 rounded-xl shadow-lg text-center transition-all duration-300 border-2 border-transparent hover:border-amber-300">
+                    <div class="text-4xl mb-2">💍</div>
+                    <div class="font-semibold text-amber-800">แหวน</div>
+                </button>
+                <button onclick="filterProducts('bracelet')" class="category-btn bg-white hover:bg-amber-100 p-6 rounded-xl shadow-lg text-center transition-all duration-300 border-2 border-transparent hover:border-amber-300">
+                    <div class="text-4xl mb-2">⌚</div>
+                    <div class="font-semibold text-amber-800">กำไล</div>
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Products will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
+                <div class="gold-gradient p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-2xl font-bold">🛒 ตะกร้าสินค้า</h3>
+                        <button onclick="toggleCart()" class="text-white hover:text-yellow-200 text-2xl">✕</button>
+                    </div>
+                </div>
+                <div class="p-6 overflow-y-auto max-h-96">
+                    <div id="cartItems">
+                        <div class="text-center text-gray-500 py-8">
+                            <div class="text-6xl mb-4">🛒</div>
+                            <p>ตะกร้าสินค้าว่างเปล่า</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t p-6 bg-gray-50">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xl font-bold">รวมทั้งหมด:</span>
+                        <span id="cartTotal" class="text-2xl font-bold text-amber-600">฿0</span>
+                    </div>
+                    <button id="checkoutBtn" onclick="checkout()" class="w-full gold-gradient text-white py-3 rounded-lg font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50" disabled>
+                        สั่งซื้อสินค้า 🛍️
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center">
+                <div class="text-6xl mb-4">🎉</div>
+                <h3 class="text-2xl font-bold text-green-600 mb-4">สั่งซื้อสำเร็จ!</h3>
+                <p class="text-gray-600 mb-6">ขอบคุณสำหรับการสั่งซื้อ<br>เราจะติดต่อกลับภายใน 24 ชั่วโมง</p>
+                <div class="bg-amber-50 p-4 rounded-lg mb-6">
+                    <p class="text-sm text-amber-800">
+                        📞 โทร: 02-123-4567<br>
+                        📧 อีเมล: info@suwanngold.com<br>
+                        🏪 ที่อยู่: 123 ถนนทองคำ กรุงเทพฯ
+                    </p>
+                </div>
+                <button onclick="closeSuccessModal()" class="gold-gradient text-white px-8 py-3 rounded-lg font-bold hover:opacity-90 transition-opacity">
+                    ปิด
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-amber-900 text-white py-12 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">ห้างทองดีใจ</h4>
+                    <p class="text-amber-200">เครื่องประดับทองคำแท้คุณภาพสูง มีใบรับประกันทุกชิ้น</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">ติดต่อเรา</h4>
+                    <div class="space-y-2 text-amber-200">
+                        <p>📞 02-123-4567</p>
+                        <p>📧 info@suwanngold.com</p>
+                        <p>🏪 123 ถนนทองคำ กรุงเทพฯ</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">เวลาทำการ</h4>
+                    <div class="space-y-2 text-amber-200">
+                        <p>จันทร์-เสาร์: 9:00-19:00</p>
+                        <p>อาทิตย์: 10:00-18:00</p>
+                        <p>วันหยุดนักขัตฤกษ์: ปิด</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-amber-700 mt-8 pt-8 text-center text-amber-200">
+                <p>&copy; 2025 ห้างทองดีใจ. สงวนลิขสิทธิ์.</p>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <script>
+        // Product data
+        const products = [
+            { id: 1, name: 'สร้อยคอทองคำ ลายโซ่', price: 45000, category: 'necklace', weight: '2 บาท', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 2, name: 'แหวนทองคำ ฝังเพชร', price: 35000, category: 'ring', weight: '1 บาท', image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 3, name: 'กำไลทองคำ ลายไทย', price: 55000, category: 'bracelet', weight: '3 บาท', image: 'https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 4, name: 'สร้อยคอทองคำ จี้หัวใจ', price: 28000, category: 'necklace', weight: '1.5 บาท', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 5, name: 'แหวนทองคำ ลายดอกไม้', price: 22000, category: 'ring', weight: '0.8 บาท', image: 'https://images.unsplash.com/photo-1603561596112-6a132309c3d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 6, name: 'กำไลทองคำ แบบเรียบ', price: 42000, category: 'bracelet', weight: '2.5 บาท', image: 'https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 7, name: 'สร้อยคอทองคำ ลายเชือก', price: 38000, category: 'necklace', weight: '2.2 บาท', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 8, name: 'แหวนทองคำ แบบคลาสสิค', price: 18000, category: 'ring', weight: '0.6 บาท', image: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' }
+        ];
+
+        let cart = [];
+        let currentFilter = 'all';
+
+        // Initialize the page
+        function init() {
+            displayProducts(products);
+            updateCartDisplay();
+        }
+
+        // Display products
+        function displayProducts(productsToShow) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = productsToShow.map(product => `
+                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src=''; this.alt='รูปภาพไม่สามารถโหลดได้'; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="w-full h-full bg-gradient-to-br from-yellow-100 to-amber-200 flex items-center justify-center text-6xl" style="display: none;">💎</div>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h4 class="font-bold text-lg mb-2 text-amber-800">${product.name}</h4>
+                        <p class="text-gray-600 mb-2">น้ำหนัก: ${product.weight}</p>
+                        <p class="text-2xl font-bold text-amber-600 mb-4">฿${product.price.toLocaleString()}</p>
+                        <button onclick="addToCart(${product.id})" class="w-full gold-gradient text-white py-2 px-4 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                            เพิ่มลงตะกร้า 🛒
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter products
+        function filterProducts(category) {
+            currentFilter = category;
+            const filteredProducts = category === 'all' ? products : products.filter(p => p.category === category);
+            displayProducts(filteredProducts);
+            
+            // Update active category button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('border-amber-300', 'bg-amber-100');
+                btn.classList.add('border-transparent', 'bg-white');
+            });
+            event.target.closest('.category-btn').classList.remove('border-transparent', 'bg-white');
+            event.target.closest('.category-btn').classList.add('border-amber-300', 'bg-amber-100');
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCartDisplay();
+            
+            // Animate cart badge
+            const cartCount = document.getElementById('cartCount');
+            cartCount.classList.add('cart-badge');
+            setTimeout(() => cartCount.classList.remove('cart-badge'), 500);
+        }
+
+        // Remove from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartDisplay();
+        }
+
+        // Update quantity
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        // Update cart display
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartCount.textContent = totalItems;
+            cartTotal.textContent = `฿${totalPrice.toLocaleString()}`;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="text-center text-gray-500 py-8">
+                        <div class="text-6xl mb-4">🛒</div>
+                        <p>ตะกร้าสินค้าว่างเปล่า</p>
+                    </div>
+                `;
+                checkoutBtn.disabled = true;
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="w-full h-full bg-gradient-to-br from-yellow-100 to-amber-200 flex items-center justify-center text-2xl" style="display: none;">💎</div>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold">${item.name}</h5>
+                                <p class="text-gray-600">฿${item.price.toLocaleString()}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center">-</button>
+                            <span class="font-semibold">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center">+</button>
+                            <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 ml-2">🗑️</button>
+                        </div>
+                    </div>
+                `).join('');
+                checkoutBtn.disabled = false;
+            }
+        }
+
+        // Toggle cart modal
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Checkout
+        function checkout() {
+            if (cart.length === 0) return;
+            
+            // Close cart modal
+            document.getElementById('cartModal').classList.add('hidden');
+            
+            // Show success modal
+            document.getElementById('successModal').classList.remove('hidden');
+            
+            // Clear cart
+            cart = [];
+            updateCartDisplay();
+        }
+
+        // Close success modal
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'cartModal') {
+                toggleCart();
+            }
+            if (e.target.id === 'successModal') {
+                closeSuccessModal();
+            }
+        });
+
+        // Gold price update system
+        function updateGoldPrices() {
+            // Simulate real-time gold price updates for 2025
+            const basePrice = 38500; // Updated base price for 2025
+            const variation = (Math.random() - 0.5) * 300; // ±150 baht variation
+            const buyPrice = Math.round(basePrice + variation - 100);
+            const sellPrice = Math.round(basePrice + variation + 100);
+            
+            // Calculate change from previous price
+            const prevBuyPrice = parseInt(document.getElementById('goldBuyPrice').textContent.replace(/[^\d]/g, '')) || buyPrice;
+            const prevSellPrice = parseInt(document.getElementById('goldSellPrice').textContent.replace(/[^\d]/g, '')) || sellPrice;
+            
+            const buyChange = buyPrice - prevBuyPrice;
+            const sellChange = sellPrice - prevSellPrice;
+            
+            // Update prices
+            document.getElementById('goldBuyPrice').textContent = `฿${buyPrice.toLocaleString()}/บาท`;
+            document.getElementById('goldSellPrice').textContent = `฿${sellPrice.toLocaleString()}/บาท`;
+            
+            // Update change indicators
+            const buyChangeElement = document.getElementById('goldBuyChange');
+            const sellChangeElement = document.getElementById('goldSellChange');
+            
+            const buyChangePercent = ((buyChange / prevBuyPrice) * 100).toFixed(2);
+            const sellChangePercent = ((sellChange / prevSellPrice) * 100).toFixed(2);
+            
+            buyChangeElement.textContent = `${buyChange >= 0 ? '+' : ''}${buyChange} (${buyChangePercent}%)`;
+            sellChangeElement.textContent = `${sellChange >= 0 ? '+' : ''}${sellChange} (${sellChangePercent}%)`;
+            
+            // Update colors based on change
+            buyChangeElement.className = `text-sm ${buyChange >= 0 ? 'text-green-300' : 'text-red-300'}`;
+            sellChangeElement.className = `text-sm ${sellChange >= 0 ? 'text-green-300' : 'text-red-300'}`;
+            
+            // Update timestamp
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('th-TH', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: false 
+            });
+            document.getElementById('lastUpdate').textContent = `อัพเดทล่าสุด: วันนี้ ${timeString} น.`;
+        }
+
+        // Start gold price updates every 30 seconds
+        function startGoldPriceUpdates() {
+            updateGoldPrices(); // Initial update
+            setInterval(updateGoldPrices, 30000); // Update every 30 seconds
+        }
+
+        // Initialize the page when loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+            startGoldPriceUpdates();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96f8815db42745bd',t:'MTc1NTI1ODk1MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
