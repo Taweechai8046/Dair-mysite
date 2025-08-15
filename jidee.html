@@ -33,11 +33,32 @@
                 <div class="flex items-center space-x-3">
                     <div class="text-4xl">💍</div>
                     <div>
-                        <h1 class="text-2xl font-bold text-white">ห้างทองดีใจ</h1>
+                        <h1 class="text-2xl font-bold text-white">ห้างทองสุวรรณ</h1>
                         <p class="text-yellow-100 text-sm">เครื่องประดับทองคำแท้ 96.5%</p>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
+                    <!-- Navigation Menu -->
+                    <nav class="hidden md:flex items-center space-x-4">
+                        <a href="index.html" class="text-white hover:text-yellow-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+                            🏠 หน้าแรก
+                        </a>
+                        <a href="products.html" class="text-white hover:text-yellow-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+                            💎 สินค้า
+                        </a>
+                        <a href="about.html" class="text-white hover:text-yellow-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+                            ℹ️ เกี่ยวกับเรา
+                        </a>
+                        <a href="contact.html" class="text-white hover:text-yellow-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+                            📞 ติดต่อ
+                        </a>
+                    </nav>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-white hover:text-yellow-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+                        <span class="text-xl">☰</span>
+                    </button>
+                    
                     <button onclick="toggleCart()" class="relative bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg transition-all duration-300">
                         <span class="text-xl">🛒</span>
                         <span class="ml-2">ตะกร้า</span>
@@ -48,26 +69,46 @@
         </div>
     </header>
 
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden bg-amber-800 shadow-lg hidden">
+        <div class="container mx-auto px-4 py-4">
+            <nav class="flex flex-col space-y-2">
+                <a href="index.html" class="text-white hover:text-yellow-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+                    🏠 หน้าแรก
+                </a>
+                <a href="products.html" class="text-white hover:text-yellow-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+                    💎 สินค้า
+                </a>
+                <a href="about.html" class="text-white hover:text-yellow-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+                    ℹ️ เกี่ยวกับเรา
+                </a>
+                <a href="contact.html" class="text-white hover:text-yellow-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+                    📞 ติดต่อ
+                </a>
+            </nav>
+        </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="gold-gradient py-16 text-center text-white relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
             <div class="shine-effect absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent w-1/3 h-full"></div>
         </div>
         <div class="container mx-auto px-4 relative z-10">
-            <h2 class="text-5xl font-bold mb-4">✨ ทองแท้เยาว์ราช ✨</h2>
+            <h2 class="text-5xl font-bold mb-4">✨ คอลเลคชั่นทองคำแท้ ✨</h2>
             <p class="text-xl mb-8">เครื่องประดับทองคำคุณภาพสูง ราคายุติธรรม</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
                 <div class="bg-white bg-opacity-20 px-6 py-4 rounded-xl backdrop-blur-sm">
                     <div class="text-center">
                         <div class="text-sm text-yellow-100 mb-1">ทองคำแท่ง ซื้อ</div>
-                        <div id="goldBuyPrice" class="text-xl font-bold">฿52,350/บาท</div>
+                        <div id="goldBuyPrice" class="text-xl font-bold">฿38,350/บาท</div>
                         <div id="goldBuyChange" class="text-sm text-green-300">+120 (0.31%)</div>
                     </div>
                 </div>
                 <div class="bg-white bg-opacity-20 px-6 py-4 rounded-xl backdrop-blur-sm">
                     <div class="text-center">
                         <div class="text-sm text-yellow-100 mb-1">ทองคำแท่ง ขาย</div>
-                        <div id="goldSellPrice" class="text-xl font-bold">฿52,150/บาท</div>
+                        <div id="goldSellPrice" class="text-xl font-bold">฿38,550/บาท</div>
                         <div id="goldSellChange" class="text-sm text-green-300">+120 (0.31%)</div>
                     </div>
                 </div>
@@ -167,7 +208,7 @@
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h4 class="text-xl font-bold mb-4">ห้างทองดีใจ</h4>
+                    <h4 class="text-xl font-bold mb-4">ห้างทองสุวรรณ</h4>
                     <p class="text-amber-200">เครื่องประดับทองคำแท้คุณภาพสูง มีใบรับประกันทุกชิ้น</p>
                 </div>
                 <div>
@@ -188,7 +229,7 @@
                 </div>
             </div>
             <div class="border-t border-amber-700 mt-8 pt-8 text-center text-amber-200">
-                <p>&copy; 2025 ห้างทองดีใจ. สงวนลิขสิทธิ์.</p>
+                <p>&copy; 2025 ห้างทองสุวรรณ. สงวนลิขสิทธิ์.</p>
             </div>
         </div>
     </footer>
@@ -362,6 +403,12 @@
             document.getElementById('successModal').classList.add('hidden');
         }
 
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
         // Close modals when clicking outside
         document.addEventListener('click', function(e) {
             if (e.target.id === 'cartModal') {
@@ -427,5 +474,5 @@
             startGoldPriceUpdates();
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96f8815db42745bd',t:'MTc1NTI1ODk1MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96f89988538b4b7d',t:'MTc1NTI1OTk0MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
