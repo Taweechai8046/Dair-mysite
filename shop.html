@@ -56,7 +56,7 @@
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-4">
                     <a href="about.html" class="text-gray-600 hover:text-purple-600 transition-colors duration-300 font-medium">เกี่ยวกับเรา</a>
-                    <a href="dair.html" class="text-gray-600 hover:text-purple-600 transition-colors duration-300 font-medium">ติดต่อ</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-purple-600 transition-colors duration-300 font-medium">ติดต่อ</a>
                     <a href="products.html" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-200 transition-all duration-300">สินค้าทั้งหมด</a>
                     <button id="cartBtn" class="relative bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 flex items-center space-x-2">
                         <span>🛒</span>
@@ -67,9 +67,9 @@
 
                 <!-- Mobile Navigation -->
                 <div class="md:hidden flex items-center space-x-2">
-                    <button id="cartBtn" class="relative bg-gradient-to-r from-purple-500 to-pink-500 text-white p-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                    <button id="mobileCartBtn" class="relative bg-gradient-to-r from-purple-500 to-pink-500 text-white p-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
                         <span class="text-lg">🛒</span>
-                        <span id="cartCount" class="absolute -top-2 -right-2 bg-white text-purple-500 rounded-full px-2 py-1 text-xs font-bold min-w-[20px] text-center">0</span>
+                        <span id="mobileCartCount" class="absolute -top-2 -right-2 bg-white text-purple-500 rounded-full px-2 py-1 text-xs font-bold min-w-[20px] text-center">0</span>
                     </button>
                     <button id="mobileMenuBtn" class="text-gray-600 hover:text-purple-600 p-2">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -279,7 +279,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-6 md:mt-8 pt-6 md:pt-8 text-center">
-                <p class="text-gray-300 text-sm md:text-base">&copy; 202ถ ร้านค้าออนไลน์ สงวนลิขสิทธิ์</p>
+                <p class="text-gray-300 text-sm md:text-base">&copy; 2024 ร้านค้าออนไลน์ สงวนลิขสิทธิ์</p>
             </div>
         </div>
     </footer>
@@ -311,16 +311,38 @@
             
             updateCartDisplay();
             
-            // Add bounce animation to cart button
+            // Add bounce animation to cart buttons
             const cartBtn = document.getElementById('cartBtn');
-            cartBtn.classList.add('cart-badge');
-            setTimeout(() => {
-                cartBtn.classList.remove('cart-badge');
-            }, 500);
+            const mobileCartBtn = document.getElementById('mobileCartBtn');
+            
+            if (cartBtn) {
+                cartBtn.classList.add('cart-badge');
+                setTimeout(() => {
+                    cartBtn.classList.remove('cart-badge');
+                }, 500);
+            }
+            
+            if (mobileCartBtn) {
+                mobileCartBtn.classList.add('cart-badge');
+                setTimeout(() => {
+                    mobileCartBtn.classList.remove('cart-badge');
+                }, 500);
+            }
         }
 
         function updateCartDisplay() {
-            document.getElementById('cartCount').textContent = cartCount;
+            // Update desktop cart count
+            const desktopCartCount = document.getElementById('cartCount');
+            if (desktopCartCount) {
+                desktopCartCount.textContent = cartCount;
+            }
+            
+            // Update mobile cart count
+            const mobileCartCount = document.getElementById('mobileCartCount');
+            if (mobileCartCount) {
+                mobileCartCount.textContent = cartCount;
+            }
+            
             document.getElementById('totalPrice').textContent = `฿${totalPrice.toLocaleString()}`;
             
             const cartItems = document.getElementById('cartItems');
@@ -394,6 +416,12 @@
         // Event listeners
         document.getElementById('cartBtn').addEventListener('click', openCart);
         
+        // Mobile cart button
+        const mobileCartBtn = document.getElementById('mobileCartBtn');
+        if (mobileCartBtn) {
+            mobileCartBtn.addEventListener('click', openCart);
+        }
+        
         // Mobile menu button
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         if (mobileMenuBtn) {
@@ -413,5 +441,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96f0e4e570b655a1',t:'MTc1NTE3OTE0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96f85ae8d2b445c5',t:'MTc1NTI1NzM3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
