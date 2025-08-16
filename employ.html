@@ -4,150 +4,169 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Employee ID Cards</title>
-  <link rel="shortcut icon" href="imge/employ/Logo.jpg" type="image/x-icon">
+  <link rel="shortcut icon" href="icons/Logo.jpg" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1877f2" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Kanit', sans-serif;
-      background: url(imge/employ/Gold.jpg) center/cover fixed;
+      background: url(imge/employ/Gold.jpg) center/cover fixed; /* ✅ แก้ path images */
       color: #222;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
-    /* ===== Sidebar ===== */
-    .menu-toggle {
-      display: none;
-      position: fixed;
-      top: 15px; left: 15px;
-      font-size: 24px;
-      background: #d4ad42;
-      color: white;
-      padding: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 1100;
-    }
-    .container { display: flex; flex: 1; }
-    .sidebar {
-      background: rgba(255,255,255,0.7);
-      width: 70px;
-      transition: width 0.3s ease;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .sidebar:hover { width: 260px; background: rgba(255,255,255,0.85); }
-    .logo-section {
-      display: flex; align-items: center; gap: 10px; padding: 15px;
-    }
-    .logo { width: 40px; height: 40px; border-radius: 8px; }
-    .username {
-      opacity: 0; white-space: nowrap; font-size: 18px;
-      transition: opacity 0.3s ease; color: #000;
-    }
-    .sidebar:hover .username { opacity: 1; }
-    .sidebar ul { list-style: none; margin-top: 10px; }
-    .sidebar ul li {
-      display: flex; align-items: center;
-      padding: 15px 20px;
-      font-size: 18px;
-      color: #000; cursor: pointer;
-      transition: background 0.3s;
-    }
-    .sidebar ul li:hover { background: #d4ad42; color: white; }
-    .sidebar ul li i { font-size: 26px; margin-right: 15px; }
-    .sidebar ul li span { opacity: 0; transition: opacity 0.3s; }
-    .sidebar:hover ul li span { opacity: 1; }
 
-    /* ===== Cards ===== */
-    .card-container {
-      display: flex; flex-wrap: wrap;
-      gap: 30px; justify-content: center;
-      padding: 40px 20px;
-      flex: 1;
-    }
-    .id-card {
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 20px;
-      width: 300px;
-      height: 500px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-      transition: transform 0.3s;
-      cursor: pointer;
-    }
-    .id-card:hover { transform: translateY(-8px); }
-    .id-header {
-      font-weight: bold; font-size: 20px;
-      background: linear-gradient(45deg, #d4ad42, transparent);
-      padding: 12px;
-      border-radius: 15px 15px 0 0;
-      color: #000;
-    }
-    .profile-img {
-      width: 200px; height: 200px; object-fit: cover;
-      border-radius: 50%;
-      border: 8px solid #d4ad42;
-      margin: 15px 0;
-    }
-    .name { font-weight: bold; font-size: 22px; }
-    .info { font-size: 18px; margin-top: 5px; font-weight: 500; }
+/* ===== Topbar / Sidebar ===== */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000;
+  transition: height 0.3s ease;
+}
+/* .sidebar:hover {
+  height: 80px;
+  background: rgba(255,255,255,0.95);
+} */
 
-    /* ===== Modal ===== */
-    .modal {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 999; justify-content: center; align-items: center;
-    }
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      width: 300px;
-    }
-    .modal-content img { width: 100%; border-radius: 8px; }
-    .close-btn {
-      margin-top: 10px; padding: 8px 16px;
-      background: crimson; color: white;
-      border: none; border-radius: 6px;
-      cursor: pointer; font-size: 16px;
-    }
+.logo-section {
+  display: flex; align-items: center; gap: 10px;
+}
+.logo { width: 40px; height: 40px; border-radius: 8px; }
+.username { font-size: 18px; font-weight: bold; color: #000; }
 
-    /* ===== Light Mode ===== */
-    body.light-mode {
-      background: #1e1e1e; color: #f0f0f0;
-    }
-    body.light-mode .id-card { background: rgba(34,34,34,0.9); color: white; }
-    body.light-mode .sidebar ul li { color: #0f0f0f; }
-    body.light-mode .sidebar ul li:hover { background: #08b8e9; color: white; }
+.sidebar ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+.sidebar ul li {
+  display: flex; align-items: center;
+  font-size: 16px; cursor: pointer;
+  padding: 10px;
+  transition: background 0.3s;
+  border-radius: 8px;
+}
+.sidebar ul li:hover {
+  background: #d44242; color: #fff;
+}
+.sidebar ul li i { font-size: 20px; margin-right: 6px; }
 
-    /* ===== Responsive ===== */
-    @media (max-width: 768px) {
-      .menu-toggle { display: block; }
-      .sidebar {
-        position: fixed; height: 100vh;
-        transform: translateX(-100%);
-        width: 260px; z-index: 1000;
-      }
-      .sidebar.active { transform: translateX(0); }
-      .sidebar:hover { width: 260px; }
-      .container { flex-direction: column; }
-      .body {background-attachment: fixed;}
-    }
+/* ===== Mobile Toggle Button ===== */
+.menu-toggle {
+  position: fixed;
+  top: 15px; right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  z-index: 1101;
+  display: none;
+}
+
+/* ===== Content ===== */
+.container {
+  margin-top: 70px;
+  display: flex;
+  flex: 1;
+}
+
+.card-container {
+  display: flex; flex-wrap: wrap;
+  gap: 30px; justify-content: center;
+  padding: 40px 20px;
+  flex: 1;
+}
+.id-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  width: 300px;
+  height: 500px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+.id-card:hover { transform: translateY(-8px); }
+.id-header {
+  font-weight: bold; font-size: 20px;
+  background: linear-gradient(45deg, #d4ad42, transparent);
+  padding: 12px;
+  border-radius: 15px 15px 0 0;
+  color: #000;
+}
+.profile-img {
+  width: 200px; height: 200px; object-fit: cover;
+  border-radius: 50%;
+  border: 8px solid #d4ad42;
+  margin: 15px 0;
+}
+.name { font-weight: bold; font-size: 22px; }
+.info { font-size: 18px; margin-top: 5px; font-weight: 500; }
+
+/* ===== Modal ===== */
+.modal {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 999; justify-content: center; align-items: center;
+}
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+}
+.modal-content img { width: 100%; border-radius: 8px; }
+.close-btn {
+  margin-top: 10px; padding: 8px 16px;
+  background: crimson; color: white;
+  border: none; border-radius: 6px;
+  cursor: pointer; font-size: 16px;
+}
+
+/* ===== Dark / Light Mode ===== */
+body.dark-mode { background: #1e1e1e; color: #f0f0f0; }
+body.dark-mode .id-card { background: rgba(34,34,34,0.9); color: white; }
+body.dark-mode .sidebar ul li { color: #f0f0f0; }
+body.dark-mode .sidebar ul li:hover { background: #08b8e9; color: white; }
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .menu-toggle { display: block; }
+  .sidebar {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 70px;
+    position: fixed; height: 100vh;
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .sidebar.active { transform: translateX(0); background-color: #fff;}
+  .sidebar ul { flex-direction: column; gap: 10px; width: 100%; }
+  .sidebar ul li { width: 100%; }
+  .username {font-size: 15px;}
+  .container { flex-direction: column; margin-top: 20px; }
+  .card-container { padding: 20px 10px; gap: 20px; }
+  .id-card { width: 100%; max-width: 320px; height: auto; }
+  .profile-img { width: 150px; height: 150px; }
+}
   </style>
-
 </head>
 <body>
   <audio id="clickSound"><source src="audio/click.mp3" type="audio/mp3"></audio>
-  
+
   <!-- Toggle Button -->
   <div class="menu-toggle" onclick="toggleMobileSidebar()">☰</div>
 
@@ -156,14 +175,14 @@
     <div class="sidebar" id="sidebar">
       <div class="logo-section">
         <img src="icons/Logo.jpg" alt="logo" class="logo">
-        <span class="username">ห้างทองใจดี</span>
+        <span class="username">ห้างทองใจดี-สาขาพระอินทร์ราชา</span>
       </div>
       <ul>
         <li onclick="navigateTo('xauusd.html')"><i class='bx bxl-bitcoin'></i><span>Gold spot view</span></li>
         <li onclick="navigateTo('https://web.facebook.com/Jaideegoldsmith')"><i class='bx bxl-facebook-circle'></i><span>Facebook</span></li>
-        <li onclick="navigateTo('promotion.html')"><i class='bx bx-store-alt'></i><span>promotion</span></li>
-        <li onclick="showQR()"><i class='bx bx-qr-scan'></i><span>QR Code</span></li>
-        <li onclick="navigateTo('#')"><i class='bx bx-error-alt'></i><span>About</span></li>
+        <li onclick="navigateTo('promotion.html')"><i class='bx bx-store-alt'></i><span>Promotion</span></li>
+        <li onclick="showQR()"><i class='bx bx-qr-scan'></i><span>Line QR Code</span></li>
+        <li onclick="navigateTo('about.html')"><i class='bx bx-error-alt'></i><span>About</span></li>
         <li onclick="toggleTheme()"><i class='bx bx-sun'></i><span>Theme</span></li>
       </ul>
     </div>
@@ -201,7 +220,7 @@
   <div id="qrModal" class="modal">
     <div class="modal-content">
       <h3>สแกน QR Code</h3>
-      <img src="imge/employ/Qr-LineDair.jpg" alt="QR Code">
+      <img src="imge/Qr-LineDair.jpg" alt="QR Code">
       <button class="close-btn" onclick="closeQR()">ปิด</button>
     </div>
   </div>
@@ -211,14 +230,14 @@
       document.getElementById('sidebar').classList.toggle('active');
     }
     function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-      localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
       playClickSound();
     }
     function playClickSound() {
       const audio = document.getElementById("clickSound");
       audio.currentTime = 0;
-      audio.play();
+      audio.play().catch(()=>{});
     }
     function navigateTo(page) {
       playClickSound();
@@ -237,8 +256,8 @@
       navigator.serviceWorker.register('service-worker.js');
     }
     window.addEventListener('load', () => {
-      if (localStorage.getItem("theme") === "light") {
-        document.body.classList.add("light-mode");
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
       }
     });
   </script>
