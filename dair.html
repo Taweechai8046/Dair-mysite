@@ -523,6 +523,50 @@
       }
     }
 
+    /* IPAD 1212 */
+    @media (max-width: 1212px) {
+      .menu-toggle { display: block; position: fixed; }
+      .sidebar {
+        top: 0;
+        position: fixed;
+        left: -200px;
+        height: 100vh;
+        z-index: 1000;
+        
+      }
+      .sidebar.active {
+        left: 0;
+        width: 300px;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      .container {
+        flex-direction: column;
+      }
+
+   
+    .bio img {
+      filter: saturate(100%);
+      width: 20%;
+      height: 25%;
+    }  
+    .bio video {
+      filter: saturate(100%);
+      width: 25%;
+      height: 300px;
+    }  
+    .bio img:hover {
+      filter: saturate(100%);
+      width: 20%;
+      height: 25%;
+    }
+    .bio video:hover {
+      filter: saturate(100%);
+      width: 25%;
+      height: 300px;
+    }
+}
+
 
 
 
