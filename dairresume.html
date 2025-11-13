@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>เรซูเม่ — ชื่อของคุณ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f7fb; --card:#ffffff; --accent:#0b6efd; --muted:#6b7280; --glass: rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;font-family:'Sarabun','Noto Sans Thai',sans-serif;color:#1f2937;background:linear-gradient(180deg,var(--bg),#ffffff);margin:0}
+    .container{max-width:1000px;margin:28px auto;padding:20px}
+    .card{background:var(--card);border-radius:14px;box-shadow:0 6px 22px rgba(15,23,42,0.08);overflow:hidden;display:grid;grid-template-columns:320px 1fr}
+
+    .photo{
+      width:100%;
+      aspect-ratio:1/1;
+      border-radius:12px;
+      overflow:hidden;
+      background:#eef2ff center/cover no-repeat;
+      display:block;
+    }
+
+    header.top{display:flex;align-items:center;padding:24px 28px;border-bottom:1px solid #eef2ff}
+    .namewrap{margin-left:18px}
+    h1.name{margin:0;font-size:22px}
+    p.role{margin:6px 0 0;color:var(--muted)}
+
+    .aside{padding:26px;background:linear-gradient(180deg,rgba(11,110,253,0.06),rgba(11,110,253,0.02));}
+    .section{margin-bottom:18px}
+    .section h3{font-size:14px;margin:0 0 10px}
+    .contact-item{display:flex;gap:10px;align-items:center;padding:8px 0;color:var(--muted);font-size:14px}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(15,23,42,0.04);font-size:13px;margin:6px 6px 0 0}
+    .skills{display:flex;flex-wrap:wrap}
+
+    .progress{height:8px;background:rgba(15,23,42,0.06);border-radius:8px;overflow:hidden;margin-top:8px}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#4f46e5)}
+
+    .main{padding:26px}
+    .main .section{padding-bottom:12px;border-bottom:1px dashed #eef2ff;margin-bottom:16px}
+    .job{margin-bottom:12px}
+    .job h4{margin:0;font-size:15px}
+    .meta{color:var(--muted);font-size:13px;margin-top:4px}
+    ul{margin:8px 0 0 18px}
+
+    @media(max-width:900px){
+      .card{grid-template-columns:1fr;}
+      .aside{order:2}
+      header.top{flex-direction:row;gap:12px;padding:18px}
+      .container{margin:14px}
+    }
+
+    @media print{
+      body{background:white}
+      .container{box-shadow:none}
+      .card{box-shadow:none}
+      .aside{background:transparent}
+    }
+
+    .topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
+    .btn{border:0;background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer}
+    .mute{background:transparent;border:1px solid rgba(15,23,42,0.06);padding:8px 12px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div>
+        <strong>เทมเพลตเรซูเม่</strong>
+        <span style="color:var(--muted);margin-left:8px;font-size:14px">(Responsive — พิมพ์ได้)</span>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" onclick="window.print()">พิมพ์ / บันทึกเป็น PDF</button>
+        <button class="mute" id="downloadBtn">ดาวน์โหลด HTML</button>
+      </div>
+    </div>
+
+    <div class="card" id="resumeCard">
+      <div class="aside">
+        <div class="section">
+          <img id="photo" class="photo" src="https://via.placeholder.com/300x300.png?text=Your+Photo" alt="Profile Photo">
+        </div>
+
+        <div class="section">
+          <h3>ข้อมูลติดต่อ</h3>
+          <div class="contact-item">📧 อีเมล: you@example.com</div>
+          <div class="contact-item">📞 โทร: +66 8x-xxx-xxxx</div>
+          <div class="contact-item">📍 ที่อยู่: จังหวัด, ประเทศ</div>
+          <div class="contact-item">🔗 เว็บไซต์/LinkedIn: yoursite.me</div>
+        </div>
+
+        <div class="section">
+          <h3>ทักษะ</h3>
+          <div class="skills">
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">React</span>
+            <span class="chip">UI/UX</span>
+          </div>
+          <div style="margin-top:10px">
+            <div style="font-size:13px;color:var(--muted)">Frontend</div>
+            <div class="progress" aria-hidden><i style="width:80%"></i></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>ภาษา</h3>
+          <div class="chip">ไทย — เจ้าของภาษา</div>
+          <div class="chip">อังกฤษ — ระดับดี</div>
+        </div>
+      </div>
+
+      <main class="main">
+        <header class="top">
+          <div style="display:flex;align-items:center;width:100%">
+            <div style="flex:1">
+              <h1 class="name">ชื่อ-นามสกุล</h1>
+              <div class="role">ตำแหน่ง — สายงาน / สรุปสั้น ๆ ประมาณ 1-2 บรรทัด</div>
+            </div>
+            <div style="text-align:right">
+              <div style="color:var(--muted);font-size:13px">ประสบการณ์: 5 ปี</div>
+              <div style="color:var(--muted);font-size:13px">พร้อมเริ่มงาน: ทันที</div>
+            </div>
+          </div>
+        </header>
+
+        <section class="section">
+          <h3>สรุปตัวเอง (Profile)</h3>
+          <p style="margin:8px 0;color:#111827">นักพัฒนาที่มีประสบการณ์ด้านเฟรมเวิร์ก front-end และออกแบบ UI มีความถนัดในการสร้างเว็บที่ตอบสนองได้ดีและประสบการณ์ในการทำงานร่วมกับทีมขนาดเล็กจนถึงขนาดกลาง มุ่งเน้นการเขียนโค้ดที่สะอาดและแก้ปัญหาได้ตรงจุด</p>
+        </section>
+
+        <section class="section">
+          <h3>ประสบการณ์ทำงาน</h3>
+          <article class="job">
+            <h4>Senior Frontend Developer — บริษัท ABC</h4>
+            <div class="meta">2021 — ปัจจุบัน • กรุงเทพ, ประเทศไทย</div>
+            <ul>
+              <li>ออกแบบและพัฒนา UI สำหรับผลิตภัณฑ์ B2B โดยใช้ React และ TypeScript</li>
+              <li>ปรับปรุงประสิทธิภาพหน้าเว็บ ทำให้เวลาโหลดลดลง 40%</li>
+            </ul>
+          </article>
+
+          <article class="job">
+            <h4>Frontend Developer — บริษัท XYZ</h4>
+            <div class="meta">2018 — 2021 • กรุงเทพ, ประเทศไทย</div>
+            <ul>
+              <li>สร้างระบบหน้าจอแดชบอร์ดสำหรับการวิเคราะห์ข้อมูลด้วย Charts</li>
+              <li>ทำงานร่วมกับทีมออกแบบเพื่อสร้าง component library</li>
+            </ul>
+          </article>
+        </section>
+
+        <section class="section">
+          <h3>การศึกษา</h3>
+          <div class="job">
+            <h4>ปริญญาตรี วิทยาการคอมพิวเตอร์ — มหาวิทยาลัยตัวอย่าง</h4>
+            <div class="meta">2014 — 2018</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>โปรเจกต์เด่น</h3>
+          <div class="job">
+            <h4>โปรเจกต์ A — ระบบจัดการงาน</h4>
+            <div class="meta">Tech: React, Node.js</div>
+            <p style="margin:8px 0">ระบบช่วยติดตามงานสำหรับทีมภายใน โดยมีฟีเจอร์สำคัญเช่น Kanban board, การแจ้งเตือน และรายงานสรุป</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('downloadBtn').addEventListener('click', ()=>{
+      const blob = new Blob([document.documentElement.outerHTML],{type:'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'resume.html';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    // อัปโหลดรูปภาพโปรไฟล์
+    document.getElementById('photo').addEventListener('click', ()=>{
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = e => {
+        const file = e.target.files[0];
+        if(file){
+          const reader = new FileReader();
+          reader.onload = ev => {
+            document.getElementById('photo').src = ev.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+      input.click();
+    });
+  </script>
+</body>
+</html>
