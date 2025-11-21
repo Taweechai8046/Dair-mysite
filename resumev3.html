@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DashboardResume</title>
+
+  <!-- ฟอนต์ไทยและสากล -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== ธีม ===== */
+    :root{
+      --bg: #0b0f1e;
+      --panel: rgba(255,255,255,.08);
+      --glass: rgba(255,255,255,.12);
+      --text: #f7f8fd;
+      --muted: #c7ccda;
+      --primary: #7aa6ff;
+      --accent: #b8f1ff;
+      --line: rgba(255,255,255,.18);
+      --good: #49d17e;
+      --warn: #ffbf49;
+      --bad: #ff6b6b;
+
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+
+      --sidebar: 320px;
+      --shadow: 0 18px 36px rgba(0,0,0,.45);
+    }
+    body.light{
+      --bg: #f4f6fb;
+      --panel: rgba(255,255,255,.86);
+      --glass: rgba(255,255,255,.94);
+      --text: #172036;
+      --muted: #5f6987;
+      --primary: #2e5fff;
+      --accent: #0f74ff;
+      --line: rgba(23,32,54,.14);
+      --shadow: 0 12px 28px rgba(23,32,54,.12);
+    }
+
+    /* ===== Global ===== */
+    *{ box-sizing: border-box }
+    html,body{ height:100% }
+    body{
+      margin:0;
+      font-family:"Inter","Noto Sans Thai",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 520px at 8% -20%, rgba(122,166,255,.28), transparent 60%),
+        radial-gradient(900px 520px at 92% 110%, rgba(184,241,255,.22), transparent 60%),
+        radial-gradient(600px 360px at 70% -10%, rgba(255,170,210,.18), transparent 50%),
+        linear-gradient(180deg, #080c19, var(--bg));
+    }
+    .container{ max-width: 1160px; margin: 40px auto; padding: 0 24px }
+
+    /* ===== Toolbar ===== */
+    .toolbar{
+      display:flex; gap:10px; justify-content:flex-end; align-items:center; margin-bottom: 16px;
+    }
+    .btn{
+      appearance:none; border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
+      color:var(--text); font-weight:700; letter-spacing:.2px;
+      border-radius:999px; padding:10px 14px; cursor:pointer;
+      box-shadow:var(--shadow);
+    }
+    .btn:hover{ filter: brightness(1.08) }
+    .btn:active{ transform: translateY(1px) }
+
+    /* ===== Header ===== */
+    .header{
+      display:grid; grid-template-columns: 1fr 220px; gap:24px; align-items:center;
+      padding:24px; border-radius: var(--radius-xl);
+      background: var(--glass); backdrop-filter: blur(16px) saturate(130%);
+      box-shadow: var(--shadow); margin-bottom: 22px; position:relative;
+    }
+    .header::after{
+      content:""; position:absolute; inset:0; border-radius:inherit;
+      background: linear-gradient(135deg, rgba(122,166,255,.18), rgba(184,241,255,.12));
+      pointer-events:none;
+    }
+    .title{ margin:0; font-size:44px; font-weight:800; line-height:1.05 }
+    .title .first{ color:var(--text) }
+    .title .last{ color:var(--primary) }
+    .role{ margin:6px 0 0; color:var(--muted); font-weight:600 }
+    .avatar{
+      width:180px; height:180px; border-radius: 20px; overflow:hidden;
+      border:10px solid rgba(255,255,255,.14); background:#222; box-shadow:var(--shadow);
+    }
+    .avatar img{ width:100%; height:100%; object-fit:cover; transform:scale(1.02) }
+
+    /* ===== Layout ===== */
+    .grid{
+      display:grid; grid-template-columns: var(--sidebar) 1fr; gap:22px;
+    }
+
+    /* ===== Panels ===== */
+    .panel{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      padding: 16px 16px;
+    }
+    .panel h3{
+      margin:0 0 10px; font-size:14px; letter-spacing:1.8px; font-weight:800; color:var(--muted);
+    }
+
+    /* Sidebar blocks */
+    .profile .row{ display:grid; grid-template-columns: 22px 1fr; gap:10px; padding:6px 0; border-bottom:1px dashed var(--line) }
+    .profile .row:last-child{ border-bottom:none }
+    .chips{ display:flex; flex-wrap:wrap; gap:8px }
+    .chip{
+      padding:8px 12px; border-radius:999px; border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      font-size:13px; font-weight:600;
+    }
+    .edu{ padding:6px 0; border-bottom:1px dashed var(--line) }
+    .edu:last-child{ border-bottom:none }
+    .edu b{ display:block; font-size:16px; margin-bottom:2px }
+    .muted{ color:var(--muted) }
+
+    /* KPI cards */
+    .kpis{ display:grid; grid-template-columns: repeat(4,1fr); gap:12px }
+    .kpi{
+      padding:14px; border:1px solid var(--line); border-radius: var(--radius-md);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+    }
+    .kpi .label{ font-size:12px; color:var(--muted); letter-spacing:.4px }
+    .kpi .value{ font-size:24px; font-weight:800; margin-top:4px }
+    .kpi .trend{ font-size:12px; margin-top:4px }
+    .up{ color: var(--good) } .down{ color: var(--bad) }
+
+    /* Charts grid */
+    .charts{ display:grid; grid-template-columns: 1.2fr 1fr; gap:12px; margin-top:12px }
+
+    /* Donut chart */
+    .donut-wrap{ display:flex; gap:16px; align-items:center }
+    .donut{
+      width:160px; height:160px;
+      transform: rotate(-90deg);
+    }
+    .donut circle.bg{ fill:none; stroke: rgba(255,255,255,.2); stroke-width:16 }
+    .donut circle.fg{ fill:none; stroke-width:16; stroke-linecap:round; transition: stroke-dashoffset .6s ease }
+    .legend{ display:grid; gap:6px; font-size:13px }
+    .legend .item{ display:flex; align-items:center; gap:8px }
+    .legend .dot{ width:10px; height:10px; border-radius:50% }
+
+    /* Bar chart */
+    .bar{
+      width:100%; height:220px; display:flex; align-items:flex-end; gap:10px; padding:12px; border:1px dashed var(--line); border-radius: var(--radius-md);
+    }
+    .bar .col{
+      flex:1; background: linear-gradient(180deg, var(--primary), rgba(122,166,255,.2));
+      border-radius:10px 10px 0 0; position:relative; display:flex; align-items:flex-end; justify-content:center;
+    }
+    .bar .col .tag{
+      position:absolute; bottom:100%; transform:translateY(-6px);
+      font-size:12px; color:var(--muted);
+    }
+
+    /* Line chart */
+    .line-box{ border:1px dashed var(--line); border-radius: var(--radius-md); overflow:hidden }
+    .line{ width:100%; height:220px }
+    .line path{ stroke: var(--accent); stroke-width:3; fill: none; }
+    .line .axis{ stroke: var(--line); stroke-width:1 }
+
+    /* Timeline */
+    .timeline{ position:relative; margin-top: 10px; padding-left: 28px }
+    .timeline::before{ content:""; position:absolute; left:8px; top:4px; bottom:4px; width:2px; background: linear-gradient(180deg, var(--primary), transparent 90%); opacity:.6 }
+    .exp{ position:relative; padding: 10px 0 12px; border-bottom:1px dashed var(--line) }
+    .exp:last-child{ border-bottom:none }
+    .exp::before{ content:""; position:absolute; left:-20px; top:14px; width:12px; height:12px; border-radius:50%; background:var(--primary); box-shadow:0 0 0 4px rgba(122,166,255,.25) }
+    .exp-head{ display:flex; justify-content:space-between; align-items:center; gap:10px }
+    .exp-role{ margin:0; font-weight:700 }
+    .exp-years{ color:var(--muted); font-weight:700 }
+    .exp-company{ margin:4px 0; color:var(--accent); font-weight:600 }
+
+    /* Responsive */
+    @media (max-width: 1000px){
+      .grid{ grid-template-columns: 1fr }
+      .kpis{ grid-template-columns: repeat(2, 1fr) }
+      .charts{ grid-template-columns: 1fr; }
+    }
+    @media print{
+      body{ background:#fff }
+      .toolbar{ display:none }
+      .panel, .header{ box-shadow:none; backdrop-filter:none }
+    }
+  </style>
+</head>
+<body class="light">
+  <div class="container">
+    <!-- แถบเครื่องมือ -->
+    <div class="toolbar">
+      <button class="btn" id="toggleTheme">สลับโหมด Dark/Light</button>
+      <button class="btn" onclick="window.print()">บันทึกเป็น PDF</button>
+    </div>
+
+    <!-- ส่วนหัว -->
+    <header class="header">
+      <div>
+        <h1 class="title"><span class="first">TAWEECHAI</span><br><span class="last">MAWING</span></h1>
+        <p class="role">ผู้จัดการฝ่ายการตลาด</p>
+      </div>
+      <div class="avatar">
+        <img src="imge/Chang.jpg" alt="รูปโปรไฟล์">
+      </div>
+    </header>
+
+    <!-- โครงร่างหลัก -->
+    <section class="grid">
+      <!-- แถบด้านซ้าย: โปรไฟล์ -->
+      <aside>
+        <div class="panel profile">
+          <h3>โปรไฟล์และการติดต่อ</h3>
+          <div class="row">
+            <span>📞</span><span>094-684-4046</span>
+          </div>
+          <div class="row">
+            <span>✉️</span><span>dairmawingfongbeer@gmail.com</span>
+          </div>
+          <div class="row">
+            <span>📍</span><span>จ.แพร่ (ประตูสู่ล้านนา)</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>การศึกษา</h3>
+          <div class="edu">
+            <b>วิทยาลัย เทคนิคแพร่</b>
+            <div>ปวส เทคนิคคอมพิวเตอร์</div>
+            <div class="muted">2019 – 2023</div>
+          </div>
+          <div class="edu">
+            <b>โรงเรียนร้องกวางอนุสรณ์</b>
+            <div></div>
+            <div class="muted">2014 – 2018</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>ทักษะ</h3>
+          <div class="chips">
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+            <span class="chip">SQL</span>
+            <span class="chip">Microsoft Office (Excel)</span>
+            <span class="chip">DINK BEER</span>
+            <span class="chip">DINK SURA</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>ภาษา</h3>
+          <div class="chips">
+            <span class="chip">ไทย</span>
+            <span class="chip">เหนือตอนบน</span>
+            <span class="chip">เหนือตอนล่าง</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>บุคคลอ้างอิง</h3>
+          <div class="edu">
+            <b>Phreecha Mawing</b>
+            <div class="muted"></div>
+            <div class="muted">+66 800-000-000 · Phreechamawing@gmail.com</div>
+          </div>
+          <div class="edu">
+            <b>Porntana Mawing</b>
+            <div class="muted"></div>
+            <div class="muted">+66 800-000-000 · Porntanamawing@gmail.com</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- พื้นที่หลัก: แดชบอร์ด -->
+      <main>
+        <!-- KPI -->
+        <div class="panel">
+          <h3>ตัวชี้วัดสำคัญ (KPIs)</h3>
+          <div class="kpis" id="kpiGrid">
+            <div class="kpi">
+              <div class="label">จำนวนแคมเปญ</div>
+              <div class="value" id="kpiCampaigns">12</div>
+              <div class="trend up" id="kpiCampaignsTrend">▲ เพิ่มขึ้น 2 แคมเปญ ในเดือนนี้</div>
+            </div>
+            <div class="kpi">
+              <div class="label">ROAS</div>
+              <div class="value" id="kpiRoas">3.8×</div>
+              <div class="trend up" id="kpiRoasTrend">▲ +0.3 เทียบเดือนก่อน</div>
+            </div>
+            <div class="kpi">
+              <div class="label">CTR</div>
+              <div class="value" id="kpiCtr">2.4%</div>
+              <div class="trend up" id="kpiCtrTrend">▲ +0.2%</div>
+            </div>
+            <div class="kpi">
+              <div class="label">อัตราแปลง</div>
+              <div class="value" id="kpiCr">5.6%</div>
+              <div class="trend down" id="kpiCrTrend">▼ −0.1%</div>
+            </div>
+          </div>
+
+          <!-- กราฟ -->
+          <div class="charts">
+            <!-- Donut: Skill mix -->
+            <div>
+              <h3 style="margin-bottom:8px">สัดส่วนทักษะ</h3>
+              <div class="donut-wrap">
+                <svg class="donut" viewBox="0 0 100 100">
+                  <circle class="bg" cx="50" cy="50" r="42"></circle>
+                  <circle class="fg" id="seg1" cx="50" cy="50" r="42" stroke="#7aa6ff"></circle>
+                  <circle class="fg" id="seg2" cx="50" cy="50" r="42" stroke="#49d17e"></circle>
+                  <circle class="fg" id="seg3" cx="50" cy="50" r="42" stroke="#ffbf49"></circle>
+                  <circle class="fg" id="seg4" cx="50" cy="50" r="42" stroke="#ff6b6b"></circle>
+                </svg>
+                <div class="legend">
+                  <div class="item"><span class="dot" style="background:#7aa6ff"></span> การตลาดดิจิทัล</div>
+                  <div class="item"><span class="dot" style="background:#49d17e"></span> DINK BEER</div>
+                  <div class="item"><span class="dot" style="background:#ffbf49"></span> DINK SURA</div>
+                  <div class="item"><span class="dot" style="background:#ff6b6b"></span> การเจรจาต่อรอง</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bar: ผลสำเร็จตามองค์กร -->
+            <div>
+              <h3 style="margin-bottom:8px">ผลสำเร็จตามองค์กร</h3>
+              <div class="bar" id="barChart"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Performance line -->
+        <div class="panel">
+          <h3>ประสิทธิภาพรายปี</h3>
+          <div class="line-box">
+            <svg class="line" viewBox="0 0 600 220" id="lineChart">
+              <path class="axis" d="M40 190 H580"></path>
+              <path class="axis" d="M40 30 V190"></path>
+              <!-- เส้นกราฟจะถูกเพิ่มด้วย JS -->
+            </svg>
+          </div>
+        </div>
+
+        <!-- ประสบการณ์ทำงาน -->
+        <div class="panel">
+          <h3>ประสบการณ์ทำงาน</h3>
+          <div class="timeline">
+            <article class="exp">
+              <div class="exp-head">
+                <h4 class="exp-role">พัฒนาแดชบอร์ด Power BI</h4>
+                <span class="exp-years">2022 – 2023</span>
+              </div>
+              <!-- <p class="exp-company">Arowawi Industries</p> -->
+              <p>สร้างแดชบอร์ดให้ทีมขายติดตามผลแบบเรียลไทม์</p>
+            </article>
+
+            <!-- <article class="exp">
+              <div class="exp-head">
+                <h4 class="exp-role">ผู้จัดการฝ่ายการตลาด</h4>
+                <span class="exp-years">2020 – 2021</span>
+              </div>
+              <p class="exp-company">Ginyard International Co.</p>
+              <p>ทำรีแบรนด์สาย B2B และเปิดตัวแคมเปญ ABM ทำให้ pipeline เพิ่มขึ้น 1.6× และลด CPL ลง 22%</p>
+            </article>
+
+            <article class="exp">
+              <div class="exp-head">
+                <h4 class="exp-role">ผู้จัดการฝ่ายการตลาด</h4>
+                <span class="exp-years">2018 – 2019</span>
+              </div>
+              <p class="exp-company">Salford & Co.</p>
+              <p>พัฒนากลยุทธ์คอนเทนต์แบบ omni‑channel เพิ่มการมองเห็นแบรนด์ 45% และการมีส่วนร่วมเชิงออร์แกนิกต่อเนื่อง</p>
+            </article> -->
+          </div>
+        </div>
+      </main>
+    </section>
+  </div>
+
+  <script>
+    // ===== สลับธีม Dark/Light =====
+    document.getElementById('toggleTheme').addEventListener('click', ()=>{
+      document.body.classList.toggle('light');
+    });
+
+    // ===== Donut Chart: สัดส่วนทักษะ =====
+    // ปรับเปอร์เซ็นต์ตามจริง (รวมกัน <= 100)
+    const donutData = [40, 25, 20, 15]; // การตลาดดิจิทัล, วิเคราะห์ข้อมูล, ภาวะผู้นำ, เจรจาต่อรอง
+    const circumference = 2 * Math.PI * 42; // r=42
+    function setDonutSegment(elId, startPct, valuePct){
+      const el = document.getElementById(elId);
+      const dash = (valuePct/100) * circumference;
+      const gap = circumference - dash;
+      el.setAttribute('stroke-dasharray', `${dash} ${gap}`);
+      el.setAttribute('stroke-dashoffset', ((startPct/100) * circumference).toString());
+    }
+    let acc = 0;
+    ['seg1','seg2','seg3','seg4'].forEach((id, i)=>{
+      setDonutSegment(id, acc, donutData[i]);
+      acc += donutData[i];
+    });
+
+    // ===== Bar Chart: ผลสำเร็จตามองค์กร =====
+    const achievements = [
+      { label: 'CHANG', value: 28 }, // +28% ROAS
+      { label: 'LEO', value: 22 }, // -22% CPL (คิดเป็นผลเชิงบวก)
+      { label: 'SINGHA', value: 45 }, // +45% การมองเห็นแบรนด์
+    ];
+    const barWrap = document.getElementById('barChart');
+    const maxVal = Math.max(...achievements.map(a=>a.value));
+    achievements.forEach(a=>{
+      const col = document.createElement('div');
+      col.className = 'col';
+      col.style.height = `${(a.value/maxVal)*200 + 20}px`; // ปรับสเกลให้สวยงาม
+      const tag = document.createElement('div');
+      tag.className = 'tag';
+      tag.textContent = `${a.label} · ${a.value}%`;
+      col.appendChild(tag);
+      barWrap.appendChild(col);
+    });
+
+    // ===== Line Chart: ประสิทธิภาพรายปี (ROAS) =====
+    // ปรับข้อมูลตามปีจริงของคุณ
+    const perf = [2.1, 2.5, 3.0, 3.4, 3.1, 3.8];
+    const w = 600, h = 220, x0 = 40, y0 = 190, xMax = 580, yTop = 30;
+    const xStep = (xMax - x0) / (perf.length - 1);
+    const yMin = Math.min(...perf), yMax = Math.max(...perf);
+    function yScale(v){ return y0 - ( (v - yMin) / (yMax - yMin) ) * (y0 - yTop); }
+    let d = '';
+    perf.forEach((v,i)=>{
+      const x = x0 + i*xStep, y = yScale(v);
+      d += (i===0 ? `M${x} ${y}` : ` L${x} ${y}`);
+    });
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', d);
+    document.getElementById('lineChart').appendChild(path);
+  </script>
+</body>
+</html>
