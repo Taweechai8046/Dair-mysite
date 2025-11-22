@@ -43,6 +43,7 @@
       --accent: #0f74ff;
       --line: rgba(23,32,54,.14);
       --shadow: 0 12px 28px rgba(23,32,54,.12);
+      /* background-image: url(imge/logo\ sing.jpg); */
     }
 
     /* ===== Global ===== */
@@ -89,9 +90,12 @@
     .title{ margin:0; font-size:44px; font-weight:800; line-height:1.05 }
     .title .first{ color:var(--text) }
     .title .last{ color:var(--primary) }
+    .title .name{ color: chocolate;}
     .role{ margin:6px 0 0; color:var(--muted); font-weight:600 }
     .avatar{
-      width:180px; height:180px; border-radius: 20px; overflow:hidden;
+      width:220px; 
+      height:280px; 
+      border-radius: 20px; overflow:hidden;
       border:10px solid rgba(255,255,255,.14); background:#222; box-shadow:var(--shadow);
     }
     .avatar img{ width:100%; height:100%; object-fit:cover; transform:scale(1.02) }
@@ -208,11 +212,11 @@
     <!-- ส่วนหัว -->
     <header class="header">
       <div>
-        <h1 class="title"><span class="first">TAWEECHAI</span><br><span class="last">MAWING</span></h1>
-        <p class="role">ผู้จัดการฝ่ายการตลาด</p>
+        <h1 class="title"><span class="first">TAWEECHAI</span> <span class="last">MAWING</span> <span class="name">(ไดร์ฟ)</span></h1>
+        <p class="role">ฝ่ายการตลาด (เปิดขวดได้ 24h)</p>
       </div>
       <div class="avatar">
-        <img src="imge/dink.jpg" alt="รูปโปรไฟล์">
+        <img src="imge/Chang.jpg" alt="รูปโปรไฟล์">
       </div>
     </header>
 
@@ -223,27 +227,28 @@
         <div class="panel profile">
           <h3>โปรไฟล์และการติดต่อ</h3>
           <div class="row">
-            <span>📞</span><span>094-684-4046</span>
+            <span>📞</span><span>094-XXX-4046</span>
           </div>
           <div class="row">
-            <span>✉️</span><span>dairmawingfongbeer@gmail.com</span>
+            <span>✉️</span><span>dairxxxfongbeer@gmail.com</span>
           </div>
           <div class="row">
-            <span>📍</span><span>จ.แพร่ (ประตูสู่ล้านนา)</span>
+            <span>📍</span><span>แพร่ (ประตูสู่ล้านนา)</span>
           </div>
         </div>
 
         <div class="panel">
           <h3>การศึกษา</h3>
           <div class="edu">
-            <b>วิทยาลัย เทคนิคแพร่</b>
-            <div>ปวส เทคนิคคอมพิวเตอร์</div>
-            <div class="muted">2019 – 2023</div>
+            <b>ช่างงัด แล้วก็แงะ</b>
+            <div>Computer Technology</div>
+            <div class="muted">จำไม่ได้ – จำไม่ได้</div>
           </div>
           <div class="edu">
-            <b>โรงเรียนร้องกวางอนุสรณ์</b>
+            <b>xxx-xxx-xxx</b>
+            <!-- <b>โรงเรียนร้องกวางอนุสรณ์</b> -->
             <div></div>
-            <div class="muted">2014 – 2018</div>
+            <div class="muted">จำไม่ได้ – จำไม่ได้</div>
           </div>
         </div>
 
@@ -252,10 +257,12 @@
           <div class="chips">
             <span class="chip">HTML</span>
             <span class="chip">CSS</span>
+            <span class="chip">JAVA</span>
+            <span class="chip">Python</span>
             <span class="chip">SQL</span>
             <span class="chip">Microsoft Office (Excel)</span>
-            <span class="chip">DINK BEER</span>
-            <span class="chip">DINK SURA</span>
+            <span class="chip">DRINK BEER</span>
+            <span class="chip">DRINK SURA</span>
           </div>
         </div>
 
@@ -263,8 +270,8 @@
           <h3>ภาษา</h3>
           <div class="chips">
             <span class="chip">ไทย</span>
-            <span class="chip">เหนือตอนบน</span>
-            <span class="chip">เหนือตอนล่าง</span>
+            <span class="chip">เหนือตอนบน+</span>
+            <span class="chip">เหนือตอนล่าง+</span>
           </div>
         </div>
 
@@ -273,12 +280,12 @@
           <div class="edu">
             <b>Phreecha Mawing</b>
             <div class="muted"></div>
-            <div class="muted">+66 800-000-000 · Phreechamawing@gmail.com</div>
+            <div class="muted">+66 800-XXX-XXX · Phreechamawing@gmail.com</div>
           </div>
           <div class="edu">
             <b>Porntana Mawing</b>
             <div class="muted"></div>
-            <div class="muted">+66 800-000-000 · Porntanamawing@gmail.com</div>
+            <div class="muted">+66 800-XXX-XXX · Porntanamawing@gmail.com</div>
           </div>
         </div>
       </aside>
@@ -287,25 +294,26 @@
       <main>
         <!-- KPI -->
         <div class="panel">
-          <h3>ตัวชี้วัดสำคัญ (KPIs)</h3>
+          <!-- <h3>ตัวชี้วัดสำคัญ (KPIs)</h3> -->
+          <h3>ตัวชี้วัดสำคัญ</h3>
           <div class="kpis" id="kpiGrid">
             <div class="kpi">
-              <div class="label">จำนวนแคมเปญ</div>
+              <div class="label">QTY</div>
               <div class="value" id="kpiCampaigns">12</div>
-              <div class="trend up" id="kpiCampaignsTrend">▲ เพิ่มขึ้น 2 แคมเปญ ในเดือนนี้</div>
+              <div class="trend up" id="kpiCampaignsTrend">▲ เพิ่มขึ้น 2 กระป๋อง ในเดือนนี้</div>
             </div>
             <div class="kpi">
-              <div class="label">ROAS</div>
+              <div class="label">BEER</div>
               <div class="value" id="kpiRoas">3.8×</div>
               <div class="trend up" id="kpiRoasTrend">▲ +0.3 เทียบเดือนก่อน</div>
             </div>
             <div class="kpi">
-              <div class="label">CTR</div>
+              <div class="label">SURA</div>
               <div class="value" id="kpiCtr">2.4%</div>
               <div class="trend up" id="kpiCtrTrend">▲ +0.2%</div>
             </div>
             <div class="kpi">
-              <div class="label">อัตราแปลง</div>
+              <div class="label">RATE</div>
               <div class="value" id="kpiCr">5.6%</div>
               <div class="trend down" id="kpiCrTrend">▼ −0.1%</div>
             </div>
@@ -326,8 +334,8 @@
                 </svg>
                 <div class="legend">
                   <div class="item"><span class="dot" style="background:#7aa6ff"></span> การตลาดดิจิทัล</div>
-                  <div class="item"><span class="dot" style="background:#49d17e"></span> DINK BEER</div>
-                  <div class="item"><span class="dot" style="background:#ffbf49"></span> DINK SURA</div>
+                  <div class="item"><span class="dot" style="background:#49d17e"></span> DRINK BEER</div>
+                  <div class="item"><span class="dot" style="background:#ffbf49"></span> DRINK SURA</div>
                   <div class="item"><span class="dot" style="background:#ff6b6b"></span> การเจรจาต่อรอง</div>
                 </div>
               </div>
@@ -360,7 +368,7 @@
             <article class="exp">
               <div class="exp-head">
                 <h4 class="exp-role">พัฒนาแดชบอร์ด Power BI</h4>
-                <span class="exp-years">2022 – 2023</span>
+                <span class="exp-years">2026 – 2028</span>
               </div>
               <!-- <p class="exp-company">Arowawi Industries</p> -->
               <p>สร้างแดชบอร์ดให้ทีมขายติดตามผลแบบเรียลไทม์</p>
