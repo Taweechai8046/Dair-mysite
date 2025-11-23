@@ -6,6 +6,7 @@
   <title>DashboardResume</title>
 
   <!-- ฟอนต์ไทยและสากล -->
+  <link rel="shortcut icon" href="imge/DAIR.JPG" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -43,7 +44,11 @@
       --accent: #0f74ff;
       --line: rgba(23,32,54,.14);
       --shadow: 0 12px 28px rgba(23,32,54,.12);
-      /* background-image: url(imge/logo\ sing.jpg); */
+      background-image: url(imge/view.jpg);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
     }
 
     /* ===== Global ===== */
@@ -58,6 +63,11 @@
         radial-gradient(900px 520px at 92% 110%, rgba(184,241,255,.22), transparent 60%),
         radial-gradient(600px 360px at 70% -10%, rgba(255,170,210,.18), transparent 50%),
         linear-gradient(180deg, #080c19, var(--bg));
+      background-image: url(imge/craftbeer1.jpg);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
     }
     .container{ max-width: 1160px; margin: 40px auto; padding: 0 24px }
 
@@ -81,6 +91,11 @@
       padding:24px; border-radius: var(--radius-xl);
       background: var(--glass); backdrop-filter: blur(16px) saturate(130%);
       box-shadow: var(--shadow); margin-bottom: 22px; position:relative;
+      background-image: url(imge/craftbeer1.jpg);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
     }
     .header::after{
       content:""; position:absolute; inset:0; border-radius:inherit;
@@ -94,7 +109,7 @@
     .role{ margin:6px 0 0; color:var(--muted); font-weight:600 }
     .avatar{
       width:220px; 
-      height:280px; 
+      height:250px; 
       border-radius: 20px; overflow:hidden;
       border:10px solid rgba(255,255,255,.14); background:#222; box-shadow:var(--shadow);
     }
@@ -212,7 +227,7 @@
     <!-- ส่วนหัว -->
     <header class="header">
       <div>
-        <h1 class="title"><span class="first">TAWEECHAI</span> <span class="last">MAWING</span> <span class="name">(ไดร์ฟ)</span></h1>
+        <h1 class="title"><span class="first">TAWEECHAI</span> <span class="last">MAWING</span><br><span class="name">(ไดร์ฟ)</span></h1>
         <p class="role">ฝ่ายการตลาด (เปิดขวดได้ 24h)</p>
       </div>
       <div class="avatar">
@@ -238,6 +253,29 @@
         </div>
 
         <div class="panel">
+          <h3>ภาษา</h3>
+          <div class="chips">
+            <span class="chip">ไทย</span>
+            <span class="chip">เหนือตอนบน+</span>
+            <span class="chip">เหนือตอนล่าง+</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>ทักษะ</h3>
+          <div class="chips">
+            <span class="chip">DRINK BEER</span>
+            <span class="chip">DRINK SURA</span> 
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+            <span class="chip">JAVA</span>
+            <span class="chip">Python</span>
+            <span class="chip">SQL</span>
+            <span class="chip">Microsoft Office (Excel)</span>
+          </div>
+        </div>
+
+        <div class="panel">
           <h3>การศึกษา</h3>
           <div class="edu">
             <b>ช่างงัด แล้วก็แงะ</b>
@@ -249,29 +287,6 @@
             <!-- <b>โรงเรียนร้องกวางอนุสรณ์</b> -->
             <div></div>
             <div class="muted">จำไม่ได้ – จำไม่ได้</div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <h3>ทักษะ</h3>
-          <div class="chips">
-            <span class="chip">HTML</span>
-            <span class="chip">CSS</span>
-            <span class="chip">JAVA</span>
-            <span class="chip">Python</span>
-            <span class="chip">SQL</span>
-            <span class="chip">Microsoft Office (Excel)</span>
-            <span class="chip">DRINK BEER</span>
-            <span class="chip">DRINK SURA</span>
-          </div>
-        </div>
-
-        <div class="panel">
-          <h3>ภาษา</h3>
-          <div class="chips">
-            <span class="chip">ไทย</span>
-            <span class="chip">เหนือตอนบน+</span>
-            <span class="chip">เหนือตอนล่าง+</span>
           </div>
         </div>
 
