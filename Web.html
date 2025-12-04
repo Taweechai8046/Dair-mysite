@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ตัวอย่างเว็บไซต์ - เทรดเดอร์</title>
+
+  <!-- Google Fonts (ไทย) -->
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent:#1f7a6b;
+      --accent-2:#f3c26b;
+      --muted:#6b6b6b;
+      --bg:#ffffff;
+      --card:#f6f6f6;
+      --radius:10px;
+      --max-width:1100px;
+      font-family: "Sarabun", "Kanit", system-ui, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Header */
+    .topbar{
+      background:linear-gradient(90deg,var(--accent) 0%, #0b6b61 100%);
+      color:#fff;
+      padding:6px 16px;
+      font-size:14px;
+    }
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 18px;}
+
+    header.site-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 0;
+      background:#fff;
+      border-bottom:1px solid #eee;
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo{
+      width:46px;height:46px;border-radius:8px;background:linear-gradient(135deg,var(--accent-2),#ffd8a8);
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:#333;
+      box-shadow:0 2px 8px rgba(0,0,0,0.06)
+    }
+    .site-title{font-weight:600;font-size:18px;color:#222}
+
+    nav.main-nav{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    nav.main-nav a{color:#222;text-decoration:none;padding:8px 10px;border-radius:6px;}
+    nav.main-nav a:hover{background:#f2f2f2}
+
+    .contact-btn{
+      background:#111;color:#fff;padding:10px 16px;border-radius:24px;text-decoration:none;font-weight:600;
+      box-shadow:0 5px 16px rgba(0,0,0,0.08);
+    }
+
+    /* Hamburger for mobile */
+    .hamburger{display:none;border:0;background:transparent;font-size:22px;cursor:pointer}
+    .mobile-nav{
+      display:none;
+      position:fixed;
+      right:0;top:0;bottom:0;
+      width:280px;
+      background:#fff;
+      box-shadow:-8px 0 30px rgba(0,0,0,0.08);
+      padding:28px;
+      z-index:80;
+      transform:translateX(100%);
+      transition:transform .28s ease;
+    }
+    .mobile-nav.open{transform:none}
+    .mobile-nav a{display:block;padding:12px 6px;color:#111;text-decoration:none;border-radius:6px}
+    .mobile-nav a + a{margin-top:6px}
+
+    /* Hero */
+    .hero{
+      background:linear-gradient(180deg,#fbfbfb,#fff);
+      padding:28px 18px 64px;
+    }
+    .hero-inner{
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:center;
+      max-width:var(--max-width);
+      margin:0 auto;
+    }
+
+    .hero-copy h1{
+      margin:0 0 10px 0;
+      font-size:36px;
+      line-height:1.06;
+      letter-spacing:0.2px;
+      color:#0d2733;
+      font-weight:700;
+    }
+    .hero-copy p.lead{color:var(--muted);margin:6px 0 18px;font-size:16px}
+    .hero-copy .channels{display:flex;gap:10px;align-items:center}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:24px;background:#fff;border:1px solid #eee;
+      box-shadow:0 8px 20px rgba(0,0,0,0.03);
+    }
+
+    .hero-image{
+      width:100%;
+      max-width:420px;
+      height:320px;
+      border-radius:14px;
+      overflow:hidden;
+      background:#ddd center/cover no-repeat;
+      box-shadow:0 10px 30px rgba(14,20,30,0.06);
+    }
+
+    /* About */
+    section.about{
+      padding:48px 18px 120px;
+      background:#fff;
+    }
+    .about-inner{max-width:var(--max-width);margin:0 auto;display:grid;grid-template-columns:340px 1fr;gap:28px;align-items:start}
+    .about-card{
+      background:var(--card);padding:16px;border-radius:12px;
+    }
+    .about h2{margin:0 0 12px 0;font-size:28px}
+    .about p{color:var(--muted);line-height:1.6}
+
+    /* Footer */
+    footer{padding:28px 18px;border-top:1px solid #eee;text-align:center;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero-inner{grid-template-columns:1fr 320px}
+      .hero-image{height:280px}
+      nav.main-nav{display:none}
+      .hamburger{display:inline-block}
+    }
+    @media (max-width:720px){
+      .hero-inner{grid-template-columns:1fr;gap:18px}
+      .hero-image{order: -1; width:100%; height:260px; max-width:none}
+      .about-inner{grid-template-columns:1fr;gap:18px}
+      .logo{width:44px;height:44px}
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+      <div>LINE: @kookkaeagraph</div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <a href="#" style="color:#fff;text-decoration:none;font-weight:600"> Facebook </a>
+        <a href="#" style="color:#fff;text-decoration:none;font-weight:600"> Instagram </a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between">
+      <div class="brand">
+        <div class="logo">Fx</div>
+        <div>
+          <div class="site-title">เทรดเดอร์บางวัน</div>
+          <div style="font-size:12px;color:var(--muted)">เรื่องเทรดไม่ง่าย แต่สอนให้เข้าใจ</div>
+        </div>
+      </div>
+
+      <nav style="display:flex;align-items:center;gap:12px">
+        <nav class="main-nav" aria-label="เมนูหลัก">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#video">Video</a>
+          <a href="#course">Course</a>
+          <a href="#blog">Blog</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <button class="hamburger" id="btnHamb" aria-label="เปิดเมนู ☰">☰</button>
+
+        <a class="contact-btn" href="#contact">ติดต่อ</a>
+      </nav>
+    </div>
+
+    <!-- mobile drawer -->
+    <div id="mobileNav" class="mobile-nav" aria-hidden="true">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <div style="font-weight:700">เมนู</div>
+        <button id="closeNav" style="border:0;background:transparent;font-size:20px;cursor:pointer">✕</button>
+      </div>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#video">Video</a>
+      <a href="#course">Course</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <h1>เทรดเดอร์บางวัน</h1>
+          <h1>บางวันก็กำไร บางวันก็พอร์ตแตก</h1>
+          <h1>(ส่วนมาก แตกกก!)</h1>
+          <p class="lead">#เรื่องเทรดไม่ง่าย แต่ถ้าอธิบายได้ด้วยกราฟ เราก็ทำให้เข้าใจได้ง่ายขึ้น</p>
+
+          <div class="channels" style="margin-bottom:18px">
+            <div class="pill">
+              <!-- YouTube SVG -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="red" aria-hidden="true"><path d="M10 15l5-3-5-3z"/><path d="M21.8 8s-.2-1.5-.8-2.2c-.8-.9-1.7-.9-2.1-1C15.9 4 12 4 12 4s-3.9 0-6.9.8c-.4.1-1.3.1-2.1 1C2.4 6.5 2.2 8 2.2 8S2 9.6 2 11.2v1.6C2 14.4 2.2 16 2.2 16s.2 1.5.8 2.2c.8.9 1.9.9 2.4 1 1.8.3 7.6.8 7.6.8s3.9 0 6.9-.8c.4-.1 1.3-.1 2.1-1 .6-.7.8-2.2.8-2.2s.2-1.6.2-3.2v-1.6C22 9.6 21.8 8 21.8 8z"></path></svg>
+              <span style="font-weight:600">แกะกราฟกับกิ๊ก</span>
+            </div>
+
+            <div style="margin-left:12px;color:var(--muted)">YouTube · TikTok · Facebook</div>
+          </div>
+
+          <p style="max-width:520px;color:var(--muted)">
+            เรียนรู้แนวคิดการอ่านกราฟ, การจัดการความเสี่ยง และการวางแผนการเทรด สำหรับคนที่อยากเข้าใจจริง ๆ
+          </p>
+        </div>
+
+        <div class="hero-image" id="heroImg" role="img" aria-label="รูปโปรไฟล์">
+          <!-- ใส่รูปจริงโดยเปลี่ยน background-image ของ #heroImg ใน CSS หรือแทนที่ด้วย <img> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+      <div class="about-inner">
+        <div class="about-card">
+          <h3 style="margin-top:0">About</h3>
+          <p style="margin:0 0 8px 0;font-weight:700">แกะกราฟกับกิ๊ก</p>
+          <p style="color:var(--muted);margin:0 0 12px 0">
+            Fulltime Trader มีประสบการณ์เทรดในตลาดไทยและต่างประเทศ พร้อมสอนแนวคิด และการใช้กราฟเพื่อช่วยตัดสินใจเทรด
+          </p>
+
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <a class="pill" href="#course" style="text-decoration:none">คอร์สเรียน</a>
+            <a class="pill" href="#video" style="text-decoration:none">วีดีโอฟรี</a>
+          </div>
+        </div>
+
+        <div>
+          <h2 style="margin-top:0">Fulltime Trader มีประสบการณ์เทรดในตลาด</h2>
+          <p class="lead" style="color:var(--muted)">
+            เนื้อหาเน้นการวิเคราะห์ด้วยกราฟ เข้าใจได้เร็ว ใช้จริงได้จริง สอนตั้งแต่พื้นฐานจนเทคนิคเชิงลึก
+          </p>
+
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px">
+            <div style="background:#fff;padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.03)">
+              <strong>คอร์สพื้นฐาน</strong>
+              <div style="color:var(--muted);font-size:14px">เหมาะสำหรับผู้เริ่มต้น</div>
+            </div>
+            <div style="background:#fff;padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.03)">
+              <strong>Workshop สด</strong>
+              <div style="color:var(--muted);font-size:14px">ลงมือปฏิบัติแบบเรียลไทม์</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container">
+      <div style="margin-bottom:8px">LINE: @kookkaeagraph • Email: hello@example.com</div>
+      <div style="font-size:13px">© 2025 แกะกราฟกับกิ๊ก</div>
+    </div>
+  </footer>
+
+  <script>
+    // ใส่รูป hero จากไฟล์ของคุณ (ตัวอย่าง: images/hero.jpg)
+    // ถ้าต้องการแทนด้วย <img> ให้แก้ HTML แทน
+    // document.getElementById('heroImg').style.backgroundImage = "url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop')";
+    document.getElementById('heroImg').style.backgroundImage = "url('imge/DAIR.JPG')";
+
+    // mobile drawer
+    const btn = document.getElementById('btnHamb');
+    const mobile = document.getElementById('mobileNav');
+    const closeBtn = document.getElementById('closeNav');
+    btn.addEventListener('click', ()=> {
+      mobile.classList.add('open');
+      mobile.setAttribute('aria-hidden','false');
+    });
+    closeBtn.addEventListener('click', ()=> {
+      mobile.classList.remove('open');
+      mobile.setAttribute('aria-hidden','true');
+    });
+
+    // ปิด mobile เมื่อคลิกลิงก์ภายใน
+    mobile.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', ()=> mobile.classList.remove('open'));
+    });
+  </script>
+
+</body>
+</html>
