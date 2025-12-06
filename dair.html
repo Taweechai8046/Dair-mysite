@@ -441,11 +441,10 @@
           width: 80%;
           height: 15%;
           flex: 1;
-          justify-content: center;
+          
         }
         .bio {
-          background: rgba(255, 255, 255, 0.1);
-          text-align: left;
+          /* background: rgba(255, 255, 255, 0.1); */
           box-sizing: content-box;
           width: auto;
           padding: 30px;
@@ -506,7 +505,51 @@
       }
     }
 
+    /* IPAD 400 */
+    @media (max-width: 400px) 
+    {
+        .menu-toggle { display: block; position: fixed; }
+        .sidebar {
+          top: 0;
+          position: fixed;
+          left: -200px;
+          height: 100vh;
+          z-index: 1000;
+              
+        }
+        .sidebar.active {
+          left: 0;
+          width: 300px;
+          background: rgba(255, 255, 255, 0.9);
+        }
 
+        .container {
+          flex-direction: column;
+        }
+
+        .bio img , .bio video {
+          display: flex;
+          align-items: center;
+          filter: saturate(100%);
+          width: 70%;
+          height: 10%;
+        }  
+         
+        .bio img:hover {
+          filter: saturate(100%);
+          width: 70%;
+          height: 10%;
+        }
+        .bio video:hover {
+          filter: saturate(100%);
+          width: 70%;
+          height: 10%;
+        }
+        /* .img-box {
+          display: flex;
+          align-items: center;
+        } */
+    }
 
 
 
@@ -615,14 +658,17 @@
               </span>
             </div>
             <!-- imge -->
-            <img src="imge/72888.JPG" alt="">
+             <!-- <div class="img-box">
+              <img src="imge/72888.JPG">
+              <img src="imge/72883_0.JPG">
+              <img src="imge/mota22025-06-28_20-38-20.jpg">
+              <img src="imge/photo_3_2025-06-22_17-46-04.jpg">
+             </div> -->
+            <img src="imge/72888.JPG">
             <img src="imge/72883_0.JPG" alt="">
             <img src="imge/mota22025-06-28_20-38-20.jpg" alt="">
             <img src="imge/photo_3_2025-06-22_17-46-04.jpg" alt="">
-            <!-- <img src="#" alt="">
-            <img src="#" alt="">
-            <img src="#" alt="">
-            <img src="#" alt=""> -->
+            
             <!-- video -->
             <video autoplay muted loop>
               <source src="video/video_2025-06-28_20-37-54 (2).mp4" type="video/mp4">

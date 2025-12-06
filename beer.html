@@ -167,30 +167,6 @@
       margin-left: 200px;
     }
 
-    @media (max-width: 820px) {
-      .menu-toggle { display: block; }
-      .sidebar {
-        position: fixed;
-        left: -200px;
-        top: 0;
-        height: 100vh;
-        z-index: 1000;
-        width: 300px;
-      }
-      .sidebar.active {
-        left: 0;
-      }
-      .sidebar:hover {
-        width: 300px;
-      }
-      .container {
-        flex-direction: column;
-      }
-      .sidebar:hover ~ .content {
-        margin-left: 0;
-      }
-    }
-
     body.light-mode {
       background: #fff;
       color: #222;
@@ -454,75 +430,38 @@
       background-color: #d32f2f;
     }
 
-    @media (max-width: 768px) {
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-  .sidebar.active {
-    transform: translateX(0);
-  }
-}
-/* 820px */
-    @media (max-width: 820px) {
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-  .sidebar.active {
-    transform: translateX(0);
-    background: rgba(255, 255, 255, 0.9);
-  }
-  .bio img:hover, .bio video:hover {
-      filter: saturate(100%);
-      width: 30%;
-      height: 30%;
+    
+  
+    /* 768px */
+    @media (max-width: 768px) 
+    {
+        .bio img, .bio video {
+          filter: saturate(100%);
+          width: 80%;
+          height: 15%;
+          flex: 1;
+          
+        }
+        .bio {
+          /* background: rgba(255, 255, 255, 0.1); */
+          box-sizing: content-box;
+          width: auto;
+          padding: 30px;
+        }
+        .id-card {
+          box-sizing: content-box;
+          width: auto;
+        }
+        .menu-toggle {
+        position :fixed;
+        }
     }
-    .bio img, .bio video {
-      filter: saturate(30%);
-      width: 85%;
-      height: 120px;
-    }  
-}
+  
+  
 
-/* 820px */
-@media (max-width: 820px) {
-    .bio img:hover, .bio video:hover {
-      filter: saturate(100%);
-      width: 80%;
-      height: 15%;
-    }
-    .bio img, .bio video {
-      filter: saturate(100%);
-      width: 80%;
-      height: 15%;
-    }
-}
-/* 500px */
-@media (max-width: 500px) {
-    .bio img, .bio video {
-      filter: saturate(100%);
-      width: 80%;
-      height: 15%;
-      flex: 1;
-    }
-    .bio {
-      background: rgba(255, 255, 255, 0.1);
-      text-align: center;
-      box-sizing: content-box;
-      width: auto;
-    }
-    .id-card {
-      box-sizing: content-box;
-      width: auto;
-    }
-    .menu-toggle {
-    position :fixed;
-    }
-  }
-
-      /* IPAD 1212 */
-      @media (max-width: 1212px) {
+    /* IPAD 1212 */
+    @media (max-width: 1212px) 
+    {
       .menu-toggle { display: block; position: fixed; }
       .sidebar {
         top: 0;
@@ -530,7 +469,7 @@
         left: -200px;
         height: 100vh;
         z-index: 1000;
-        
+            
       }
       .sidebar.active {
         left: 0;
@@ -542,28 +481,74 @@
         flex-direction: column;
       }
 
-   
-    .bio img {
-      filter: saturate(100%);
-      width: 20%;
-      height: 25%;
-    }  
-    .bio video {
-      filter: saturate(100%);
-      width: 25%;
-      height: 300px;
-    }  
-    .bio img:hover {
-      filter: saturate(100%);
-      width: 20%;
-      height: 25%;
+      
+      .bio img {
+        filter: saturate(100%);
+        width: 20%;
+        height: 25%;
+      }  
+      .bio video {
+        filter: saturate(100%);
+        width: 20%;
+        height: 25%;
+      }  
+      .bio img:hover {
+        filter: saturate(100%);
+        width: 20%;
+        height: 25%;
+      }
+      .bio video:hover {
+        filter: saturate(100%);
+        width: 20%;
+        height: 25%;
+      }
     }
-    .bio video:hover {
-      filter: saturate(100%);
-      width: 25%;
-      height: 300px;
+
+    /* IPAD 400 */
+    @media (max-width: 400px) 
+    {
+        .menu-toggle { display: block; position: fixed; }
+        .sidebar {
+          top: 0;
+          position: fixed;
+          left: -200px;
+          height: 100vh;
+          z-index: 1000;
+              
+        }
+        .sidebar.active {
+          left: 0;
+          width: 300px;
+          background: rgba(255, 255, 255, 0.9);
+        }
+
+        .container {
+          flex-direction: column;
+        }
+
+        .bio img , .bio video {
+          display: flex;
+          align-items: center;
+          filter: saturate(100%);
+          width: 70%;
+          height: 10%;
+        }  
+         
+        .bio img:hover {
+          filter: saturate(100%);
+          width: 70%;
+          height: 10%;
+        }
+        .bio video:hover {
+          filter: saturate(100%);
+          width: 70%;
+          height: 10%;
+        }
+        /* .img-box {
+          display: flex;
+          align-items: center;
+        } */
     }
-}
 
 </style>
 
