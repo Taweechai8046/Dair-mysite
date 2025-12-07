@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee & Chill</title>
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8f5f2;
+            color: #333;
+        }
+
+        header {
+            background: #6f4e37;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93') center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero .btn {
+            background: #fff;
+            color: #6f4e37;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .menu {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .menu-items {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .menu-items .item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            width: 200px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .menu-items img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .about, .contact {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        footer {
+            background: #6f4e37;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-items {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Coffee & Chill</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">หน้าแรก</a></li>
+                <li><a href="#menu">เมนู</a></li>
+                <li><a href="#about">เกี่ยวกับเรา</a></li>
+                <li><a href="#contact">ติดต่อ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h2>ยินดีต้อนรับสู่ร้านกาแฟของเรา</h2>
+        <p>กาแฟสด บรรยากาศสบาย ๆ สำหรับทุกคน</p>
+        <a href="#menu" class="btn">ดูเมนู</a>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu">
+        <h2>เมนูยอดนิยม</h2>
+        <div class="menu-items">
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348" alt="เอสเปรสโซ่">
+                <h3>เอสเปรสโซ่</h3>
+                <p>ราคา: 50 บาท</p>
+            </div>
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1521305916504-4a1121188589" alt="ลาเต้">
+                <h3>ลาเต้</h3>
+                <p>ราคา: 65 บาท</p>
+            </div>
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" alt="คาปูชิโน่">
+                <h3>คาปูชิโน่</h3>
+                <p>ราคา: 60 บาท</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>เกี่ยวกับเรา</h2>
+        <p>ร้าน Coffee & Chill เปิดให้บริการตั้งแต่ปี 2020 เรามุ่งมั่นที่จะเสิร์ฟกาแฟคุณภาพและสร้างบรรยากาศที่ดีที่สุดสำหรับลูกค้า</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>ติดต่อเรา</h2>
+        <p>โทร: 081-234-5678 | Line: @coffeechill</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Coffee & Chill. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+        let total = 0;
+
+        function addToCart(item, price) {
+            cart.push({item, price});
+            total += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById('cart-items');
+            cartList.innerHTML = '';
+            cart.forEach(c => {
+                const li = document.createElement('li');
+                li.textContent = `${c.item} - ${c.price} บาท`;
+                cartList.appendChild(li);
+            });
+            document.getElementById('total').textContent = total;
+        }
+
+        function checkout() {
+            if(cart.length === 0) {
+                alert('ตะกร้าสินค้าว่าง');
+            } else {
+                alert('ขอบคุณที่สั่งซื้อ! ยอดรวม: ' + total + ' บาท');
+                cart = [];
+                total = 0;
+                updateCart();
+            }
+        }
+    </script>
+
+</body>
+</html>
