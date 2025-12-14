@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time To Travel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #000;
+    color: #fff;
+}
+
+/* NAVBAR */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+nav a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #f0c040;
+}
+
+.search-box input {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #555;
+    background: transparent;
+    color: #fff;
+}
+
+/* HERO */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+    url("https://images.unsplash.com/photo-1501785888041-af3ef285b470") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 0 80px;
+}
+
+.hero-content {
+    max-width: 550px;
+}
+
+.hero h1 {
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 14px;
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+.btn {
+    margin-top: 30px;
+    padding: 12px 30px;
+    border: 1px solid #fff;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+/* TRIP CARDS */
+.trips {
+    position: absolute;
+    bottom: 40px;
+    right: 60px;
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    width: 150px;
+    height: 220px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.7), transparent);
+}
+
+.card-text {
+    position: absolute;
+    bottom: 15px;
+    left: 10px;
+    z-index: 2;
+}
+
+.card-text h4 {
+    font-size: 13px;
+}
+
+.card-text p {
+    font-size: 10px;
+    opacity: .8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .hero {
+        padding: 0 30px;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .trips {
+        right: 20px;
+        bottom: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">TS</div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Country</a>
+        <a href="#">Trip Catalogue</a>
+        <a href="#">Contact</a>
+        <a href="#">About</a>
+    </nav>
+    <div class="search-box">
+        <input type="text" placeholder="Search">
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>TIME TO TRAVEL</h1>
+        <p>
+            Discover incredible destinations and unbeatable travel deals.
+            Plan your perfect getaway and embark on new adventures.
+            Let us turn your dream vacation into reality.
+        </p>
+        <button class="btn">SEE MORE</button>
+    </div>
+
+    <div class="trips">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+            <div class="card-text">
+                <h4>TIME TO TRAVEL</h4>
+                <p>Description</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429">
+            <div class="card-text">
+                <h4>TIME TO TRAVEL</h4>
+                <p>Description</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470">
+            <div class="card-text">
+                <h4>TIME TO TRAVEL</h4>
+                <p>Description</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
