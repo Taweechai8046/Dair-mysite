@@ -150,7 +150,19 @@ nav a:hover {
   background-color: #2ecc71; /* เปลี่ยนสีเมื่อ hover */
   transform: scale(1.1);     /* ขยายเล็กน้อย */
 }
-
+footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.0);
+      color: #cdcbcb;
+    }
+        /* ซ่อน hamburger บน desktop */
+.hamburger {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: #fff;
+}
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
@@ -174,13 +186,6 @@ nav a:hover {
         right: 20px;
         bottom: 20px;
     }
-
-    /* ซ่อน hamburger บน desktop */
-.hamburger {
-  display: none;
-  font-size: 26px;
-  cursor: pointer;
-  color: #fff;
 }
 
 /* สำหรับมือถือ */
@@ -209,14 +214,13 @@ nav a:hover {
     display: flex; /* แสดงเมนูเมื่อกด hamburger */
   }
 }
-}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">TS</div>
+  <div class="logo">TM</div>
   <nav id="nav-menu">
     <a href="#">Home</a>
     <a href="#">Country</a>
@@ -224,11 +228,11 @@ nav a:hover {
     <a href="#">Contact</a>
     <a href="#">About</a>
   </nav>
-    <!-- <div class="search-box">
+    <div class="search-box">
         <input type="text" placeholder="Search">
-    </div> -->
+    </div>
     <!-- Hamburger Icon -->
-    <!-- <div class="hamburger" onclick="toggleMenu()">☰</div> -->
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
 </header>
 
 
@@ -269,7 +273,10 @@ nav a:hover {
         </div>
     </div>
 </section>
-
+<!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Coffee & Chill. All rights reserved.</p>
+    </footer>
 <script>
 function toggleMenu() {
   const nav = document.getElementById("nav-menu");
