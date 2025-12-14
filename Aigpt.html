@@ -30,7 +30,7 @@ header {
     justify-content: space-between;
     align-items: center;
     background: rgba(0,0,0,0.5);
-    /* backdrop-filter: blur(6px); */
+    backdrop-filter: blur(6px);
     z-index: 100;
 }
 
@@ -146,6 +146,12 @@ nav a:hover {
     opacity: .8;
 }
 
+.card:hover {
+  background-color: #2ecc71; /* เปลี่ยนสีเมื่อ hover */
+  transform: scale(1.1);     /* ขยายเล็กน้อย */
+}
+
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
     header {
@@ -168,6 +174,41 @@ nav a:hover {
         right: 20px;
         bottom: 20px;
     }
+
+    /* ซ่อน hamburger บน desktop */
+.hamburger {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* สำหรับมือถือ */
+@media (max-width: 768px) {
+  nav {
+    display: none; /* ซ่อนเมนูปกติ */
+    flex-direction: column;
+    background: rgba(0,0,0,0.9);
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 200px;
+    padding: 20px;
+  }
+
+  nav a {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .hamburger {
+    display: block; /* แสดง hamburger */
+  }
+
+  nav.show {
+    display: flex; /* แสดงเมนูเมื่อกด hamburger */
+  }
+}
 }
 </style>
 </head>
@@ -175,18 +216,21 @@ nav a:hover {
 <body>
 
 <header>
-    <div class="logo">TS</div>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Country</a>
-        <a href="#">Trip Catalogue</a>
-        <a href="#">Contact</a>
-        <a href="#">About</a>
-    </nav>
-    <div class="search-box">
+  <div class="logo">TS</div>
+  <nav id="nav-menu">
+    <a href="#">Home</a>
+    <a href="#">Country</a>
+    <a href="#">Trip Catalogue</a>
+    <a href="#">Contact</a>
+    <a href="#">About</a>
+  </nav>
+    <!-- <div class="search-box">
         <input type="text" placeholder="Search">
-    </div>
+    </div> -->
+    <!-- Hamburger Icon -->
+    <!-- <div class="hamburger" onclick="toggleMenu()">☰</div> -->
 </header>
+
 
 <section class="hero">
     <div class="hero-content">
@@ -225,6 +269,13 @@ nav a:hover {
         </div>
     </div>
 </section>
+
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("nav-menu");
+  nav.classList.toggle("show");
+}
+</script>
 
 </body>
 </html>
