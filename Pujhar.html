@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pujhar gallery</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: #111;
+            color: #fff;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .card img,
+        .card video {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+        }
+
+        .card p {
+            padding: 10px;
+            margin: 0;
+            text-align: center;
+        }
+    
+        .menu-btn {
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: -220px;
+            width: 200px;
+            height: 100%;
+            background: #222;
+            padding-top: 60px;
+            transition: 0.3s;
+        }
+
+        nav a {
+            display: block;
+            color: #fff;
+            padding: 12px 20px;
+            text-decoration: none;
+        }
+
+        nav a:hover { background: #444; }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .lightbox img,
+        .lightbox video {
+            max-width: 90%;
+            max-height: 90%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+    <h1>Pujhar Gallery</h1>
+</header>
+
+<nav id="sideMenu">
+    <a href="dair.html">Home</a>
+    <!-- <a href="Nakuha1.html">Pictures</a>
+    <a href="Nakuha2.html">Videos</a> -->
+    <a href="#">Location</a>
+</nav>
+
+<div class="container">
+    <div class="gallery">
+
+        <!-- รูปภาพ -->
+        <div class="card">
+            <img src="imge/72888.JPG" alt="Picture 1" onclick="openLightbox(this.src)">
+            <p>Picture 1</p>
+        </div>
+
+        <div class="card">
+            <img src="imge/72883_0.JPG" alt="Picture 2" onclick="openLightbox(this.src)">
+            <p>Picture 2</p>
+        </div>
+        
+        <div class="card">
+            <img src="imge/mota22025-06-28_20-38-20.jpg" alt="Picture 3" onclick="openLightbox(this.src)">
+            <p>Picture 3</p>
+        </div>
+
+        <div class="card">
+            <img src="imge/photo_3_2025-06-22_17-46-04.jpg" alt="Picture 4" onclick="openLightbox(this.src)">
+            <p>Picture 4</p>
+        </div>
+        
+        <!-- <div class="card">
+            <img src="imge/Nakuha (5).jpg" alt="Picture 5" onclick="openLightbox(this.src)">
+            <p>Picture 5</p>
+        </div>
+
+        <div class="card">
+            <img src="imge/Nakuha (6).jpg" alt="Picture 6" onclick="openLightbox(this.src)">
+            <p>Picture 6</p>
+        </div>
+        
+        <div class="card">
+            <img src="imge/Nakuha (7).jpg" alt="Picture 7" onclick="openLightbox(this.src)">
+            <p>Picture 7</p>
+        </div>
+
+        <div class="card">
+            <img src="imge/Nakuha (8).jpg" alt="Picture 8" onclick="openLightbox(this.src)">
+            <p>Picture 8</p>
+        </div>
+        
+        <div class="card">
+            <img src="imge/Nakuha (9).jpg" alt="Picture 9" onclick="openLightbox(this.src)">
+            <p>Picture 9</p>
+        </div>
+
+        <div class="card">
+            <img src="imge/Nakuha (10).jpg" alt="Picture 10" onclick="openLightbox(this.src)">
+            <p>Picture 10</p>
+        </div>
+        
+        <div class="card">
+            <img src="imge/Nakuha (11).jpg" alt="Picture 11" onclick="openLightbox(this.src)">
+            <p>Picture 11</p>
+        </div>
+
+        <div class="card">
+            <img src="imge/Nakuha (12).jpg" alt="Picture 12" onclick="openLightbox(this.src)">
+            <p>Picture 12</p>
+        </div>
+        <div class="card">
+            <img src="imge/Nakuha (13).jpg" alt="Picture 13" onclick="openLightbox(this.src)">
+            <p>Picture 13</p>
+        </div>
+        
+        <div class="card">
+            <img src="imge/Nakuha (14).jpg" alt="Picture 14" onclick="openLightbox(this.src)">
+            <p>Picture 14</p>
+        </div>
+
+        <div class="card">
+            <img src="imge/Nakuha (15).jpg" alt="Picture 15" onclick="openLightbox(this.src)">
+            <p>Picture 15</p>
+        </div> -->
+
+        <!-- วิดีโอ -->
+        <div class="card">
+            <video autoplay muted loop><source src="video/video_2025-06-28_20-37-54 (2).mp4" type="video/mp4"></video>
+            <p>Video 1</p>
+        </div>
+        <div class="card">
+            <video autoplay muted loop><source src="video/video_2025-06-29_14-05-11 (3).mp4" type="video/mp4"></video>
+            <p>Video 2</p>
+        </div>
+        <div class="card">
+            <video autoplay muted loop><source src="video/video_2025-07-08_21-39-43 (2).mp4" type="video/mp4"></video>
+            <p>Video 3</p>
+        </div>
+
+    </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightboxImg">
+    <video id="lightboxVideo" controls></video>
+</div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('sideMenu');
+        menu.style.left = menu.style.left === '0px' ? '-220px' : '0px';
+    }
+
+    function openLightbox(src) {
+        document.getElementById('lightboxImg').src = src;
+        document.getElementById('lightboxVideo').style.display = 'none';
+        document.getElementById('lightboxImg').style.display = 'block';
+        document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function openVideo(src) {
+        const video = document.getElementById('lightboxVideo');
+        video.src = src;
+        video.style.display = 'block';
+        document.getElementById('lightboxImg').style.display = 'none';
+        document.getElementById('lightbox').style.display = 'flex';
+        video.play();
+    }
+
+    function closeLightbox() {
+        const video = document.getElementById('lightboxVideo');
+        video.pause();
+        video.src = '';
+        document.getElementById('lightbox').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
